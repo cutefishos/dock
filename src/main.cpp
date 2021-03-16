@@ -38,15 +38,15 @@ int main(int argc, char *argv[])
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
 
-    qmlRegisterType<DockSettings>("Cyber.Dock", 1, 0, "DockSettings");
-    qmlRegisterType<VolumeManager>("Cyber.Dock", 1, 0, "Volume");
-    qmlRegisterType<Battery>("Cyber.Dock", 1, 0, "Battery");
-    qmlRegisterType<Brightness>("Cyber.Dock", 1, 0, "Brightness");
-    qmlRegisterType<ControlCenterDialog>("Cyber.Dock", 1, 0, "ControlCenterDialog");
-    qmlRegisterType<StatusNotifierModel>("Cyber.Dock", 1, 0, "StatusNotifierModel");
-    qmlRegisterType<Appearance>("Cyber.Dock", 1, 0, "Appearance");
+    qmlRegisterType<DockSettings>("Cutefish.Dock", 1, 0, "DockSettings");
+    qmlRegisterType<VolumeManager>("Cutefish.Dock", 1, 0, "Volume");
+    qmlRegisterType<Battery>("Cutefish.Dock", 1, 0, "Battery");
+    qmlRegisterType<Brightness>("Cutefish.Dock", 1, 0, "Brightness");
+    qmlRegisterType<ControlCenterDialog>("Cutefish.Dock", 1, 0, "ControlCenterDialog");
+    qmlRegisterType<StatusNotifierModel>("Cutefish.Dock", 1, 0, "StatusNotifierModel");
+    qmlRegisterType<Appearance>("Cutefish.Dock", 1, 0, "Appearance");
 
-    QString qmFilePath = QString("%1/%2.qm").arg("/usr/share/cyber-dock/translations/").arg(QLocale::system().name());
+    QString qmFilePath = QString("%1/%2.qm").arg("/usr/share/cutefish-dock/translations/").arg(QLocale::system().name());
     if (QFile::exists(qmFilePath)) {
         QTranslator *translator = new QTranslator(QApplication::instance());
         if (translator->load(qmFilePath)) {

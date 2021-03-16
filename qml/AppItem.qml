@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import Qt.labs.platform 1.0
-import Cyber.Dock 1.0
+import Cutefish.Dock 1.0
 
 DockItem {
     id: appItem
@@ -12,7 +12,7 @@ DockItem {
     isActive: model.isActive
     popupText: model.visibleName
     enableActivateDot: windowCount !== 0
-    draggable: model.appId === "cyber-launcher" ? false : true
+    draggable: model.appId === "cutefish-launcher" ? false : true
     dragItemIndex: index
 
     onWindowCountChanged: {
@@ -23,7 +23,7 @@ DockItem {
     onPositionChanged: updateGeometry()
     onPressed: updateGeometry()
     onClicked: appModel.clicked(model.appId)
-    onRightClicked: if (model.appId !== "cyber-launcher") contextMenu.open()
+    onRightClicked: if (model.appId !== "cutefish-launcher") contextMenu.open()
 
     dropArea.onEntered: {
         if (drag.source)

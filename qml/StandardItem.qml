@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
 import MeuiKit 1.0 as Meui
-import Cyber.Dock 1.0
+import Cutefish.Dock 1.0
 
 Item {
     id: control

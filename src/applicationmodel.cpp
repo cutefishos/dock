@@ -268,13 +268,13 @@ int ApplicationModel::indexOf(const QString &id)
 
 void ApplicationModel::initPinnedApplications()
 {
-    QSettings settings(QSettings::UserScope, "cyberos", "dock_pinned");
+    QSettings settings(QSettings::UserScope, "cutefishos", "dock_pinned");
     QStringList groups = settings.childGroups();
 
     // Launcher
     ApplicationItem *item = new ApplicationItem;
-    item->id = "cyber-launcher";
-    item->exec = "cyber-launcher";
+    item->id = "cutefish-launcher";
+    item->exec = "cutefish-launcher";
     item->iconName = "qrc:/svg/launcher.svg";
     item->visibleName = tr("Launcher");
     m_appItems.append(item);
@@ -328,7 +328,7 @@ void ApplicationModel::initPinnedApplications()
 
 void ApplicationModel::savePinAndUnPinList()
 {
-    QSettings settings(QSettings::UserScope, "cyberos", "dock_pinned");
+    QSettings settings(QSettings::UserScope, "cutefishos", "dock_pinned");
     settings.clear();
 
     int index = 0;

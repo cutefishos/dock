@@ -4,9 +4,9 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
-import Cyber.Dock 1.0
+import Cutefish.Dock 1.0
 import MeuiKit 1.0 as Meui
-import Cyber.Accounts 1.0 as Accounts
+import Cutefish.Accounts 1.0 as Accounts
 
 ControlCenterDialog {
     id: control
@@ -136,7 +136,7 @@ ControlCenterDialog {
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + "settings.svg"
                     onLeftButtonClicked: {
                         control.visible = false
-                        process.startDetached("cyber-settings")
+                        process.startDetached("cutefish-settings")
                     }
                 }
 
@@ -148,7 +148,7 @@ ControlCenterDialog {
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + "system-shutdown-symbolic.svg"
                     onLeftButtonClicked: {
                         control.visible = false
-                        process.startDetached("cyber-shutdown")
+                        process.startDetached("cutefish-shutdown")
                     }
                 }
             }
@@ -322,7 +322,7 @@ ControlCenterDialog {
                 width: batteryLayout.implicitWidth + Meui.Units.largeSpacing
                 height: batteryLayout.implicitHeight + Meui.Units.largeSpacing
 
-                onClicked: process.startDetached("cyber-settings", ["-m", "battery"])
+                onClicked: process.startDetached("cutefish-settings", ["-m", "battery"])
 
                 RowLayout {
                     id: batteryLayout
