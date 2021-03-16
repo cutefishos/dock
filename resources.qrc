@@ -67,7 +67,7 @@
         <file>svg/dark/restore_normal.svg</file>
         <file>svg/dark/system-shutdown-symbolic.svg</file>
         <file>qml/StandardItem.qml</file>
-        <file>qml/ControlCenter.qml</file>
+        <file>qml/ControlDialog.qml</file>
         <file>svg/dark/brightness.svg</file>
         <file>svg/light/brightness.svg</file>
         <file>qml/IconButton.qml</file>
@@ -100,5 +100,7 @@
         <file>svg/light/media-skip-forward-symbolic.svg</file>
         <file>qml/ControlCenterItem.qml</file>
         <file>svg/light/dark-mode.svg</file>
+        <file>svg/dark/dark-mode.svg</file>
+        <file>svg/dark/bluetooth-symbolic.svg</file>
     </qresource>
 </RCC>

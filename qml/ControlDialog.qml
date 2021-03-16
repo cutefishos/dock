@@ -86,7 +86,10 @@ ControlCenterDialog {
     ColumnLayout {
         id: _mainLayout
         anchors.fill: parent
-        anchors.margins: Meui.Units.largeSpacing * 2
+        anchors.leftMargin: Meui.Units.largeSpacing * 2
+        anchors.topMargin: Meui.Units.largeSpacing * 2
+        anchors.rightMargin: Meui.Units.largeSpacing * 2
+        anchors.bottomMargin: Meui.Units.largeSpacing
         spacing: Meui.Units.largeSpacing
 
         Item {
@@ -168,7 +171,8 @@ ControlCenterDialog {
                     id: wirelessItem
                     Layout.fillHeight: true
                     Layout.preferredWidth: contentItem.width / 3 - Meui.Units.largeSpacing * 2
-                    icon: "qrc:/svg/dark/network-wireless-connected-100.svg"
+                    icon: Meui.Theme.darkMode || checked ? "qrc:/svg/dark/network-wireless-connected-100.svg"
+                                                         : "qrc:/svg/light/network-wireless-connected-100.svg"
                     visible: network.wirelessHardwareEnabled
                     checked: network.wirelessEnabled
                     label: qsTr("Wi-Fi")
@@ -182,7 +186,8 @@ ControlCenterDialog {
                     id: bluetoothItem
                     Layout.fillHeight: true
                     Layout.preferredWidth: contentItem.width / 3 - Meui.Units.largeSpacing * 2
-                    icon: "qrc:/svg/light/bluetooth-symbolic.svg"
+                    icon: Meui.Theme.darkMode || checked ? "qrc:/svg/dark/bluetooth-symbolic.svg"
+                                                         : "qrc:/svg/light/bluetooth-symbolic.svg"
                     checked: false
                     label: qsTr("Bluetooth")
                     text: qsTr("Off")
@@ -192,7 +197,8 @@ ControlCenterDialog {
                     id: darkModeItem
                     Layout.fillHeight: true
                     Layout.preferredWidth: contentItem.width / 3 - Meui.Units.largeSpacing * 2
-                    icon: "qrc:/svg/light/dark-mode.svg"
+                    icon: Meui.Theme.darkMode || checked ? "qrc:/svg/dark/dark-mode.svg"
+                                                         : "qrc:/svg/light/dark-mode.svg"
                     checked: Meui.Theme.darkMode
                     label: qsTr("Dark Mode")
                     text: Meui.Theme.darkMode ? qsTr("On") : qsTr("Off")

@@ -214,7 +214,7 @@ Item {
         }
     }
 
-    ControlCenter {
+    ControlDialog {
         id: controlCenter
     }
 

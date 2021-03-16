@@ -81,11 +81,11 @@ Item {
             Layout.alignment: Qt.AlignCenter
             Layout.topMargin: Meui.Units.largeSpacing
 
-            ColorOverlay {
-                anchors.fill: _image
-                source: _image
-                color: control.checked ? Meui.Theme.highlightedTextColor : Meui.Theme.disabledTextColor
-            }
+//            ColorOverlay {
+//                anchors.fill: _image
+//                source: _image
+//                color: control.checked ? Meui.Theme.highlightedTextColor : Meui.Theme.disabledTextColor
+//            }
         }
 
         Item {

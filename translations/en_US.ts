@@ -25,32 +25,40 @@
     </message>
 </context>
 <context>
-    <name>ControlCenter</name>
+    <name>ApplicationModel</name>
     <message>
-        <location filename="../qml/ControlCenter.qml" line="174"/>
+        <location filename="../src/applicationmodel.cpp" line="279"/>
+        <source>Launcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ControlDialog</name>
+    <message>
+        <location filename="../qml/ControlDialog.qml" line="177"/>
         <source>Wi-Fi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ControlCenter.qml" line="177"/>
-        <location filename="../qml/ControlCenter.qml" line="198"/>
+        <location filename="../qml/ControlDialog.qml" line="180"/>
+        <location filename="../qml/ControlDialog.qml" line="201"/>
         <source>On</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ControlCenter.qml" line="177"/>
-        <location filename="../qml/ControlCenter.qml" line="188"/>
-        <location filename="../qml/ControlCenter.qml" line="198"/>
+        <location filename="../qml/ControlDialog.qml" line="180"/>
+        <location filename="../qml/ControlDialog.qml" line="191"/>
+        <location filename="../qml/ControlDialog.qml" line="201"/>
         <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ControlCenter.qml" line="187"/>
+        <location filename="../qml/ControlDialog.qml" line="190"/>
         <source>Bluetooth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ControlCenter.qml" line="197"/>
+        <location filename="../qml/ControlDialog.qml" line="200"/>
         <source>Dark Mode</source>
         <translation type="unfinished"></translation>
     </message>

@@ -27,37 +27,38 @@
 <context>
     <name>ApplicationModel</name>
     <message>
+        <location filename="../src/applicationmodel.cpp" line="279"/>
         <source>Launcher</source>
-        <translation type="vanished">应用启动器</translation>
+        <translation>应用启动器</translation>
     </message>
 </context>
 <context>
-    <name>ControlCenter</name>
+    <name>ControlDialog</name>
     <message>
-        <location filename="../qml/ControlCenter.qml" line="174"/>
+        <location filename="../qml/ControlDialog.qml" line="177"/>
         <source>Wi-Fi</source>
         <translation>无线网络</translation>
     </message>
     <message>
-        <location filename="../qml/ControlCenter.qml" line="177"/>
-        <location filename="../qml/ControlCenter.qml" line="198"/>
+        <location filename="../qml/ControlDialog.qml" line="180"/>
+        <location filename="../qml/ControlDialog.qml" line="201"/>
         <source>On</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../qml/ControlCenter.qml" line="177"/>
-        <location filename="../qml/ControlCenter.qml" line="188"/>
-        <location filename="../qml/ControlCenter.qml" line="198"/>
+        <location filename="../qml/ControlDialog.qml" line="180"/>
+        <location filename="../qml/ControlDialog.qml" line="191"/>
+        <location filename="../qml/ControlDialog.qml" line="201"/>
         <source>Off</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../qml/ControlCenter.qml" line="187"/>
+        <location filename="../qml/ControlDialog.qml" line="190"/>
         <source>Bluetooth</source>
         <translation>蓝牙</translation>
     </message>
     <message>
-        <location filename="../qml/ControlCenter.qml" line="197"/>
+        <location filename="../qml/ControlDialog.qml" line="200"/>
         <source>Dark Mode</source>
         <translation>深色模式</translation>
     </message>
