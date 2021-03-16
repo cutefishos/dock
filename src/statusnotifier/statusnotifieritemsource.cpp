@@ -1,4 +1,4 @@
-    #include "statusnotifieritemsource.h"
+#include "statusnotifieritemsource.h"
 
 #include <QApplication>
 #include <QIcon>

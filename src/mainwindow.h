@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 ~ 2021 CyberOS Team.
+ * Copyright (C) 2021 CutefishOS Team.
  *
  * Author:     rekols <revenmartin@gmail.com>
  *

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 CyberOS Team.
+ * Copyright (C) 2021 CutefishOS Team.
  *
  * Author:     revenmartin <revenmartin@gmail.com>
  *
@@ -27,11 +27,11 @@
 
 Appearance::Appearance(QObject *parent)
     : QObject(parent)
-    , m_interface("org.cyber.Settings",
+    , m_interface("org.cutefish.Settings",
                   "/Theme",
-                  "org.cyber.Theme",
+                  "org.cutefish.Theme",
                   QDBusConnection::sessionBus())
-    , m_dockSettings(new QSettings(QSettings::UserScope, "cyberos", "dock"))
+    , m_dockSettings(new QSettings(QSettings::UserScope, "cutefishos", "dock"))
     , m_dockConfigWacher(new QFileSystemWatcher(this))
     , m_dockIconSize(0)
     , m_dockDirection(0)
@@ -108,9 +108,9 @@ void Appearance::setGenericFontFamily(const QString &name)
     if (name.isEmpty())
         return;
 
-    QDBusInterface iface("org.cyber.Settings",
+    QDBusInterface iface("org.cutefish.Settings",
                          "/Theme",
-                         "org.cyber.Theme",
+                         "org.cutefish.Theme",
                          QDBusConnection::sessionBus(), this);
     if (iface.isValid()) {
         iface.call("setSystemFont", name);
@@ -122,9 +122,9 @@ void Appearance::setFixedFontFamily(const QString &name)
     if (name.isEmpty())
         return;
 
-    QDBusInterface iface("org.cyber.Settings",
+    QDBusInterface iface("org.cutefish.Settings",
                          "/Theme",
-                         "org.cyber.Theme",
+                         "org.cutefish.Theme",
                          QDBusConnection::sessionBus(), this);
     if (iface.isValid()) {
         iface.call("setSystemFixedFont", name);
@@ -140,9 +140,9 @@ void Appearance::setFontPointSize(int fontPointSize)
 {
     m_fontPointSize = fontPointSize;
 
-    QDBusInterface iface("org.cyber.Settings",
+    QDBusInterface iface("org.cutefish.Settings",
                          "/Theme",
-                         "org.cyber.Theme",
+                         "org.cutefish.Theme",
                          QDBusConnection::sessionBus(), this);
     if (iface.isValid()) {
         iface.call("setSystemFontPointSize", m_fontPointSize * 1.0);
@@ -151,9 +151,9 @@ void Appearance::setFontPointSize(int fontPointSize)
 
 void Appearance::setAccentColor(int accentColor)
 {
-    QDBusInterface iface("org.cyber.Settings",
+    QDBusInterface iface("org.cutefish.Settings",
                          "/Theme",
-                         "org.cyber.Theme",
+                         "org.cutefish.Theme",
                          QDBusConnection::sessionBus(), this);
     if (iface.isValid()) {
         iface.call("setAccentColor", accentColor);
@@ -167,9 +167,9 @@ double Appearance::devicePixelRatio() const
 
 void Appearance::setDevicePixelRatio(double value)
 {
-    QDBusInterface iface("org.cyber.Settings",
+    QDBusInterface iface("org.cutefish.Settings",
                          "/Theme",
-                         "org.cyber.Theme",
+                         "org.cutefish.Theme",
                          QDBusConnection::sessionBus(), this);
     if (iface.isValid()) {
         iface.call("setDevicePixelRatio", value);

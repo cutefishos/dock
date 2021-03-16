@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 ~ 2021 CyberOS Team.
+ * Copyright (C) 2021 CutefishOS Team.
  *
  * Author:     rekols <revenmartin@gmail.com>
  *
@@ -43,7 +43,7 @@ DockSettings::DockSettings(QObject *parent)
     , m_statusBarHeight(30)
     , m_direction(Left)
     , m_visibility(AlwaysVisible)
-    , m_settings(new QSettings(QSettings::UserScope, "cyberos", "dock"))
+    , m_settings(new QSettings(QSettings::UserScope, "cutefishos", "dock"))
     , m_fileWatcher(new QFileSystemWatcher(this))
 {
     if (!m_settings->contains("IconSize"))

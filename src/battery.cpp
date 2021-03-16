@@ -1,8 +1,8 @@
 #include "battery.h"
 
-static const QString s_sServer = "org.cyber.Settings";
+static const QString s_sServer = "org.cutefish.Settings";
 static const QString s_sPath = "/PrimaryBattery";
-static const QString s_sInterface = "org.cyber.PrimaryBattery";
+static const QString s_sInterface = "org.cutefish.PrimaryBattery";
 
 Battery::Battery(QObject *parent)
     : QObject(parent)
@@ -10,9 +10,9 @@ Battery::Battery(QObject *parent)
                         "/org/freedesktop/UPower",
                         "org.freedesktop.UPower",
                         QDBusConnection::systemBus())
-    , m_interface("org.cyber.Settings",
+    , m_interface("org.cutefish.Settings",
                   "/PrimaryBattery",
-                  "org.cyber.PrimaryBattery",
+                  "org.cutefish.PrimaryBattery",
                   QDBusConnection::sessionBus())
     , m_available(false)
     , m_onBattery(false)

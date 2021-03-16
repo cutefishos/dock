@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 CyberOS Team.
+ * Copyright (C) 2021 CutefishOS Team.
  *
  * Author:     revenmartin <revenmartin@gmail.com>
  *
@@ -22,9 +22,9 @@
 Brightness::Brightness(QObject *parent)
     : QObject(parent)
     , m_dbusConnection(QDBusConnection::sessionBus())
-    , m_iface("org.cyber.Settings",
+    , m_iface("org.cutefish.Settings",
               "/Brightness",
-              "org.cyber.Brightness", m_dbusConnection)
+              "org.cutefish.Brightness", m_dbusConnection)
     , m_value(0)
     , m_enabled(false)
 {
