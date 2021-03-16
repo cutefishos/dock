@@ -169,7 +169,7 @@ Item {
             layoutDirection: Qt.RightToLeft
             interactive: false
             model: trayModel
-            spacing: Meui.Units.smallSpacing
+            spacing: Meui.Units.smallSpacing / 2
             clip: true
 
             StatusNotifierModel {

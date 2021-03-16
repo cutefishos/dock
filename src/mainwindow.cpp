@@ -18,18 +18,12 @@
  */
 
 #include "mainwindow.h"
-#include "iconthemeimageprovider.h"
 #include "processprovider.h"
-#include "volumemanager.h"
-#include "battery.h"
-#include "brightness.h"
-#include "controlcenterdialog.h"
-#include "statusnotifier/statusnotifiermodel.h"
-#include "appearance.h"
 
 #include <QGuiApplication>
 #include <QScreen>
 
+#include <QQmlEngine>
 #include <QQmlContext>
 #include <QQmlProperty>
 #include <QQuickItem>
@@ -45,15 +39,7 @@ MainWindow::MainWindow(QQuickView *parent)
     , m_appModel(new ApplicationModel)
     , m_fakeWindow(nullptr)
 {
-    qmlRegisterType<DockSettings>("Cyber.Dock", 1, 0, "DockSettings");
-    qmlRegisterType<VolumeManager>("Cyber.Dock", 1, 0, "Volume");
-    qmlRegisterType<Battery>("Cyber.Dock", 1, 0, "Battery");
-    qmlRegisterType<Brightness>("Cyber.Dock", 1, 0, "Brightness");
-    qmlRegisterType<ControlCenterDialog>("Cyber.Dock", 1, 0, "ControlCenterDialog");
-    qmlRegisterType<StatusNotifierModel>("Cyber.Dock", 1, 0, "StatusNotifierModel");
-    qmlRegisterType<Appearance>("Cyber.Dock", 1, 0, "Appearance");
-
-    setDefaultAlphaBuffer(false);
+    // setDefaultAlphaBuffer(false);
     setColor(Qt::transparent);
 
     setFlags(Qt::FramelessWindowHint | Qt::WindowDoesNotAcceptFocus);
@@ -66,7 +52,6 @@ MainWindow::MainWindow(QQuickView *parent)
     engine()->rootContext()->setContextProperty("mainWindow", this);
 
     setResizeMode(QQuickView::SizeRootObjectToView);
-    // setClearBeforeRendering(true);
     setScreen(qApp->primaryScreen());
     setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     setVisible(true);

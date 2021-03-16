@@ -27,9 +27,6 @@ ApplicationModel::ApplicationModel(QObject *parent)
     , m_iface(XWindowInterface::instance())
     , m_sysAppMonitor(SystemAppMonitor::self())
 {
-    m_sysAppMonitor->moveToThread(qApp->thread());
-    this->moveToThread(qApp->thread());
-
     connect(m_iface, &XWindowInterface::windowAdded, this, &ApplicationModel::onWindowAdded);
     connect(m_iface, &XWindowInterface::windowRemoved, this, &ApplicationModel::onWindowRemoved);
     connect(m_iface, &XWindowInterface::activeChanged, this, &ApplicationModel::onActiveChanged);

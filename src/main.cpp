@@ -26,10 +26,25 @@
 #include "applicationmodel.h"
 #include "mainwindow.h"
 
+#include "volumemanager.h"
+#include "battery.h"
+#include "brightness.h"
+#include "controlcenterdialog.h"
+#include "statusnotifier/statusnotifiermodel.h"
+#include "appearance.h"
+
 int main(int argc, char *argv[])
 {
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
+
+    qmlRegisterType<DockSettings>("Cyber.Dock", 1, 0, "DockSettings");
+    qmlRegisterType<VolumeManager>("Cyber.Dock", 1, 0, "Volume");
+    qmlRegisterType<Battery>("Cyber.Dock", 1, 0, "Battery");
+    qmlRegisterType<Brightness>("Cyber.Dock", 1, 0, "Brightness");
+    qmlRegisterType<ControlCenterDialog>("Cyber.Dock", 1, 0, "ControlCenterDialog");
+    qmlRegisterType<StatusNotifierModel>("Cyber.Dock", 1, 0, "StatusNotifierModel");
+    qmlRegisterType<Appearance>("Cyber.Dock", 1, 0, "Appearance");
 
     QString qmFilePath = QString("%1/%2.qm").arg("/usr/share/cyber-dock/translations/").arg(QLocale::system().name());
     if (QFile::exists(qmFilePath)) {
