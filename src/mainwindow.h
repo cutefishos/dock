@@ -1,0 +1,66 @@
+/*
+ * Copyright (C) 2020 ~ 2021 CyberOS Team.
+ *
+ * Author:     rekols <revenmartin@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QQuickView>
+#include <QTimer>
+
+#include "docksettings.h"
+#include "applicationmodel.h"
+#include "fakewindow.h"
+
+class MainWindow : public QQuickView
+{
+    Q_OBJECT
+
+public:
+    explicit MainWindow(QQuickView *parent = nullptr);
+    ~MainWindow();
+
+signals:
+    void resizingFished();
+    void iconSizeChanged();
+    void positionChanged();
+
+protected:
+    void event(QEvent *e, QObject *obj);
+
+private:
+    QRect windowRect() const;
+    void resizeWindow();
+    void initSlideWindow();
+    void updateViewStruts();
+
+    void createFakeWindow();
+    void deleteFakeWindow();
+
+private slots:
+    void onPositionChanged();
+    void onIconSizeChanged();
+    void onVisibilityChanged();
+
+private:
+    DockSettings *m_settings;
+    ApplicationModel *m_appModel;
+    FakeWindow *m_fakeWindow;
+};
+
+#endif // MAINWINDOW_H
