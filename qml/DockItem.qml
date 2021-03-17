@@ -50,18 +50,12 @@ Item {
         dragStarted = false
     }
 
-    Image {
+    IconItem {
         id: icon
         anchors.centerIn: parent
-        source: iconName ? iconName.indexOf("/") === 0 || iconName.indexOf("file://") === 0 || iconName.indexOf("qrc") === 0
-                         ? iconName : "image://icontheme/" + iconName : iconName
-        sourceSize.width: control.iconSize
-        sourceSize.height: control.iconSize
-        width: sourceSize.width
-        height: sourceSize.height
-        asynchronous: false
-        smooth: true
-        cache: true
+        width: control.iconSize
+        height: control.iconSize
+        source: iconName
 
         visible: !dragStarted
 

@@ -6,6 +6,7 @@ import QtGraphicalEffects 1.0
 import Cyber.NetworkManagement 1.0 as NM
 import Cutefish.Dock 1.0
 import MeuiKit 1.0 as Meui
+import org.kde.plasma.core 2.0 as PlasmaCore
 
 Item {
     id: root
@@ -71,7 +72,7 @@ Item {
 
         Behavior on color {
             ColorAnimation {
-                duration: 0
+                duration: 200
                 easing.type: Easing.InOutQuad
             }
         }
@@ -168,13 +169,9 @@ Item {
             orientation: isHorizontal ? Qt.Horizontal : Qt.Vertical
             layoutDirection: Qt.RightToLeft
             interactive: false
-            model: trayModel
+            model: SystemTrayModel { id: trayModel }
             spacing: Meui.Units.smallSpacing / 2
             clip: true
-
-            StatusNotifierModel {
-                id: trayModel
-            }
 
             onCountChanged: delayCalcIconSize()
 
@@ -182,20 +179,12 @@ Item {
                 height: trayView.itemHeight
                 width: trayView.itemWidth
 
-                Image {
-                    id: trayIcon
+                IconItem {
+                    id: iconItem
                     anchors.centerIn: parent
-//                    source: iconName ? "image://icontheme/" + iconName
-//                                     : iconBytes ? "data:image/png;base64," + iconBytes
-//                                                 : "image://icontheme/application-x-desktop"
-
-                    source: iconName ? "image://icontheme/" + iconName : "image://icontheme/application-x-desktop"
-
                     width: root.trayItemSize
                     height: root.trayItemSize
-                    sourceSize.width: root.trayItemSize
-                    sourceSize.height: root.trayItemSize
-                    asynchronous: true
+                    source: model.icon ? model.icon : model.iconName
                 }
 
                 onClicked: trayModel.leftButtonClick(id)

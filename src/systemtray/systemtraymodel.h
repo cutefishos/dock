@@ -1,17 +1,12 @@
-#ifndef STATUSNOTIFIERMODEL_H
-#define STATUSNOTIFIERMODEL_H
+#ifndef SYSTEMTRAYMODEL_H
+#define SYSTEMTRAYMODEL_H
 
 #include <QAbstractListModel>
-#include <QIcon>
-#include <QMenu>
 
-#include <dbusmenu-qt5/dbusmenuimporter.h>
-
-#include "statusnotifieritemsource.h"
 #include "statusnotifierwatcher.h"
-#include "sniasync.h"
+#include "statusnotifieritemsource.h"
 
-class StatusNotifierModel : public QAbstractListModel
+class SystemTrayModel : public QAbstractListModel
 {
     Q_OBJECT
 
@@ -19,16 +14,14 @@ public:
     enum Roles {
         IdRole = Qt::UserRole + 1,
         IconNameRole,
-        IconBytesRole,
         IconRole,
         TitleRole,
         ToolTipRole
     };
 
-    explicit StatusNotifierModel(QObject *parent = nullptr);
-    ~StatusNotifierModel();
+    explicit SystemTrayModel(QObject *parent = nullptr);
+    ~SystemTrayModel();
 
-    // Basic functionality:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QHash<int, QByteArray> roleNames() const override;
 
@@ -40,14 +33,15 @@ public:
     Q_INVOKABLE void leftButtonClick(const QString &id);
     Q_INVOKABLE void rightButtonClick(const QString &id);
 
-public slots:
-    void itemAdded(QString serviceAndPath);
-    void itemRemoved(const QString &serviceAndPath);
+private slots:
+    void onItemAdded(const QString &service);
+    void onItemRemoved(const QString &service);
     void updated(StatusNotifierItemSource *item);
 
 private:
     StatusNotifierWatcher *m_watcher;
     QList<StatusNotifierItemSource *> m_items;
+    QString m_hostName;
 };
 
-#endif // STATUSNOTIFIERMODEL_H
+#endif // SYSTEMTRAYMODEL_H

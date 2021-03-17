@@ -23,7 +23,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="2160"
-     inkscape:window-height="1307"
+     inkscape:window-height="1304"
      id="namedview11"
      showgrid="false"
      inkscape:zoom="45.9375"
@@ -32,7 +32,8 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg9" />
+     inkscape:current-layer="svg9"
+     inkscape:document-rotation="0" />
   <metadata
      id="metadata2">
     <rdf:RDF>
@@ -54,5 +55,5 @@
   <path
      d="M 8.00028,1 C 4.140704,1 1,4.13971 1,7.9993 1,11.859394 4.140732,15 8.00028,15 11.859814,15 15,11.859394 15,7.9993 15,4.13971 11.859842,1 8.00028,1 Z m 0,12.593196 c -0.007,0 -0.014,-9.62e-4 -0.02058,-9.62e-4 V 2.407812 c 0.007,0 0.014,-0.00101 0.02058,-0.00101 3.083822,0 5.592902,2.508702 5.592902,5.592496 0,3.084326 -2.50908,5.593896 -5.592902,5.593896 z"
      id="path2"
-     style="stroke-width:0.0287544" />
+     style="stroke-width:0.0287544;fill:#363636;fill-opacity:1" />
 </svg>

@@ -10,7 +10,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(QT Core Widgets Concurrent Quick QuickControls2 X11Extras DBus LinguistTools)
+set(QT Core Widgets Concurrent Quick QuickControls2 X11Extras DBus Svg LinguistTools)
 find_package(Qt5 REQUIRED ${QT})
 find_package(KF5WindowSystem REQUIRED)
 find_package(dbusmenu-qt5 REQUIRED)
@@ -36,18 +36,35 @@ set(SRCS
 
     src/appearance.cpp
     src/fakewindow.cpp
+    src/iconitem.cpp
+    src/managedtexturenode.cpp
 
-    src/statusnotifier/dbustypes.cpp
-    src/statusnotifier/sniasync.cpp
-    src/statusnotifier/statusnotifieriteminterface.cpp
-    src/statusnotifier/statusnotifiermodel.cpp
-    src/statusnotifier/statusnotifierwatcher.cpp
-    src/statusnotifier/statusnotifieritemsource.cpp
+    src/systemtray/statusnotifieritemjob.cpp
+    src/systemtray/statusnotifieritemsource.cpp
+    src/systemtray/systemtraytypes.cpp
+    src/systemtray/systemtraytypedefs.h
+    src/systemtray/systemtraymodel.cpp
+    src/systemtray/statusnotifierwatcher.cpp
 )
 
 set(RESOURCES
     resources.qrc
 )
+
+set(statusnotifierwatcher_xml src/systemtray/org.kde.StatusNotifierWatcher.xml)
+qt5_add_dbus_interface(SRCS ${statusnotifierwatcher_xml} statusnotifierwatcher_interface)
+qt5_add_dbus_interface(SRCS src/systemtray/org.freedesktop.DBus.Properties.xml dbusproperties)
+
+set(statusnotifieritem_xml src/systemtray/org.kde.StatusNotifierItem.xml)
+set_source_files_properties(${statusnotifieritem_xml} PROPERTIES
+   NO_NAMESPACE false
+   INCLUDE "src/systemtray/systemtraytypes.h"
+   CLASSNAME OrgKdeStatusNotifierItem
+)
+qt5_add_dbus_interface(SRCS ${statusnotifieritem_xml} statusnotifieritem_interface)
+
+qt5_add_dbus_adaptor(SRCS src/systemtray/org.kde.StatusNotifierWatcher.xml
+                     src/systemtray/statusnotifierwatcher.h StatusNotifierWatcher)
 
 add_executable(${PROJECT_NAME} ${SRCS} ${DBUS_SRCS} ${RESOURCES})
 target_link_libraries(${PROJECT_NAME}
@@ -58,6 +75,7 @@ target_link_libraries(${PROJECT_NAME}
         Qt5::X11Extras
         Qt5::Concurrent
         Qt5::DBus
+        Qt5::Svg
 
         MeuiKit
 

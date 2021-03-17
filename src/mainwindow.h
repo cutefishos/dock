@@ -40,9 +40,6 @@ signals:
     void iconSizeChanged();
     void positionChanged();
 
-protected:
-    void event(QEvent *e, QObject *obj);
-
 private:
     QRect windowRect() const;
     void resizeWindow();

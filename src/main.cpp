@@ -30,8 +30,9 @@
 #include "battery.h"
 #include "brightness.h"
 #include "controlcenterdialog.h"
-#include "statusnotifier/statusnotifiermodel.h"
+#include "systemtray/systemtraymodel.h"
 #include "appearance.h"
+#include "iconitem.h"
 
 int main(int argc, char *argv[])
 {
@@ -43,8 +44,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<Battery>("Cutefish.Dock", 1, 0, "Battery");
     qmlRegisterType<Brightness>("Cutefish.Dock", 1, 0, "Brightness");
     qmlRegisterType<ControlCenterDialog>("Cutefish.Dock", 1, 0, "ControlCenterDialog");
-    qmlRegisterType<StatusNotifierModel>("Cutefish.Dock", 1, 0, "StatusNotifierModel");
+    qmlRegisterType<SystemTrayModel>("Cutefish.Dock", 1, 0, "SystemTrayModel");
     qmlRegisterType<Appearance>("Cutefish.Dock", 1, 0, "Appearance");
+    qmlRegisterType<IconItem>("Cutefish.Dock", 1, 0, "IconItem");
 
     QString qmFilePath = QString("%1/%2.qm").arg("/usr/share/cutefish-dock/translations/").arg(QLocale::system().name());
     if (QFile::exists(qmFilePath)) {

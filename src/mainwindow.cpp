@@ -51,10 +51,11 @@ MainWindow::MainWindow(QQuickView *parent)
     engine()->rootContext()->setContextProperty("Settings", m_settings);
     engine()->rootContext()->setContextProperty("mainWindow", this);
 
+    setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     setResizeMode(QQuickView::SizeRootObjectToView);
     setScreen(qApp->primaryScreen());
-    setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     setVisible(true);
+
     initSlideWindow();
     resizeWindow();
     onVisibilityChanged();
