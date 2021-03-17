@@ -62,7 +62,6 @@ signals:
     void activeChanged();
     void sourceChanged();
     void animatedChanged();
-    void usesPlasmaThemeChanged();
     void roundToIconSizeChanged();
     void validChanged();
     void colorGroupChanged();
@@ -83,7 +82,6 @@ private:
 
     bool m_active;
     bool m_animated;
-    bool m_usesPlasmaTheme;
     bool m_roundToIconSize;
 
     bool m_textureChanged;

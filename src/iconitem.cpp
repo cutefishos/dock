@@ -152,16 +152,20 @@ public:
     explicit SvgSource(const QString &sourceString, IconItem *iconItem)
         : IconItemSource(iconItem)
     {
+        m_reader.setFileName(sourceString);
+    }
 
+    bool isValid() const override {
+        return m_reader.canRead();
     }
 
     const QSize size() const override {
-        return size();
+        return QSize();
     }
 
     QPixmap pixmap(const QSize &size) override {
-        Q_UNUSED(size);
-        return QPixmap();
+        m_reader.setScaledSize(size * devicePixelRatio());
+        return QPixmap::fromImage(m_reader.read());
     }
 
 private:
@@ -169,6 +173,7 @@ private:
         return window() ? window()->devicePixelRatio() : qApp->devicePixelRatio();
     }
 
+    QImageReader m_reader;
     QString m_svgIconName;
 };
 
@@ -177,7 +182,6 @@ IconItem::IconItem(QQuickItem *parent)
     , m_iconItemSource(new NullSource(this))
     , m_active(false)
     , m_animated(false)
-    , m_usesPlasmaTheme(false)
     , m_roundToIconSize(true)
     , m_textureChanged(false)
     , m_sizeChanged(false)
@@ -226,7 +230,10 @@ void IconItem::setSource(const QVariant &source)
                 m_iconItemSource.reset(new QImageSource(imageIcon, this));
             }
         } else {
-            // m_iconItemSource.reset(new SvgSource(sourceString, this));
+//            if (sourceString.startsWith("qrc:/"))
+//                m_iconItemSource.reset(new SvgSource(sourceString.remove(0, 3), this));
+//            else if (sourceString.startsWith(":/"))
+//                m_iconItemSource.reset(new SvgSource(sourceString, this));
 
             if (!m_iconItemSource->isValid()) {
                 // if we started with a QIcon use that.
@@ -388,7 +395,6 @@ void IconItem::loadPixmap()
         return;
     }
 
-    const qreal devicePixelRatio = window() ? window()->devicePixelRatio() : qApp->devicePixelRatio();
     int size = qMin(qRound(width()), qRound(height()));
     QPixmap result;
 
@@ -399,7 +405,9 @@ void IconItem::loadPixmap()
     }
 
     if (m_iconItemSource->isValid()) {
-        result = m_iconItemSource->pixmap(QSize(size * devicePixelRatio, size * devicePixelRatio));
+        result = m_iconItemSource->pixmap(QSize(size * qApp->devicePixelRatio(),
+                                                size * qApp->devicePixelRatio()));
+        result.setDevicePixelRatio(qApp->devicePixelRatio());
     } else {
         m_iconPixmap = QPixmap();
         update();

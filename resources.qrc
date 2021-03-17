@@ -102,6 +102,5 @@
         <file>svg/light/dark-mode.svg</file>
         <file>svg/dark/dark-mode.svg</file>
         <file>svg/dark/bluetooth-symbolic.svg</file>
-        <file>qml/StatusNotifierItem.qml</file>
     </qresource>
 </RCC>

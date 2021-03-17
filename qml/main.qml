@@ -6,7 +6,6 @@ import QtGraphicalEffects 1.0
 import Cyber.NetworkManagement 1.0 as NM
 import Cutefish.Dock 1.0
 import MeuiKit 1.0 as Meui
-import org.kde.plasma.core 2.0 as PlasmaCore
 
 Item {
     id: root
@@ -70,10 +69,17 @@ Item {
         color: Meui.Theme.backgroundColor
         opacity: Meui.Theme.darkMode ? 0.3 : 0.5
 
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 200
+                easing.type: Easing.Linear
+            }
+        }
+
         Behavior on color {
             ColorAnimation {
                 duration: 200
-                easing.type: Easing.InOutQuad
+                easing.type: Easing.Linear
             }
         }
     }
