@@ -1,6 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import Qt.labs.platform 1.0
+// import Qt.labs.platform 1.0
 import Cutefish.Dock 1.0
 
 DockItem {
@@ -37,7 +37,7 @@ DockItem {
         updateGeometry()
     }
 
-    Menu {
+    TopLevelMenu {
         id: contextMenu
 
         MenuItem {

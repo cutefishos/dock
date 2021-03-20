@@ -19,7 +19,7 @@ Item {
     property var pressedColor: Meui.Theme.darkMode ? Qt.lighter(Meui.Theme.secondBackgroundColor, 1.8)
                                                  : Qt.darker(Meui.Theme.secondBackgroundColor, 1.5)
 
-    property var highlightHoverColor: Meui.Theme.darkMode ? Qt.lighter(Meui.Theme.highlightColor, 1.2)
+    property var highlightHoverColor: Meui.Theme.darkMode ? Qt.lighter(Meui.Theme.highlightColor, 1.1)
                                                           : Qt.darker(Meui.Theme.highlightColor, 1.1)
     property var highlightPressedColor: Meui.Theme.darkMode ? Qt.lighter(Meui.Theme.highlightColor, 1.1)
                                                             : Qt.darker(Meui.Theme.highlightColor, 1.2)
@@ -69,8 +69,8 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.leftMargin: Meui.Units.smallSpacing
-        anchors.rightMargin: Meui.Units.smallSpacing
+        anchors.leftMargin: root.smallSpacing
+        anchors.rightMargin: root.smallSpacing
 
         Image {
             id: _image
@@ -79,7 +79,7 @@ Item {
             sourceSize: Qt.size(width, height)
             asynchronous: true
             Layout.alignment: Qt.AlignCenter
-            Layout.topMargin: Meui.Units.largeSpacing
+            Layout.topMargin: root.largeSpacing
 
 //            ColorOverlay {
 //                anchors.fill: _image
@@ -110,7 +110,7 @@ Item {
             Layout.preferredHeight: control.height * 0.1
             Layout.alignment: Qt.AlignHCenter
             // Layout.fillWidth: true
-            Layout.bottomMargin: Meui.Units.largeSpacing
+            Layout.bottomMargin: root.largeSpacing
         }
 
         Item {

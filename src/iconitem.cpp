@@ -316,6 +316,11 @@ int IconItem::paintedHeight() const
     return boundingRect().size().toSize().height();
 }
 
+void IconItem::updateIcon()
+{
+    updatePolish();
+}
+
 void IconItem::updatePolish()
 {
     QQuickItem::updatePolish();

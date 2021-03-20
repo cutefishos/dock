@@ -49,6 +49,8 @@ public:
     int paintedWidth() const;
     int paintedHeight() const;
 
+    Q_INVOKABLE void updateIcon();
+
     void updatePolish() override;
     QSGNode *updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *updatePaintNodeData) override;
 

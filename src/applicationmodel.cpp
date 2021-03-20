@@ -52,6 +52,7 @@ QHash<int, QByteArray> ApplicationModel::roleNames() const
     roles[ActiveRole] = "isActive";
     roles[WindowCountRole] = "windowCount";
     roles[IsPinnedRole] = "isPinned";
+    roles[DesktopFileRole] = "desktopFile";
     return roles;
 }
 
@@ -75,6 +76,8 @@ QVariant ApplicationModel::data(const QModelIndex &index, int role) const
         return item->wids.count();
     case IsPinnedRole:
         return item->isPinned;
+    case DesktopFileRole:
+        return item->desktopPath;
     default:
         return QVariant();
     }

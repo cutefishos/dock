@@ -102,5 +102,6 @@
         <file>svg/light/dark-mode.svg</file>
         <file>svg/dark/dark-mode.svg</file>
         <file>svg/dark/bluetooth-symbolic.svg</file>
+        <file>qml/TopLevelMenu.qml</file>
     </qresource>
 </RCC>

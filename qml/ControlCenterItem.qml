@@ -9,8 +9,8 @@ import MeuiKit 1.0 as Meui
 StandardItem {
     id: controlItem
 
-    Layout.preferredWidth: isHorizontal ? controlLayout.implicitWidth + Meui.Units.largeSpacing * 2 : mainLayout.width * 0.7
-    Layout.preferredHeight: isHorizontal ? mainLayout.height * 0.7 : controlLayout.implicitHeight + Meui.Units.largeSpacing * 2
+    Layout.preferredWidth: isHorizontal ? controlLayout.implicitWidth + root.largeSpacing * 2 : mainLayout.width * 0.7
+    Layout.preferredHeight: isHorizontal ? mainLayout.height * 0.7 : controlLayout.implicitHeight + root.largeSpacing * 2
     Layout.rightMargin: isHorizontal ? root.windowRadius / 2 : 0
     Layout.bottomMargin: isHorizontal ? 0 : root.windowRadius / 2
     Layout.alignment: Qt.AlignCenter
@@ -30,12 +30,12 @@ StandardItem {
     GridLayout {
         id: controlLayout
         anchors.fill: parent
-        anchors.leftMargin: isHorizontal ? Meui.Units.smallSpacing : 0
-        anchors.rightMargin: isHorizontal ? Meui.Units.smallSpacing : 0
-        anchors.topMargin: isHorizontal ? Meui.Units.smallSpacing : 0
-        anchors.bottomMargin: isHorizontal ? Meui.Units.smallSpacing : 0
-        columnSpacing: isHorizontal ? Meui.Units.largeSpacing + Meui.Units.smallSpacing : 0
-        rowSpacing: isHorizontal ? 0 : Meui.Units.largeSpacing + Meui.Units.smallSpacing
+        anchors.leftMargin: isHorizontal ? root.smallSpacing : 0
+        anchors.rightMargin: isHorizontal ? root.smallSpacing : 0
+        anchors.topMargin: isHorizontal ? root.smallSpacing : 0
+        anchors.bottomMargin: isHorizontal ? root.smallSpacing : 0
+        columnSpacing: isHorizontal ? root.largeSpacing + root.smallSpacing : 0
+        rowSpacing: isHorizontal ? 0 : root.largeSpacing + root.smallSpacing
         flow: isHorizontal ? Grid.LeftToRight : Grid.TopToBottom
 
         Image {

@@ -87,7 +87,7 @@ ControlCenterDialog {
         id: _mainLayout
         anchors.fill: parent
         anchors.leftMargin: Meui.Units.largeSpacing * 2
-        anchors.topMargin: Meui.Units.largeSpacing * 2
+        anchors.topMargin: Meui.Units.largeSpacing * 1.5
         anchors.rightMargin: Meui.Units.largeSpacing * 2
         anchors.bottomMargin: Meui.Units.largeSpacing
         spacing: Meui.Units.largeSpacing
@@ -328,7 +328,10 @@ ControlCenterDialog {
                 width: batteryLayout.implicitWidth + Meui.Units.largeSpacing
                 height: batteryLayout.implicitHeight + Meui.Units.largeSpacing
 
-                onClicked: process.startDetached("cutefish-settings", ["-m", "battery"])
+                onClicked: {
+                    control.visible = false
+                    process.startDetached("cutefish-settings", ["-m", "battery"])
+                }
 
                 RowLayout {
                     id: batteryLayout

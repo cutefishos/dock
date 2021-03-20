@@ -33,9 +33,9 @@ Item {
     RowLayout {
         id: _mainLayout
         anchors.fill: parent
-        anchors.margins: Meui.Units.largeSpacing
-        anchors.rightMargin: Meui.Units.largeSpacing * 2
-        spacing: Meui.Units.largeSpacing
+        anchors.margins: root.largeSpacing
+        anchors.rightMargin: root.largeSpacing * 2
+        spacing: root.largeSpacing
 
         Image {
             id: artImage

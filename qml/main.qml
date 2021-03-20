@@ -19,6 +19,9 @@ Item {
     property var trayItemSize: 16
     property var iconSize: 0
 
+    property real smallSpacing: 4 * Meui.Theme.devicePixelRatio
+    property real largeSpacing: smallSpacing * 2
+
     DropArea {
         anchors.fill: parent
         enabled: true
@@ -100,7 +103,7 @@ Item {
         radius: windowRadius - 1
         color: "transparent"
         border.width: 1
-        border.color: Qt.rgba(255, 255, 255, 0.2)
+        border.color: Qt.rgba(255, 255, 255, 0.3)
         antialiasing: true
         smooth: true
     }
@@ -165,8 +168,8 @@ Item {
         ListView {
             id: trayView
 
-            property var itemWidth: isHorizontal ? root.trayItemSize + Meui.Units.largeSpacing * 2 : mainLayout.width * 0.7
-            property var itemHeight: isHorizontal ? mainLayout.height * 0.7 : root.trayItemSize + Meui.Units.largeSpacing * 2
+            property var itemWidth: isHorizontal ? root.trayItemSize + root.largeSpacing * 2 : mainLayout.width * 0.7
+            property var itemHeight: isHorizontal ? mainLayout.height * 0.7 : root.trayItemSize + root.largeSpacing * 2
 
             Layout.preferredWidth: isHorizontal ? itemWidth * count + count * trayView.spacing : mainLayout.width * 0.7
             Layout.preferredHeight: isHorizontal ? mainLayout.height * 0.7 : itemHeight * count + count * trayView.spacing
@@ -176,7 +179,7 @@ Item {
             layoutDirection: Qt.RightToLeft
             interactive: false
             model: SystemTrayModel { id: trayModel }
-            spacing: Meui.Units.smallSpacing / 2
+            spacing: root.smallSpacing / 2
             clip: true
 
             onCountChanged: delayCalcIconSize()
@@ -184,6 +187,16 @@ Item {
             delegate: StandardItem {
                 height: trayView.itemHeight
                 width: trayView.itemWidth
+
+                property bool darkMode: Meui.Theme.darkMode
+
+                onDarkModeChanged: updateTimer.restart()
+
+                Timer {
+                    id: updateTimer
+                    interval: 10
+                    onTriggered: iconItem.updateIcon()
+                }
 
                 IconItem {
                     id: iconItem
@@ -200,7 +213,7 @@ Item {
         }
 
         Item {
-            width: Meui.Units.smallSpacing
+            width: root.smallSpacing
         }
 
         ControlCenterItem {

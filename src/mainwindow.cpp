@@ -62,6 +62,10 @@ MainWindow::MainWindow(QQuickView *parent)
 
     connect(qApp->primaryScreen(), &QScreen::virtualGeometryChanged, this, &MainWindow::resizeWindow);
     connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, &MainWindow::resizeWindow);
+    connect(qApp->primaryScreen(), &QScreen::orientationChanged, this, [=] (Qt::ScreenOrientation orientation) {
+        Q_UNUSED(orientation)
+
+    });
 
     connect(m_settings, &DockSettings::directionChanged, this, &MainWindow::onPositionChanged);
     connect(m_settings, &DockSettings::iconSizeChanged, this, &MainWindow::onIconSizeChanged);

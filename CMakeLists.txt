@@ -33,6 +33,7 @@ set(SRCS
     src/volumemanager.cpp
     src/utils.cpp
     src/xwindowinterface.cpp
+    src/toplevelmenu.cpp
 
     src/appearance.cpp
     src/fakewindow.cpp
