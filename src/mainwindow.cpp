@@ -67,6 +67,8 @@ MainWindow::MainWindow(QQuickView *parent)
 
     });
 
+    connect(m_settings, &DockSettings::roundedWindowEnabledChanged, this, &MainWindow::resizeWindow);
+
     connect(m_settings, &DockSettings::directionChanged, this, &MainWindow::onPositionChanged);
     connect(m_settings, &DockSettings::iconSizeChanged, this, &MainWindow::onIconSizeChanged);
     connect(m_settings, &DockSettings::visibilityChanged, this, &MainWindow::onVisibilityChanged);
@@ -85,17 +87,30 @@ QRect MainWindow::windowRect() const
 
     switch (m_settings->direction()) {
     case DockSettings::Left:
-        newSize = QSize(m_settings->iconSize(), screenGeometry.height() - m_settings->edgeMargins());
-        position = { screenGeometry.x() + DockSettings::self()->edgeMargins() / 2,
-                     (screenGeometry.height() - newSize.height()) / 2
-                   };
+        if (m_settings->roundedWindowEnabled()) {
+            newSize = QSize(m_settings->iconSize(), screenGeometry.height() - m_settings->edgeMargins());
+            position = { screenGeometry.x() + DockSettings::self()->edgeMargins() / 2,
+                         (screenGeometry.height() - newSize.height()) / 2
+                       };
+        } else {
+            newSize = QSize(m_settings->iconSize(), screenGeometry.height());
+            position = { screenGeometry.x(), (screenGeometry.height() - newSize.height()) / 2 };
+        }
         break;
     case DockSettings::Bottom:
-        newSize = QSize(screenGeometry.width() - DockSettings::self()->edgeMargins(), m_settings->iconSize());
-        position = { (screenGeometry.width() - newSize.width()) / 2,
-                     screenGeometry.y() + screenGeometry.height() - newSize.height()
-                     - DockSettings::self()->edgeMargins() / 2
-                   };
+        if (m_settings->roundedWindowEnabled()) {
+            newSize = QSize(screenGeometry.width() - DockSettings::self()->edgeMargins(), m_settings->iconSize());
+            position = { (screenGeometry.width() - newSize.width()) / 2,
+                         screenGeometry.y() + screenGeometry.height() - newSize.height()
+                         - DockSettings::self()->edgeMargins() / 2
+                       };
+        } else {
+            newSize = QSize(screenGeometry.width(), m_settings->iconSize());
+            position = { screenGeometry.x(),
+                         screenGeometry.y() + screenGeometry.height() - newSize.height()
+                       };
+
+        }
         break;
     default:
         break;

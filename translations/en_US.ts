@@ -27,7 +27,7 @@
 <context>
     <name>ApplicationModel</name>
     <message>
-        <location filename="../src/applicationmodel.cpp" line="279"/>
+        <location filename="../src/applicationmodel.cpp" line="282"/>
         <source>Launcher</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35,30 +35,30 @@
 <context>
     <name>ControlDialog</name>
     <message>
-        <location filename="../qml/ControlDialog.qml" line="177"/>
+        <location filename="../qml/ControlDialog.qml" line="178"/>
         <source>Wi-Fi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ControlDialog.qml" line="180"/>
-        <location filename="../qml/ControlDialog.qml" line="201"/>
+        <location filename="../qml/ControlDialog.qml" line="181"/>
+        <location filename="../qml/ControlDialog.qml" line="204"/>
         <source>On</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ControlDialog.qml" line="180"/>
-        <location filename="../qml/ControlDialog.qml" line="191"/>
-        <location filename="../qml/ControlDialog.qml" line="201"/>
+        <location filename="../qml/ControlDialog.qml" line="181"/>
+        <location filename="../qml/ControlDialog.qml" line="193"/>
+        <location filename="../qml/ControlDialog.qml" line="204"/>
         <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ControlDialog.qml" line="190"/>
+        <location filename="../qml/ControlDialog.qml" line="192"/>
         <source>Bluetooth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ControlDialog.qml" line="200"/>
+        <location filename="../qml/ControlDialog.qml" line="203"/>
         <source>Dark Mode</source>
         <translation type="unfinished"></translation>
     </message>

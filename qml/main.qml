@@ -12,7 +12,8 @@ Item {
     visible: true
 
     property color borderColor: Meui.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.1) : Qt.rgba(0, 0, 0, 0.05)
-    property real windowRadius: (Settings.direction === DockSettings.Left) ? root.width * 0.25 : root.height * 0.25
+    property real windowRadius: Settings.roundedWindowEnabled ? (Settings.direction === DockSettings.Left) ? root.width * 0.25 : root.height * 0.25
+                                                              : 0
     property bool isHorizontal: Settings.direction !== DockSettings.Left
     property var appViewLength: isHorizontal ? appItemView.width : appItemView.height
     property var appViewHeight: isHorizontal ? appItemView.height : appItemView.width
@@ -91,6 +92,7 @@ Item {
         anchors.fill: parent
         color: "transparent"
         radius: windowRadius
+        visible: windowRadius
         border.width: 1
         border.color: Qt.rgba(0, 0, 0, 0.5)
         antialiasing: true
@@ -101,6 +103,7 @@ Item {
         anchors.fill: parent
         anchors.margins: 1
         radius: windowRadius - 1
+        visible: windowRadius
         color: "transparent"
         border.width: 1
         border.color: Qt.rgba(255, 255, 255, 0.3)

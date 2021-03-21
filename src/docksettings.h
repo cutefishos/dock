@@ -30,6 +30,7 @@ class DockSettings : public QObject
     Q_PROPERTY(Direction direction READ direction WRITE setDirection NOTIFY directionChanged)
     Q_PROPERTY(int iconSize READ iconSize WRITE setIconSize NOTIFY iconSizeChanged)
     Q_PROPERTY(int edgeMargins READ edgeMargins WRITE setEdgeMargins)
+    Q_PROPERTY(bool roundedWindowEnabled READ roundedWindowEnabled WRITE setRoundedWindowEnabled NOTIFY roundedWindowEnabledChanged)
 
 public:
     enum Direction {
@@ -60,8 +61,8 @@ public:
     int edgeMargins() const;
     void setEdgeMargins(int edgeMargins);
 
-    int statusBarHeight() const;
-    void setStatusBarHeight(int statusBarHeight);
+    bool roundedWindowEnabled() const;
+    void setRoundedWindowEnabled(bool enabled);
 
 private slots:
     void onConfigFileChanged();
@@ -70,11 +71,12 @@ signals:
     void iconSizeChanged();
     void directionChanged();
     void visibilityChanged();
+    void roundedWindowEnabledChanged();
 
 private:
     int m_iconSize;
     int m_edgeMargins;
-    int m_statusBarHeight;
+    bool m_roundedWindowEnabled;
     Direction m_direction;
     Visibility m_visibility;
     QSettings *m_settings;

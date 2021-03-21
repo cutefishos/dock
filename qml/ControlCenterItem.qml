@@ -11,8 +11,8 @@ StandardItem {
 
     Layout.preferredWidth: isHorizontal ? controlLayout.implicitWidth + root.largeSpacing * 2 : mainLayout.width * 0.7
     Layout.preferredHeight: isHorizontal ? mainLayout.height * 0.7 : controlLayout.implicitHeight + root.largeSpacing * 2
-    Layout.rightMargin: isHorizontal ? root.windowRadius / 2 : 0
-    Layout.bottomMargin: isHorizontal ? 0 : root.windowRadius / 2
+    Layout.rightMargin: isHorizontal ? root.windowRadius ? root.windowRadius / 2 : root.largeSpacing : 0
+    Layout.bottomMargin: isHorizontal ? 0 : root.windowRadius ? root.windowRadius / 2 : root.largeSpacing
     Layout.alignment: Qt.AlignCenter
 
     onClicked: {
