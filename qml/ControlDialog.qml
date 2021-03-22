@@ -44,7 +44,7 @@ ControlCenterDialog {
 
         // right
         if (posX + control.width > Screen.width)
-            posX = Screen.width - control.width - Meui.Units.largeSpacing
+            posX = Screen.width - control.width - (root.windowRadius ? Meui.Units.largeSpacing : 0)
 
         // bottom
         if (posY > control.height > Screen.width)

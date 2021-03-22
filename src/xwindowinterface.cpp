@@ -166,7 +166,7 @@ void XWindowInterface::setViewStruts(QWindow *view, DockSettings::Direction dire
         const int bottomOffset { wholeScreen.bottom() - currentScreen.bottom() };
         strut.bottom_width = rect.height() + bottomOffset + (roundedWindow ? DockSettings::self()->edgeMargins() : 0);
         strut.bottom_start = rect.x();
-        strut.bottom_end = rect.x() + rect.width();
+        strut.bottom_end = rect.x() + rect.width() - 1;
         break;
     }
     default:
