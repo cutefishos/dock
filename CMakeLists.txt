@@ -10,8 +10,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(QT Core Widgets Concurrent Quick QuickControls2 X11Extras DBus Svg LinguistTools)
-find_package(Qt5 REQUIRED ${QT})
+find_package(Qt5 CONFIG REQUIRED Widgets DBus X11Extras Concurrent Svg LinguistTools QuickControls2)
+
 find_package(KF5WindowSystem REQUIRED)
 find_package(dbusmenu-qt5 REQUIRED)
 find_package(MeuiKit REQUIRED)
@@ -33,7 +33,7 @@ set(SRCS
     src/volumemanager.cpp
     src/utils.cpp
     src/xwindowinterface.cpp
-    src/toplevelmenu.cpp
+    src/popupwindow.cpp
 
     src/appearance.cpp
     src/fakewindow.cpp
@@ -68,7 +68,7 @@ qt5_add_dbus_adaptor(SRCS src/systemtray/org.kde.StatusNotifierWatcher.xml
                      src/systemtray/statusnotifierwatcher.h StatusNotifierWatcher)
 
 add_executable(${PROJECT_NAME} ${SRCS} ${DBUS_SRCS} ${RESOURCES})
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt5::Core
         Qt5::Widgets
         Qt5::Quick

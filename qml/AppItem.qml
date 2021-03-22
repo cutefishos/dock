@@ -23,7 +23,7 @@ DockItem {
     onPositionChanged: updateGeometry()
     onPressed: updateGeometry()
     onClicked: appModel.clicked(model.appId)
-    onRightClicked: if (model.appId !== "cutefish-launcher") contextMenu.open()
+    onRightClicked: if (model.appId !== "cutefish-launcher") contextMenu.show()
 
     dropArea.onEntered: {
         if (drag.source)
@@ -37,7 +37,7 @@ DockItem {
         updateGeometry()
     }
 
-    TopLevelMenu {
+    DockMenu {
         id: contextMenu
 
         MenuItem {

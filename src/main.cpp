@@ -33,6 +33,7 @@
 #include "systemtray/systemtraymodel.h"
 #include "appearance.h"
 #include "iconitem.h"
+#include "popupwindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -47,6 +48,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<SystemTrayModel>("Cutefish.Dock", 1, 0, "SystemTrayModel");
     qmlRegisterType<Appearance>("Cutefish.Dock", 1, 0, "Appearance");
     qmlRegisterType<IconItem>("Cutefish.Dock", 1, 0, "IconItem");
+    qmlRegisterType<PopupWindow>("Cutefish.Dock", 1, 0, "PopupWindow");
 
     QString qmFilePath = QString("%1/%2.qm").arg("/usr/share/cutefish-dock/translations/").arg(QLocale::system().name());
     if (QFile::exists(qmFilePath)) {
