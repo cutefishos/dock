@@ -39,6 +39,17 @@ StandardItem {
         flow: isHorizontal ? Grid.LeftToRight : Grid.TopToBottom
 
         Image {
+            id: volumeIcon
+            visible: volume.isValid && status === Image.Ready
+            source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + volume.iconName + ".svg"
+            width: root.trayItemSize
+            height: width
+            sourceSize: Qt.size(width, height)
+            asynchronous: true
+            Layout.alignment: Qt.AlignCenter
+        }
+
+        Image {
             id: wirelessIcon
             width: root.trayItemSize
             height: width
@@ -59,17 +70,6 @@ StandardItem {
             width: height + 6
             sourceSize: Qt.size(width, height)
             source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + battery.iconSource
-            asynchronous: true
-            Layout.alignment: Qt.AlignCenter
-        }
-
-        Image {
-            id: volumeIcon
-            visible: volume.isValid && status === Image.Ready
-            source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + volume.iconName + ".svg"
-            width: root.trayItemSize
-            height: width
-            sourceSize: Qt.size(width, height)
             asynchronous: true
             Layout.alignment: Qt.AlignCenter
         }
