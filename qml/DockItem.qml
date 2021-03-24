@@ -50,7 +50,7 @@ Item {
         dragStarted = false
     }
 
-    IconItem {
+    Meui.IconItem {
         id: icon
         anchors.centerIn: parent
         width: control.iconSize

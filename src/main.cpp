@@ -26,7 +26,6 @@
 #include "applicationmodel.h"
 #include "mainwindow.h"
 
-#include "iconitem.h"
 #include "popupwindow.h"
 
 int main(int argc, char *argv[])
@@ -35,7 +34,6 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     qmlRegisterType<DockSettings>("Cutefish.Dock", 1, 0, "DockSettings");
-    qmlRegisterType<IconItem>("Cutefish.Dock", 1, 0, "IconItem");
     qmlRegisterType<PopupWindow>("Cutefish.Dock", 1, 0, "PopupWindow");
 
     QString qmFilePath = QString("%1/%2.qm").arg("/usr/share/cutefish-dock/translations/").arg(QLocale::system().name());

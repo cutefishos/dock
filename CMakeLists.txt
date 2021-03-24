@@ -31,8 +31,6 @@ set(SRCS
     src/popupwindow.cpp
 
     src/fakewindow.cpp
-    src/iconitem.cpp
-    src/managedtexturenode.cpp
 )
 
 set(RESOURCES

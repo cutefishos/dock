@@ -39,7 +39,7 @@ MainWindow::MainWindow(QQuickView *parent)
     , m_appModel(new ApplicationModel)
     , m_fakeWindow(nullptr)
 {
-    // setDefaultAlphaBuffer(false);
+    setDefaultAlphaBuffer(false);
     setColor(Qt::transparent);
 
     setFlags(Qt::FramelessWindowHint | Qt::WindowDoesNotAcceptFocus);

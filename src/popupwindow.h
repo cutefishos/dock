@@ -2,6 +2,7 @@
 #define TOPLEVELMENU_H
 
 #include <QQuickWindow>
+#include <QQuickItem>
 
 class PopupWindow : public QQuickWindow
 {
