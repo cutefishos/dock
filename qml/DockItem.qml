@@ -8,8 +8,11 @@ Item {
     id: control
 
     property bool isLeft: Settings.direction === DockSettings.Left
+    property bool isRight: Settings.direction === DockSettings.Right
+    property bool isBottom: Settings.direction === DockSettings.Bottom
 
-    property var iconSize: (isLeft ? control.height : control.width) * iconSizeRatio
+    property var iconSize: root.isHorizontal ? control.height * iconSizeRatio
+                                             : control.width * iconSizeRatio
 
     property bool draggable: false
     property int dragItemIndex
@@ -121,6 +124,9 @@ Item {
                 if (Settings.direction === DockSettings.Left)
                     popupTips.position = Qt.point(root.width + Meui.Units.largeSpacing,
                                                   control.mapToGlobal(0, 0).y + (control.height / 2 - popupTips.height / 2))
+                else if (Settings.direction === DockSettings.Right)
+                    popupTips.position = Qt.point(control.mapToGlobal(0, 0).x - popupTips.width - Meui.Units.smallSpacing / 2,
+                                                  control.mapToGlobal(0, 0).y + (control.height / 2 - popupTips.height / 2))
                 else
                     popupTips.position = Qt.point(control.mapToGlobal(0, 0).x + (control.width / 2 - popupTips.width / 2),
                                                   control.mapToGlobal(0, 0).y - popupTips.height - Meui.Units.smallSpacing / 2)
@@ -134,12 +140,24 @@ Item {
 
     Rectangle {
         id: activeLine
-        width: isLeft ? parent.width * 0.06 : (isActive ? parent.height * 0.4 : parent.height * 0.06)
-        height: isLeft ? (isActive ? parent.height * 0.4 : parent.height * 0.06) : parent.height * 0.06
+        width: !isBottom ? parent.width * 0.06 : (isActive ? parent.height * 0.4 : parent.height * 0.06)
+        height: !isBottom ? (isActive ? parent.height * 0.4 : parent.height * 0.06) : parent.height * 0.06
         color: Meui.Theme.textColor
-        radius: isLeft ? width / 2 : height / 2
+        radius: !isBottom ? width / 2 : height / 2
         visible: enableActivateDot && !dragStarted
         opacity: isActive ? 1 : 0.6
+
+        property var leftX: 3
+        property var leftY: (parent.height - height) / 2
+
+        property var bottomX: (parent.width - width) / 2
+        property var bottomY: icon.y + icon.height + activeLine.height / 2 - 2
+
+        property var rightX: icon.x + icon.width + activeLine.width / 2 - 2
+        property var rightY: (parent.height - height) / 2
+
+        x: isLeft ? leftX : isBottom ? bottomX : rightX
+        y: isLeft ? leftY : isBottom ? bottomY : rightY
 
         Behavior on opacity {
             NumberAnimation {
@@ -150,20 +168,16 @@ Item {
 
         Behavior on width {
             NumberAnimation {
-                duration: !isLeft ? 125 : 0
+                duration: isBottom ? 125 : 0
                 easing.type: Easing.InOutCubic
             }
         }
 
         Behavior on height {
             NumberAnimation {
-                duration: isLeft ? 125 : 0
+                duration: !isBottom ? 125 : 0
                 easing.type: Easing.InOutCubic
             }
         }
-
-        x: isLeft ? 3 : (parent.width - width) / 2
-        y: isLeft ? (parent.height - height) / 2 : icon.y + icon.height + activeLine.height / 2 - 2
-        // 1 is the window border
     }
 }

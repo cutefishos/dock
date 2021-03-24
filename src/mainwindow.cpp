@@ -103,7 +103,6 @@ QRect MainWindow::windowRect() const
     case DockSettings::Left:
         newSize = QSize(iconSize, length);
         position.setX(screenGeometry.x() + DockSettings::self()->edgeMargins() / 2);
-
         // Handle the top statusbar.
         position.setY(availableGeometry.y() + (availableGeometry.height() - newSize.height()) / 2);
         break;
@@ -111,6 +110,11 @@ QRect MainWindow::windowRect() const
         newSize = QSize(length, iconSize);
         position.setX(screenGeometry.x() + (screenGeometry.width() - newSize.width()) / 2);
         position.setY(screenGeometry.y() + screenGeometry.height() - newSize.height() - DockSettings::self()->edgeMargins() / 2);
+        break;
+    case DockSettings::Right:
+        newSize = QSize(iconSize, length);
+        position.setX(screenGeometry.x() + screenGeometry.width() - newSize.width() - DockSettings::self()->edgeMargins() / 2);
+        position.setY(availableGeometry.y() + (availableGeometry.height() - newSize.height()) / 2);
         break;
     default:
         break;
@@ -133,6 +137,8 @@ void MainWindow::initSlideWindow()
 
     if (m_settings->direction() == DockSettings::Left)
         location = KWindowEffects::LeftEdge;
+    else if (m_settings->direction() == DockSettings::Right)
+        location = KWindowEffects::RightEdge;
     else if (m_settings->direction() == DockSettings::Bottom)
         location = KWindowEffects::BottomEdge;
 

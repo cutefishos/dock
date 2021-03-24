@@ -167,6 +167,13 @@ void XWindowInterface::setViewStruts(QWindow *view, DockSettings::Direction dire
         strut.bottom_end = rect.x() + rect.width();
         break;
     }
+    case DockSettings::Right: {
+        const int rightOffset = {wholeScreen.right() - currentScreen.right()};
+        strut.right_width = rect.width() + rightOffset + DockSettings::self()->edgeMargins();
+        strut.right_start = rect.y();
+        strut.right_end = rect.y() + rect.height() - 1;
+        break;
+    }
     default:
         break;
     }

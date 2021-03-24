@@ -35,7 +35,8 @@ class DockSettings : public QObject
 public:
     enum Direction {
         Left = 0,
-        Bottom
+        Bottom,
+        Right
     };
     Q_ENUMS(Direction)
 
