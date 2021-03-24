@@ -81,13 +81,14 @@ MainWindow::~MainWindow()
 QRect MainWindow::windowRect() const
 {
     const QRect screenGeometry = qApp->primaryScreen()->geometry();
+    const QRect availableGeometry = qApp->primaryScreen()->availableGeometry();
+
+    bool isHorizontal = m_settings->direction() == DockSettings::Bottom;
 
     QSize newSize(0, 0);
     QPoint position(0, 0);
-
-    const int maxLength = (m_settings->direction() == DockSettings::Left) ?
-                           screenGeometry.height() - m_settings->edgeMargins() / 2:
-                           screenGeometry.width() - m_settings->edgeMargins() / 2;
+    int maxLength = isHorizontal ? screenGeometry.width() - m_settings->edgeMargins()
+                                 : availableGeometry.height() - m_settings->edgeMargins();;
 
     int appCount = m_appModel->rowCount();
     int iconSize = m_settings->iconSize();
@@ -101,15 +102,15 @@ QRect MainWindow::windowRect() const
     switch (m_settings->direction()) {
     case DockSettings::Left:
         newSize = QSize(iconSize, length);
-        position = { screenGeometry.x() + DockSettings::self()->edgeMargins() / 2,
-                     screenGeometry.y() };
-        position.setY((screenGeometry.height() - newSize.height()) / 2);
+        position.setX(screenGeometry.x() + DockSettings::self()->edgeMargins() / 2);
+
+        // Handle the top statusbar.
+        position.setY(availableGeometry.y() + (availableGeometry.height() - newSize.height()) / 2);
         break;
     case DockSettings::Bottom:
         newSize = QSize(length, iconSize);
-        position = { screenGeometry.x(),
-                     screenGeometry.y() + screenGeometry.height() - newSize.height() - DockSettings::self()->edgeMargins() / 2};
-        position.setX((screenGeometry.width() - newSize.width()) / 2);
+        position.setX(screenGeometry.x() + (screenGeometry.width() - newSize.width()) / 2);
+        position.setY(screenGeometry.y() + screenGeometry.height() - newSize.height() - DockSettings::self()->edgeMargins() / 2);
         break;
     default:
         break;
