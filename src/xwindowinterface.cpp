@@ -143,30 +143,28 @@ bool XWindowInterface::isAcceptableWindow(quint64 wid)
     return !NET::typeMatchesMask(info.windowType(NET::AllTypesMask), normalFlag);
 }
 
-void XWindowInterface::setViewStruts(QWindow *view, DockSettings::Direction direction, const QRect &rect, bool isMax)
+void XWindowInterface::setViewStruts(QWindow *view, DockSettings::Direction direction, const QRect &rect)
 {
     NETExtendedStrut strut;
 
     const auto screen = view->screen();
 
-    const QRect currentScreen { screen->geometry() };
+    const QRect currentScreen {screen->geometry()};
     const QRect wholeScreen { {0, 0}, screen->virtualSize() };
-
-    bool roundedWindow = DockSettings::self()->roundedWindowEnabled();
 
     switch (direction) {
     case DockSettings::Left: {
         const int leftOffset = { screen->geometry().left() };
-        strut.left_width = rect.width() + leftOffset + (roundedWindow ? DockSettings::self()->edgeMargins() : 0);
+        strut.left_width = rect.width() + leftOffset + DockSettings::self()->edgeMargins();
         strut.left_start = rect.y();
         strut.left_end = rect.y() + rect.height() - 1;
         break;
     }
     case DockSettings::Bottom: {
         const int bottomOffset { wholeScreen.bottom() - currentScreen.bottom() };
-        strut.bottom_width = rect.height() + bottomOffset + (roundedWindow ? DockSettings::self()->edgeMargins() : 0);
+        strut.bottom_width = rect.height() + bottomOffset + DockSettings::self()->edgeMargins();
         strut.bottom_start = rect.x();
-        strut.bottom_end = rect.x() + rect.width() - 1;
+        strut.bottom_end = rect.x() + rect.width();
         break;
     }
     default:

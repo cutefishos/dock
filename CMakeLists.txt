@@ -13,15 +13,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt5 CONFIG REQUIRED Widgets DBus X11Extras Concurrent Svg LinguistTools QuickControls2)
 
 find_package(KF5WindowSystem REQUIRED)
-find_package(dbusmenu-qt5 REQUIRED)
 find_package(MeuiKit REQUIRED)
 
 set(SRCS
     src/applicationitem.h
     src/applicationmodel.cpp
-    src/battery.cpp
-    src/brightness.cpp
-    src/controlcenterdialog.cpp
     src/docksettings.cpp
     src/iconthemeimageprovider.cpp
     src/main.cpp
@@ -30,42 +26,18 @@ set(SRCS
     src/systemappitem.cpp
     src/processprovider.cpp
     src/trashmanager.cpp
-    src/volumemanager.cpp
     src/utils.cpp
     src/xwindowinterface.cpp
     src/popupwindow.cpp
 
-    src/appearance.cpp
     src/fakewindow.cpp
     src/iconitem.cpp
     src/managedtexturenode.cpp
-
-    src/systemtray/statusnotifieritemjob.cpp
-    src/systemtray/statusnotifieritemsource.cpp
-    src/systemtray/systemtraytypes.cpp
-    src/systemtray/systemtraytypedefs.h
-    src/systemtray/systemtraymodel.cpp
-    src/systemtray/statusnotifierwatcher.cpp
 )
 
 set(RESOURCES
     resources.qrc
 )
-
-set(statusnotifierwatcher_xml src/systemtray/org.kde.StatusNotifierWatcher.xml)
-qt5_add_dbus_interface(SRCS ${statusnotifierwatcher_xml} statusnotifierwatcher_interface)
-qt5_add_dbus_interface(SRCS src/systemtray/org.freedesktop.DBus.Properties.xml dbusproperties)
-
-set(statusnotifieritem_xml src/systemtray/org.kde.StatusNotifierItem.xml)
-set_source_files_properties(${statusnotifieritem_xml} PROPERTIES
-   NO_NAMESPACE false
-   INCLUDE "src/systemtray/systemtraytypes.h"
-   CLASSNAME OrgKdeStatusNotifierItem
-)
-qt5_add_dbus_interface(SRCS ${statusnotifieritem_xml} statusnotifieritem_interface)
-
-qt5_add_dbus_adaptor(SRCS src/systemtray/org.kde.StatusNotifierWatcher.xml
-                     src/systemtray/statusnotifierwatcher.h StatusNotifierWatcher)
 
 add_executable(${PROJECT_NAME} ${SRCS} ${DBUS_SRCS} ${RESOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE
@@ -81,7 +53,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         MeuiKit
 
         KF5::WindowSystem
-        dbusmenu-qt5
 )
 
 file(GLOB TS_FILES translations/*.ts)

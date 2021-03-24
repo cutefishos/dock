@@ -15,41 +15,10 @@ Item {
     property real windowRadius: Settings.roundedWindowEnabled ? (Settings.direction === DockSettings.Left) ? root.width * 0.25 : root.height * 0.25
                                                               : 0
     property bool isHorizontal: Settings.direction !== DockSettings.Left
-    property var appViewLength: isHorizontal ? appItemView.width : appItemView.height
-    property var appViewHeight: isHorizontal ? appItemView.height : appItemView.width
-    property var trayItemSize: 16
-    property var iconSize: 0
-
-    property real smallSpacing: 4 * Meui.Theme.devicePixelRatio
-    property real largeSpacing: smallSpacing * 2
 
     DropArea {
         anchors.fill: parent
         enabled: true
-    }
-
-    Timer {
-        id: calcIconSizeTimer
-        repeat: false
-        running: false
-        interval: 10
-        onTriggered: calcIconSize()
-    }
-
-    function calcIconSize() {
-        const appCount = appItemView.count
-        const size = (appViewLength - (appViewLength % appCount)) / appCount
-        const rootHeight = isHorizontal ? root.height : root.width
-        const calcSize = size >= rootHeight ? rootHeight : Math.min(size, rootHeight)
-        root.iconSize = calcSize
-    }
-
-    function delayCalcIconSize() {
-        if (calcIconSizeTimer.running)
-            calcIconSizeTimer.stop()
-
-        calcIconSizeTimer.interval = 100
-        calcIconSizeTimer.restart()
     }
 
     Meui.WindowShadow {
@@ -135,28 +104,10 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            onCountChanged: root.delayCalcIconSize()
-
             delegate: AppItem {
                 id: appItemDelegate
-                implicitWidth: isHorizontal ? root.iconSize : ListView.view.width
-                implicitHeight: isHorizontal ? ListView.view.height : root.iconSize
-
-//                Behavior on implicitWidth {
-//                    NumberAnimation {
-//                        from: root.iconSize
-//                        easing.type: Easing.InOutQuad
-//                        duration: isHorizontal ? 250 : 0
-//                    }
-//                }
-
-//                Behavior on implicitHeight {
-//                    NumberAnimation {
-//                        from: root.iconSize
-//                        easing.type: Easing.InOutQuad
-//                        duration: !isHorizontal ? 250 : 0
-//                    }
-//                }
+                implicitWidth: isHorizontal ? appItemView.height : appItemView.width
+                implicitHeight: isHorizontal ? appItemView.height : appItemView.width
             }
 
             moveDisplaced: Transition {
@@ -167,82 +118,6 @@ Item {
                 }
             }
         }
-
-        ListView {
-            id: trayView
-
-            property var itemWidth: isHorizontal ? root.trayItemSize + root.largeSpacing * 2 : mainLayout.width * 0.7
-            property var itemHeight: isHorizontal ? mainLayout.height * 0.7 : root.trayItemSize + root.largeSpacing * 2
-
-            Layout.preferredWidth: isHorizontal ? itemWidth * count + count * trayView.spacing : mainLayout.width * 0.7
-            Layout.preferredHeight: isHorizontal ? mainLayout.height * 0.7 : itemHeight * count + count * trayView.spacing
-            Layout.alignment: Qt.AlignCenter
-
-            orientation: isHorizontal ? Qt.Horizontal : Qt.Vertical
-            layoutDirection: Qt.RightToLeft
-            interactive: false
-            model: SystemTrayModel { id: trayModel }
-            spacing: root.smallSpacing / 2
-            clip: true
-
-            onCountChanged: delayCalcIconSize()
-
-            delegate: StandardItem {
-                height: trayView.itemHeight
-                width: trayView.itemWidth
-
-                property bool darkMode: Meui.Theme.darkMode
-
-                onDarkModeChanged: updateTimer.restart()
-
-                Timer {
-                    id: updateTimer
-                    interval: 10
-                    onTriggered: iconItem.updateIcon()
-                }
-
-                IconItem {
-                    id: iconItem
-                    anchors.centerIn: parent
-                    width: root.trayItemSize
-                    height: root.trayItemSize
-                    source: model.icon ? model.icon : model.iconName
-                }
-
-                onClicked: trayModel.leftButtonClick(id)
-                onRightClicked: trayModel.rightButtonClick(id)
-                popupText: toolTip ? toolTip : title
-            }
-        }
-
-        Item {
-            width: root.smallSpacing
-        }
-
-        ControlCenterItem {
-            onWidthChanged: delayCalcIconSize()
-            onHeightChanged: delayCalcIconSize()
-        }
-    }
-
-    ControlDialog {
-        id: controlCenter
-    }
-
-    Volume {
-        id: volume
-    }
-
-    Battery {
-        id: battery
-    }
-
-    NM.ConnectionIcon {
-        id: connectionIconProvider
-    }
-
-    NM.Network {
-        id: network
     }
 
     Connections {
@@ -250,22 +125,6 @@ Item {
 
         function onDirectionChanged() {
             popupTips.hide()
-        }
-    }
-
-    Connections {
-        target: mainWindow
-
-        function onResizingFished() {
-            root.calcIconSize()
-        }
-
-        function onIconSizeChanged() {
-            root.calcIconSize()
-        }
-
-        function onPositionChanged() {
-            root.delayCalcIconSize()
         }
     }
 }

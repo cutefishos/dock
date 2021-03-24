@@ -26,12 +26,6 @@
 #include "applicationmodel.h"
 #include "mainwindow.h"
 
-#include "volumemanager.h"
-#include "battery.h"
-#include "brightness.h"
-#include "controlcenterdialog.h"
-#include "systemtray/systemtraymodel.h"
-#include "appearance.h"
 #include "iconitem.h"
 #include "popupwindow.h"
 
@@ -41,12 +35,6 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     qmlRegisterType<DockSettings>("Cutefish.Dock", 1, 0, "DockSettings");
-    qmlRegisterType<VolumeManager>("Cutefish.Dock", 1, 0, "Volume");
-    qmlRegisterType<Battery>("Cutefish.Dock", 1, 0, "Battery");
-    qmlRegisterType<Brightness>("Cutefish.Dock", 1, 0, "Brightness");
-    qmlRegisterType<ControlCenterDialog>("Cutefish.Dock", 1, 0, "ControlCenterDialog");
-    qmlRegisterType<SystemTrayModel>("Cutefish.Dock", 1, 0, "SystemTrayModel");
-    qmlRegisterType<Appearance>("Cutefish.Dock", 1, 0, "Appearance");
     qmlRegisterType<IconItem>("Cutefish.Dock", 1, 0, "IconItem");
     qmlRegisterType<PopupWindow>("Cutefish.Dock", 1, 0, "PopupWindow");
 

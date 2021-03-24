@@ -47,7 +47,7 @@ public:
     QString requestWindowClass(quint64 wid);
     bool isAcceptableWindow(quint64 wid);
 
-    void setViewStruts(QWindow *view, DockSettings::Direction direction, const QRect &rect, bool isMax = false);
+    void setViewStruts(QWindow *view, DockSettings::Direction direction, const QRect &rect);
 
     void startInitWindows();
 
