@@ -10,7 +10,6 @@ Item {
     id: root
     visible: true
 
-    property color borderColor: Meui.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.1) : Qt.rgba(0, 0, 0, 0.05)
     property bool isHorizontal: Settings.direction === DockSettings.Bottom
     property real windowRadius: isHorizontal ? root.height * 0.24 : root.width * 0.24
 
@@ -19,11 +18,11 @@ Item {
         enabled: true
     }
 
-    Meui.WindowShadow {
-        view: mainWindow
-        geometry: Qt.rect(root.x, root.y, root.width, root.height)
-        radius: _background.radius
-    }
+//    Meui.WindowShadow {
+//        view: mainWindow
+//        geometry: Qt.rect(root.x, root.y, root.width, root.height)
+//        radius: _background.radius
+//    }
 
     Meui.WindowBlur {
         view: mainWindow
@@ -38,7 +37,7 @@ Item {
         anchors.fill: parent
         radius: windowRadius
         color: Meui.Theme.backgroundColor
-        opacity: Meui.Theme.darkMode ? 0.3 : 0.5
+        opacity: 0.4
 
         Behavior on opacity {
             NumberAnimation {
@@ -61,7 +60,7 @@ Item {
         radius: windowRadius
         visible: windowRadius
         border.width: 1
-        border.color: Qt.rgba(0, 0, 0, 0.5)
+        border.color: Qt.rgba(0, 0, 0, 0.2)
         antialiasing: true
         smooth: true
     }
@@ -73,7 +72,7 @@ Item {
         visible: windowRadius
         color: "transparent"
         border.width: 1
-        border.color: Qt.rgba(255, 255, 255, 0.3)
+        border.color: Qt.rgba(255, 255, 255, 0.2)
         antialiasing: true
         smooth: true
     }
