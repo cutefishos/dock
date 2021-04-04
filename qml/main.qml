@@ -11,7 +11,7 @@ Item {
     visible: true
 
     property bool isHorizontal: Settings.direction === DockSettings.Bottom
-    property real windowRadius: isHorizontal ? root.height * 0.24 : root.width * 0.24
+    property real windowRadius: isHorizontal ? root.height * 0.3 : root.width * 0.3
 
     DropArea {
         anchors.fill: parent
