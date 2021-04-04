@@ -129,7 +129,7 @@ Item {
                                                   control.mapToGlobal(0, 0).y + (control.height / 2 - popupTips.height / 2))
                 else
                     popupTips.position = Qt.point(control.mapToGlobal(0, 0).x + (control.width / 2 - popupTips.width / 2),
-                                                  control.mapToGlobal(0, 0).y - popupTips.height - Meui.Units.smallSpacing / 2)
+                                                  control.mapToGlobal(0, 0).y - popupTips.height - Meui.Units.smallSpacing)
 
                 popupTips.show()
             } else {

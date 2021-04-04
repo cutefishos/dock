@@ -12,7 +12,7 @@ Item {
 
     property color borderColor: Meui.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.1) : Qt.rgba(0, 0, 0, 0.05)
     property bool isHorizontal: Settings.direction === DockSettings.Bottom
-    property real windowRadius: isHorizontal ? root.height * 0.25 : root.width * 0.25
+    property real windowRadius: isHorizontal ? root.height * 0.24 : root.width * 0.24
 
     DropArea {
         anchors.fill: parent
