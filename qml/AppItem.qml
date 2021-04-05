@@ -37,7 +37,7 @@ DockItem {
         updateGeometry()
     }
 
-    Meui.TopLevelMenu {
+    Meui.DesktopMenu {
         id: contextMenu
 
         MenuItem {
