@@ -38,7 +38,7 @@ Item {
         anchors.fill: parent
         radius: windowRadius
         color: Meui.Theme.backgroundColor
-        opacity: 0.4
+        opacity: Meui.Theme.darkMode ? 0.3 : 0.4
 
         Behavior on opacity {
             NumberAnimation {
