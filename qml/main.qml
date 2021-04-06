@@ -18,11 +18,12 @@ Item {
         enabled: true
     }
 
-//    Meui.WindowShadow {
-//        view: mainWindow
-//        geometry: Qt.rect(root.x, root.y, root.width, root.height)
-//        radius: _background.radius
-//    }
+    Meui.WindowShadow {
+        view: mainWindow
+        geometry: Qt.rect(root.x, root.y, root.width, root.height)
+        strength: 0.5
+        radius: _background.radius
+    }
 
     Meui.WindowBlur {
         view: mainWindow
