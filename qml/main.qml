@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
 import Cutefish.Dock 1.0
-import MeuiKit 1.0 as Meui
+import FishUI 1.0 as FishUI
 
 Item {
     id: root
@@ -18,14 +18,14 @@ Item {
         enabled: true
     }
 
-    Meui.WindowShadow {
+    FishUI.WindowShadow {
         view: mainWindow
         geometry: Qt.rect(root.x, root.y, root.width, root.height)
         strength: 0.5
         radius: _background.radius
     }
 
-    Meui.WindowBlur {
+    FishUI.WindowBlur {
         view: mainWindow
         geometry: Qt.rect(root.x, root.y, root.width, root.height)
         windowRadius: _background.radius
@@ -37,8 +37,8 @@ Item {
         id: _background
         anchors.fill: parent
         radius: windowRadius
-        color: Meui.Theme.backgroundColor
-        opacity: Meui.Theme.darkMode ? 0.3 : 0.4
+        color: FishUI.Theme.backgroundColor
+        opacity: FishUI.Theme.darkMode ? 0.3 : 0.4
 
         Behavior on opacity {
             NumberAnimation {
@@ -78,10 +78,10 @@ Item {
         smooth: true
     }
 
-    Meui.PopupTips {
+    FishUI.PopupTips {
         id: popupTips
-        backgroundColor: Meui.Theme.backgroundColor
-        backgroundOpacity: Meui.Theme.darkMode ? 0.3 : 0.4
+        backgroundColor: FishUI.Theme.backgroundColor
+        backgroundOpacity: FishUI.Theme.darkMode ? 0.3 : 0.4
     }
 
     GridLayout {

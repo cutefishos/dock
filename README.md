@@ -8,7 +8,7 @@ CutefishOS application dock.
 sudo pacman -S gcc cmake qt5-base qt5-quickcontrols2 kwindowsystem
 ```
 
-You also need [`meuikit`](https://github.com/cyberos/meuikit) and [`libcyber-system`](https://github.com/cyberos/libcyber-system).
+You also need [`fishui`](https://github.com/cutefishos/fishui) and [`libcutefish`](https://github.com/cutefishos/libcutefish).
 
 ## Build and Install
 

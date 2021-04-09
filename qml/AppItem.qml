@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import Cutefish.Dock 1.0
-import MeuiKit 1.0 as Meui
+import FishUI 1.0 as FishUI
 
 DockItem {
     id: appItem
@@ -37,7 +37,7 @@ DockItem {
         updateGeometry()
     }
 
-    Meui.DesktopMenu {
+    FishUI.DesktopMenu {
         id: contextMenu
 
         MenuItem {

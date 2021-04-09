@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.0
 import Cutefish.Dock 1.0
-import MeuiKit 1.0 as Meui
+import FishUI 1.0 as FishUI
 
 Item {
     id: control
@@ -53,7 +53,7 @@ Item {
         dragStarted = false
     }
 
-    Meui.IconItem {
+    FishUI.IconItem {
         id: icon
         anchors.centerIn: parent
         width: control.iconSize
@@ -122,14 +122,14 @@ Item {
                 popupTips.popupText = control.popupText
 
                 if (Settings.direction === DockSettings.Left)
-                    popupTips.position = Qt.point(root.width + Meui.Units.largeSpacing,
+                    popupTips.position = Qt.point(root.width + FishUI.Units.largeSpacing,
                                                   control.mapToGlobal(0, 0).y + (control.height / 2 - popupTips.height / 2))
                 else if (Settings.direction === DockSettings.Right)
-                    popupTips.position = Qt.point(control.mapToGlobal(0, 0).x - popupTips.width - Meui.Units.smallSpacing / 2,
+                    popupTips.position = Qt.point(control.mapToGlobal(0, 0).x - popupTips.width - FishUI.Units.smallSpacing / 2,
                                                   control.mapToGlobal(0, 0).y + (control.height / 2 - popupTips.height / 2))
                 else
                     popupTips.position = Qt.point(control.mapToGlobal(0, 0).x + (control.width / 2 - popupTips.width / 2),
-                                                  control.mapToGlobal(0, 0).y - popupTips.height - Meui.Units.smallSpacing)
+                                                  control.mapToGlobal(0, 0).y - popupTips.height - FishUI.Units.smallSpacing)
 
                 popupTips.show()
             } else {
@@ -142,7 +142,7 @@ Item {
         id: activeLine
         width: !isBottom ? parent.width * 0.06 : (isActive ? parent.height * 0.4 : parent.height * 0.06)
         height: !isBottom ? (isActive ? parent.height * 0.4 : parent.height * 0.06) : parent.height * 0.06
-        color: Meui.Theme.textColor
+        color: FishUI.Theme.textColor
         radius: !isBottom ? width / 2 : height / 2
         visible: enableActivateDot && !dragStarted
         opacity: isActive ? 1 : 0.6
