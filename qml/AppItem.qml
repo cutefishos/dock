@@ -54,6 +54,7 @@ DockItem {
 
         MenuItem {
             text: model.isPinned ? qsTr("Unpin") : qsTr("Pin")
+            visible: model.desktopFile !== ""
             onTriggered: {
                 model.isPinned ? appModel.unPin(model.appId) : appModel.pin(model.appId)
             }
