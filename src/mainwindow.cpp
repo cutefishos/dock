@@ -91,7 +91,7 @@ QRect MainWindow::windowRect() const
                                  : availableGeometry.height() - m_settings->edgeMargins();;
 
     int appCount = m_appModel->rowCount();
-    int iconSize = m_settings->iconSize();
+    qreal iconSize = m_settings->iconSize() * qApp->devicePixelRatio();
     int length = appCount * iconSize;
 
     if (length > maxLength) {
