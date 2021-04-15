@@ -11,34 +11,18 @@ Item {
     visible: true
 
     property bool isHorizontal: Settings.direction === DockSettings.Bottom
-    property real windowRadius: isHorizontal ? root.height * 0.3 : root.width * 0.3
+    property real windowRadius: isHorizontal ? root.height * 0.35 : root.width * 0.35
 
     DropArea {
         anchors.fill: parent
         enabled: true
     }
 
-    FishUI.WindowShadow {
-        view: mainWindow
-        geometry: Qt.rect(root.x, root.y, root.width, root.height)
-        strength: 0.5
-        radius: _background.radius
-    }
-
-    FishUI.WindowBlur {
-        view: mainWindow
-        geometry: Qt.rect(root.x, root.y, root.width, root.height)
-        windowRadius: _background.radius
-        enabled: true
-    }
-
-    // Background
-    Rectangle {
-        id: _background
+    DockBackground {
         anchors.fill: parent
-        radius: windowRadius
-        color: FishUI.Theme.backgroundColor
+        radius: root.windowRadius
         opacity: FishUI.Theme.darkMode ? 0.3 : 0.4
+        color: FishUI.Theme.backgroundColor
 
         Behavior on opacity {
             NumberAnimation {
@@ -55,29 +39,18 @@ Item {
         }
     }
 
-    Rectangle {
-        anchors.fill: parent
-        color: "transparent"
-        radius: windowRadius
-        visible: windowRadius
-        border.width: 1
-        border.color: Qt.rgba(0, 0, 0, 1)
-        opacity: FishUI.Theme.darkMode ? 0.3 : 0.1
-        antialiasing: true
-        smooth: true
+    FishUI.WindowShadow {
+        view: mainWindow
+        geometry: Qt.rect(root.x, root.y, root.width, root.height)
+        strength: 1
+        radius: root.windowRadius
     }
 
-    Rectangle {
-        anchors.fill: parent
-        anchors.margins: 1
-        radius: windowRadius - 1
-        visible: windowRadius
-        color: "transparent"
-        border.width: 1
-        border.color: Qt.rgba(255, 255, 255, 1)
-        opacity: FishUI.Theme.darkMode ? 0.3 : 0.1
-        antialiasing: true
-        smooth: true
+    FishUI.WindowBlur {
+        view: mainWindow
+        geometry: Qt.rect(root.x, root.y, root.width, root.height)
+        windowRadius: root.windowRadius
+        enabled: true
     }
 
     FishUI.PopupTips {

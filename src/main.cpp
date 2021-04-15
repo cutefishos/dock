@@ -24,6 +24,7 @@
 #include <QLocale>
 
 #include "applicationmodel.h"
+#include "dockbackground.h"
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])
@@ -32,6 +33,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     qmlRegisterType<DockSettings>("Cutefish.Dock", 1, 0, "DockSettings");
+    qmlRegisterType<DockBackground>("Cutefish.Dock", 1, 0, "DockBackground");
 
     QString qmFilePath = QString("%1/%2.qm").arg("/usr/share/cutefish-dock/translations/").arg(QLocale::system().name());
     if (QFile::exists(qmFilePath)) {
