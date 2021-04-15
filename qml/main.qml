@@ -61,7 +61,8 @@ Item {
         radius: windowRadius
         visible: windowRadius
         border.width: 1
-        border.color: Qt.rgba(0, 0, 0, 0.2)
+        border.color: Qt.rgba(0, 0, 0, 1)
+        opacity: FishUI.Theme.darkMode ? 0.3 : 0.1
         antialiasing: true
         smooth: true
     }
@@ -73,7 +74,8 @@ Item {
         visible: windowRadius
         color: "transparent"
         border.width: 1
-        border.color: Qt.rgba(255, 255, 255, 0.2)
+        border.color: Qt.rgba(255, 255, 255, 1)
+        opacity: FishUI.Theme.darkMode ? 0.3 : 0.1
         antialiasing: true
         smooth: true
     }
