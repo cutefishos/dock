@@ -26,7 +26,8 @@
 DockBackground::DockBackground()
     : m_radius(0)
 {
-
+    setSmooth(true);
+    setAntialiasing(true);
 }
 
 QColor DockBackground::color() const
@@ -64,6 +65,7 @@ void DockBackground::paint(QPainter *painter)
 
     // Enable antialiasing.
     painter->setRenderHint(QPainter::Antialiasing);
+    painter->save();
 
     QRectF rect = boundingRect();
     QPainterPath path;
@@ -97,6 +99,7 @@ void DockBackground::paint(QPainter *painter)
     painter->setPen(pen);
     painter->setBrush(Qt::NoBrush);
     painter->drawPath(path);
+    painter->restore();
 }
 
 void DockBackground::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)

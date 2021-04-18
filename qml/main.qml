@@ -11,7 +11,7 @@ Item {
     visible: true
 
     property bool isHorizontal: Settings.direction === DockSettings.Bottom
-    property real windowRadius: isHorizontal ? root.height * 0.35 : root.width * 0.35
+    property real windowRadius: isHorizontal ? root.height * 0.3 : root.width * 0.3
 
     DropArea {
         anchors.fill: parent
@@ -39,12 +39,12 @@ Item {
         }
     }
 
-    FishUI.WindowShadow {
-        view: mainWindow
-        geometry: Qt.rect(root.x, root.y, root.width, root.height)
-        strength: 1
-        radius: root.windowRadius
-    }
+     FishUI.WindowShadow {
+         view: mainWindow
+         geometry: Qt.rect(root.x, root.y, root.width, root.height)
+         strength: 1
+         radius: root.windowRadius
+     }
 
     FishUI.WindowBlur {
         view: mainWindow
