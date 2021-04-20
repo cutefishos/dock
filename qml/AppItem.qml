@@ -15,6 +15,16 @@ DockItem {
     draggable: model.appId === "cutefish-launcher" ? false : true
     dragItemIndex: index
 
+    onXChanged: {
+        if (windowCount > 0)
+            updateGeometry()
+    }
+
+    onYChanged: {
+        if (windowCount > 0)
+            updateGeometry()
+    }
+
     onWindowCountChanged: {
         if (windowCount > 0)
             updateGeometry()
