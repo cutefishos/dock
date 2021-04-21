@@ -71,8 +71,9 @@ DockItem {
         }
 
         MenuItem {
-            text: qsTr("Close All")
             visible: windowCount !== 0
+            text: windowCount === 1 ? qsTr("Close window")
+                                    : qsTr("Close %1 windows").arg(windowCount)
             onTriggered: appModel.closeAllByAppId(model.appId)
         }
     }

@@ -4,24 +4,29 @@
 <context>
     <name>AppItem</name>
     <message>
-        <location filename="../qml/AppItem.qml" line="44"/>
+        <location filename="../qml/AppItem.qml" line="54"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../qml/AppItem.qml" line="56"/>
+        <location filename="../qml/AppItem.qml" line="66"/>
         <source>Unpin</source>
         <translation>取消固定</translation>
     </message>
     <message>
-        <location filename="../qml/AppItem.qml" line="56"/>
+        <location filename="../qml/AppItem.qml" line="66"/>
         <source>Pin</source>
         <translation>固定</translation>
     </message>
     <message>
-        <location filename="../qml/AppItem.qml" line="63"/>
-        <source>Close All</source>
-        <translation>关闭所有</translation>
+        <location filename="../qml/AppItem.qml" line="75"/>
+        <source>Close window</source>
+        <translation>关闭窗口</translation>
+    </message>
+    <message>
+        <location filename="../qml/AppItem.qml" line="76"/>
+        <source>Close %1 windows</source>
+        <translation>关闭%1个窗口</translation>
     </message>
 </context>
 <context>
