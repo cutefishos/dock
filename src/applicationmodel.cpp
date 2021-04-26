@@ -369,6 +369,10 @@ void ApplicationModel::onWindowAdded(quint64 wid)
     QMap<QString, QVariant> info = m_iface->requestInfo(wid);
     const QString id = info.value("id").toString();
 
+    // Skip...
+    if (id == "cutefish-launcher")
+        return;
+
     if (contains(id)) {
         for (ApplicationItem *item : m_appItems) {
             if (item->id == id) {
