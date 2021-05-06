@@ -20,6 +20,7 @@ public:
     int currentActive = 0;
     bool isActive = false;
     bool isPinned = false;
+    bool fixed = false;
 
     bool operator==(ApplicationItem item) {
         return item.id == this->id;

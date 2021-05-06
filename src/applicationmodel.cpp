@@ -53,6 +53,7 @@ QHash<int, QByteArray> ApplicationModel::roleNames() const
     roles[WindowCountRole] = "windowCount";
     roles[IsPinnedRole] = "isPinned";
     roles[DesktopFileRole] = "desktopFile";
+    roles[FixedItemRole] = "fixed";
     return roles;
 }
 
@@ -78,6 +79,8 @@ QVariant ApplicationModel::data(const QModelIndex &index, int role) const
         return item->isPinned;
     case DesktopFileRole:
         return item->desktopPath;
+    case FixedItemRole:
+        return item->fixed;
     default:
         return QVariant();
     }
@@ -280,6 +283,7 @@ void ApplicationModel::initPinnedApplications()
     item->exec = "cutefish-launcher";
     item->iconName = "qrc:/svg/launcher.svg";
     item->visibleName = tr("Launcher");
+    item->fixed = true;
     m_appItems.append(item);
 
     // Pinned Apps

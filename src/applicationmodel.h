@@ -37,7 +37,8 @@ public:
         ActiveRole,
         WindowCountRole,
         IsPinnedRole,
-        DesktopFileRole
+        DesktopFileRole,
+        FixedItemRole
     };
 
     explicit ApplicationModel(QObject *parent = nullptr);

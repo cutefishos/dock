@@ -12,7 +12,7 @@ DockItem {
     isActive: model.isActive
     popupText: model.visibleName
     enableActivateDot: windowCount !== 0
-    draggable: model.appId === "cutefish-launcher" ? false : true
+    draggable: !model.fixed
     dragItemIndex: index
 
     onXChanged: {
@@ -80,6 +80,9 @@ DockItem {
 
 
     function updateGeometry() {
+        if (model.fixed)
+            return
+
         appModel.updateGeometries(model.appId, Qt.rect(appItem.mapToGlobal(0, 0).x,
                                                        appItem.mapToGlobal(0, 0).y,
                                                        appItem.width, appItem.height))
