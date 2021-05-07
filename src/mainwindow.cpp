@@ -38,6 +38,7 @@ MainWindow::MainWindow(QQuickView *parent)
     , m_settings(DockSettings::self())
     , m_appModel(new ApplicationModel)
     , m_fakeWindow(nullptr)
+    , m_trashManager(new TrashManager)
 {
     setDefaultAlphaBuffer(false);
     setColor(Qt::transparent);
@@ -50,6 +51,7 @@ MainWindow::MainWindow(QQuickView *parent)
     engine()->rootContext()->setContextProperty("process", new ProcessProvider);
     engine()->rootContext()->setContextProperty("Settings", m_settings);
     engine()->rootContext()->setContextProperty("mainWindow", this);
+    engine()->rootContext()->setContextProperty("trash", m_trashManager);
 
     setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     setResizeMode(QQuickView::SizeRootObjectToView);
@@ -90,7 +92,8 @@ QRect MainWindow::windowRect() const
     int maxLength = isHorizontal ? screenGeometry.width() - m_settings->edgeMargins()
                                  : availableGeometry.height() - m_settings->edgeMargins();;
 
-    int appCount = m_appModel->rowCount();
+    // Add trash item.
+    int appCount = m_appModel->rowCount() + 1;
     int iconSize = m_settings->iconSize();
     iconSize += iconSize * 0.1;
     int length = appCount * iconSize;

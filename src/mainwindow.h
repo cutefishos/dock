@@ -26,6 +26,7 @@
 #include "docksettings.h"
 #include "applicationmodel.h"
 #include "fakewindow.h"
+#include "trashmanager.h"
 
 class MainWindow : public QQuickView
 {
@@ -58,6 +59,7 @@ private:
     DockSettings *m_settings;
     ApplicationModel *m_appModel;
     FakeWindow *m_fakeWindow;
+    TrashManager *m_trashManager;
 };
 
 #endif // MAINWINDOW_H

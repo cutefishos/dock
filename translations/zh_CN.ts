@@ -32,9 +32,27 @@
 <context>
     <name>ApplicationModel</name>
     <message>
-        <location filename="../src/applicationmodel.cpp" line="282"/>
+        <location filename="../src/applicationmodel.cpp" line="285"/>
         <source>Launcher</source>
         <translation>应用启动器</translation>
+    </message>
+</context>
+<context>
+    <name>main</name>
+    <message>
+        <location filename="../qml/main.qml" line="136"/>
+        <source>Trash</source>
+        <translation>回收站</translation>
+    </message>
+    <message>
+        <location filename="../qml/main.qml" line="146"/>
+        <source>Open</source>
+        <translation>打开</translation>
+    </message>
+    <message>
+        <location filename="../qml/main.qml" line="151"/>
+        <source>Empty Trash</source>
+        <translation>清空回收站</translation>
     </message>
 </context>
 </TS>

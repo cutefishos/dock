@@ -128,6 +128,31 @@ Item {
                 }
             }
         }
+
+        DockItem {
+            id: trashItem
+            implicitWidth: isHorizontal ? root.height : root.width
+            implicitHeight: isHorizontal ? root.height : root.width
+            popupText: qsTr("Trash")
+            enableActivateDot: false
+            iconName: trash.count === 0 ? "user-trash-empty" : "user-trash-full"
+            onClicked: trash.openTrash()
+            onRightClicked: trashMenu.popup()
+
+            FishUI.DesktopMenu {
+                id: trashMenu
+
+                MenuItem {
+                    text: qsTr("Open")
+                    onTriggered: trash.openTrash()
+                }
+
+                MenuItem {
+                    text: qsTr("Empty Trash")
+                    onTriggered: trash.emptyTrash()
+                }
+            }
+        }
     }
 
     Connections {
