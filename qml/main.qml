@@ -18,18 +18,13 @@ Item {
         enabled: true
     }
 
-    DockBackground {
+    // Background
+    Rectangle {
+        id: _background
         anchors.fill: parent
-        radius: root.windowRadius
-        opacity: FishUI.Theme.darkMode ? 0.3 : 0.4
+        radius: windowRadius
         color: FishUI.Theme.backgroundColor
-
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 200
-                easing.type: Easing.Linear
-            }
-        }
+        opacity: FishUI.Theme.darkMode ? 0.3 : 0.4
 
         Behavior on color {
             ColorAnimation {
@@ -38,6 +33,48 @@ Item {
             }
         }
     }
+
+    Rectangle {
+        anchors.fill: parent
+        color: "transparent"
+        radius: windowRadius
+        border.width: 1
+        border.color: Qt.rgba(0, 0, 0, 0.3)
+        antialiasing: true
+        smooth: true
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        anchors.margins: 1
+        radius: windowRadius - 1
+        color: "transparent"
+        border.width: 1
+        border.color: Qt.rgba(255, 255, 255, 0.1)
+        antialiasing: true
+        smooth: true
+    }
+
+//    DockBackground {
+//        anchors.fill: parent
+//        radius: root.windowRadius
+//        opacity: FishUI.Theme.darkMode ? 0.3 : 0.4
+//        color: FishUI.Theme.backgroundColor
+
+//        Behavior on opacity {
+//            NumberAnimation {
+//                duration: 200
+//                easing.type: Easing.Linear
+//            }
+//        }
+
+//        Behavior on color {
+//            ColorAnimation {
+//                duration: 200
+//                easing.type: Easing.Linear
+//            }
+//        }
+//    }
 
      FishUI.WindowShadow {
          view: mainWindow
