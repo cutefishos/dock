@@ -50,7 +50,8 @@ Item {
         radius: windowRadius - 1
         color: "transparent"
         border.width: 1
-        border.color: Qt.rgba(255, 255, 255, 0.1)
+        border.color: FishUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.25)
+                                            : Qt.rgba(255, 255, 255, 0.1)
         antialiasing: true
         smooth: true
     }
