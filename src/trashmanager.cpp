@@ -34,7 +34,7 @@ TrashManager::TrashManager(QObject *parent)
 
 void TrashManager::emptyTrash()
 {
-
+    QProcess::startDetached("cutefish-filemanager", QStringList() << "-e");
 }
 
 void TrashManager::openTrash()
