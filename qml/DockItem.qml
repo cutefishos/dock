@@ -1,3 +1,22 @@
+/*
+ * Copyright (C) 2021 CutefishOS Team.
+ *
+ * Author:     rekols <revenmartin@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.0
@@ -139,44 +158,48 @@ Item {
     }
 
     Rectangle {
-        id: activeLine
-        width: !isBottom ? parent.width * 0.06 : (isActive ? parent.height * 0.4 : parent.height * 0.06)
-        height: !isBottom ? (isActive ? parent.height * 0.4 : parent.height * 0.06) : parent.height * 0.06
-        color: FishUI.Theme.textColor
-        radius: !isBottom ? width / 2 : height / 2
-        visible: enableActivateDot && !dragStarted
-        opacity: isActive ? 1 : 0.6
+        id: activeRect
 
         property var leftX: 3
         property var leftY: (parent.height - height) / 2
 
         property var bottomX: (parent.width - width) / 2
-        property var bottomY: icon.y + icon.height + activeLine.height / 2 - 2
+        property var bottomY: icon.y + icon.height + activeRect.height / 2 - 2
 
-        property var rightX: icon.x + icon.width + activeLine.width / 2 - 2
+        property var rightX: icon.x + icon.width + activeRect.width / 2 - 2
         property var rightY: (parent.height - height) / 2
+
+        property var circleSize: isBottom ? control.height * 0.06 : control.width * 0.06
+        property var activeLength: isBottom ? control.height * 0.5 : control.height * 0.5
+
+        width: !isBottom ? circleSize : (isActive ? activeLength : circleSize)
+        height: !isBottom ? (isActive ? activeLength : circleSize) : circleSize
+        radius: !isBottom ? width / 2 : height / 2
+        visible: enableActivateDot && !dragStarted
+        color: FishUI.Theme.textColor
+        opacity: 1.0
 
         x: isLeft ? leftX : isBottom ? bottomX : rightX
         y: isLeft ? leftY : isBottom ? bottomY : rightY
 
         Behavior on opacity {
             NumberAnimation {
-                duration: 125
-                easing.type: Easing.InOutCubic
+                duration: 200
+                easing.type: Easing.InOutSine
             }
         }
 
         Behavior on width {
             NumberAnimation {
-                duration: isBottom ? 125 : 0
-                easing.type: Easing.InOutCubic
+                duration: isBottom ? 200 : 0
+                easing.type: Easing.InOutSine
             }
         }
 
         Behavior on height {
             NumberAnimation {
-                duration: !isBottom ? 125 : 0
-                easing.type: Easing.InOutCubic
+                duration: !isBottom ? 200 : 0
+                easing.type: Easing.InOutSine
             }
         }
     }
