@@ -41,6 +41,7 @@ Item {
     Rectangle {
         id: _background
         anchors.fill: parent
+        border.width: 0
         radius: windowRadius
         color: FishUI.Theme.backgroundColor
         opacity: FishUI.Theme.darkMode ? 0.3 : 0.4
@@ -53,55 +54,22 @@ Item {
         }
     }
 
-    Rectangle {
-        anchors.fill: parent
-        color: "transparent"
-        radius: windowRadius
-        border.width: 1
-        border.color: Qt.rgba(0, 0, 0, 0.3)
-        antialiasing: true
-        smooth: true
+   Rectangle {
+       anchors.fill: parent
+       color: "transparent"
+       radius: windowRadius
+       border.width: 1
+       border.color: FishUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.3) : Qt.rgba(0, 0, 0, 0.1)
+       antialiasing: true
+       smooth: true
+   }
+
+    FishUI.WindowShadow {
+        view: mainWindow
+        geometry: Qt.rect(root.x, root.y, root.width, root.height)
+        strength: 1
+        radius: root.windowRadius
     }
-
-    Rectangle {
-        anchors.fill: parent
-        anchors.margins: 1
-        radius: windowRadius - 1
-        color: "transparent"
-        border.width: 1
-        border.color: FishUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.25)
-                                            : Qt.rgba(255, 255, 255, 0.1)
-        antialiasing: true
-        smooth: true
-    }
-
-//    DockBackground {
-//        anchors.fill: parent
-//        radius: root.windowRadius
-//        opacity: FishUI.Theme.darkMode ? 0.3 : 0.4
-//        color: FishUI.Theme.backgroundColor
-
-//        Behavior on opacity {
-//            NumberAnimation {
-//                duration: 200
-//                easing.type: Easing.Linear
-//            }
-//        }
-
-//        Behavior on color {
-//            ColorAnimation {
-//                duration: 200
-//                easing.type: Easing.Linear
-//            }
-//        }
-//    }
-
-     FishUI.WindowShadow {
-         view: mainWindow
-         geometry: Qt.rect(root.x, root.y, root.width, root.height)
-         strength: 1
-         radius: root.windowRadius
-     }
 
     FishUI.WindowBlur {
         view: mainWindow
