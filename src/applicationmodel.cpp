@@ -281,7 +281,7 @@ void ApplicationModel::initPinnedApplications()
     ApplicationItem *item = new ApplicationItem;
     item->id = "cutefish-launcher";
     item->exec = "cutefish-launcher";
-    item->iconName = "qrc:/images/launcher.svg";
+    item->iconName = "qrc:/images/rocket.svg";
     item->visibleName = tr("Launcher");
     item->fixed = true;
     m_appItems.append(item);
