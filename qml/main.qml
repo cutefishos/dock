@@ -43,8 +43,8 @@ Item {
         anchors.fill: parent
         border.width: 0
         radius: windowRadius
-        color: FishUI.Theme.backgroundColor
-        opacity: FishUI.Theme.darkMode ? 0.3 : 0.4
+        color: FishUI.Theme.darkMode ? "#5E5E5E" : "#FFFFFF"
+        opacity: FishUI.Theme.darkMode ? 0.5 : 0.4
 
         Behavior on color {
             ColorAnimation {
@@ -53,16 +53,6 @@ Item {
             }
         }
     }
-
-   Rectangle {
-       anchors.fill: parent
-       color: "transparent"
-       radius: windowRadius
-       border.width: 1
-       border.color: FishUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.3) : Qt.rgba(0, 0, 0, 0.1)
-       antialiasing: true
-       smooth: true
-   }
 
     FishUI.WindowShadow {
         view: mainWindow
