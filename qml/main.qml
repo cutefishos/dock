@@ -41,10 +41,10 @@ Item {
     Rectangle {
         id: _background
         anchors.fill: parent
-        border.width: 0
         radius: windowRadius
-        color: FishUI.Theme.darkMode ? "#5E5E5E" : "#FFFFFF"
-        opacity: FishUI.Theme.darkMode ? 0.5 : 0.4
+        color: FishUI.Theme.darkMode ? "#828286" : "#F2F2F2"
+        opacity: FishUI.Theme.darkMode ? 0.3 : 0.4
+        border.width: 0
 
         Behavior on color {
             ColorAnimation {
