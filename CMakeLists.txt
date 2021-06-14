@@ -10,7 +10,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 CONFIG REQUIRED Widgets DBus X11Extras Concurrent Svg LinguistTools QuickControls2)
+find_package(Qt5 CONFIG REQUIRED Widgets DBus X11Extras Concurrent LinguistTools QuickControls2)
 
 find_package(KF5WindowSystem REQUIRED)
 find_package(FishUI REQUIRED)
@@ -46,7 +46,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt5::X11Extras
         Qt5::Concurrent
         Qt5::DBus
-        Qt5::Svg
 
         FishUI
 
