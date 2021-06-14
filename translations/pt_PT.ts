@@ -6,12 +6,12 @@
     <message>
         <location filename="../qml/AppItem.qml" line="73"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="85"/>
         <source>Unpin</source>
-        <translation type="unfinished"></translation>
+        <translation>Liberar</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="85"/>
