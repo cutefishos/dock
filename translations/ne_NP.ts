@@ -21,7 +21,7 @@
     <message>
         <location filename="../qml/AppItem.qml" line="94"/>
         <source>Close window</source>
-        <translation>दृश्य  बन्द गर्ने</translation>
+        <translation>दृश्य बन्द गर्ने</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="95"/>
