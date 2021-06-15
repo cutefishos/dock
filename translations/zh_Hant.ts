@@ -6,27 +6,27 @@
     <message>
         <location filename="../qml/AppItem.qml" line="73"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>開啓</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="85"/>
         <source>Unpin</source>
-        <translation type="unfinished"></translation>
+        <translation>取消固定</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="85"/>
         <source>Pin</source>
-        <translation type="unfinished"></translation>
+        <translation>固定</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="94"/>
         <source>Close window</source>
-        <translation type="unfinished"></translation>
+        <translation>關閉窗口</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="95"/>
         <source>Close %1 windows</source>
-        <translation type="unfinished"></translation>
+        <translation>關閉 %1 窗口</translation>
     </message>
 </context>
 <context>
@@ -34,7 +34,7 @@
     <message>
         <location filename="../src/applicationmodel.cpp" line="285"/>
         <source>Launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>啓動器</translation>
     </message>
 </context>
 <context>
@@ -42,17 +42,17 @@
     <message>
         <location filename="../qml/main.qml" line="114"/>
         <source>Trash</source>
-        <translation type="unfinished"></translation>
+        <translation>回收筒</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="124"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>開啓</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="129"/>
         <source>Empty Trash</source>
-        <translation type="unfinished"></translation>
+        <translation>清空回收筒</translation>
     </message>
 </context>
 </TS>
