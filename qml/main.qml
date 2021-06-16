@@ -41,9 +41,9 @@ Item {
     Rectangle {
         id: _background
         anchors.fill: parent
-        radius: windowRadius
+        radius: windowHelper.compositing ? windowRadius : 0
         color: FishUI.Theme.darkMode ? "#333333" : "#F2F2F2"
-        opacity: FishUI.Theme.darkMode ? 0.5 : 0.4
+        opacity: windowHelper.compositing ? FishUI.Theme.darkMode ? 0.5 : 0.4 : 1
         border.width: 0
 
         Behavior on color {
@@ -52,6 +52,10 @@ Item {
                 easing.type: Easing.Linear
             }
         }
+    }
+
+    FishUI.WindowHelper {
+        id: windowHelper
     }
 
     FishUI.WindowShadow {
