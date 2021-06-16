@@ -75,7 +75,7 @@ Item {
     FishUI.PopupTips {
         id: popupTips
         backgroundColor: FishUI.Theme.backgroundColor
-        backgroundOpacity: FishUI.Theme.darkMode ? 0.3 : 0.4
+        backgroundOpacity: windowHelper.compositing ? FishUI.Theme.darkMode ? 0.3 : 0.4 : 1
     }
 
     GridLayout {
