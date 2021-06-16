@@ -100,7 +100,7 @@ Item {
         id: iconArea
         anchors.fill: icon
         hoverEnabled: true
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
         drag.axis: Drag.XAndYAxis
 
         onClicked: {
@@ -177,28 +177,20 @@ Item {
         radius: !isBottom ? width / 2 : height / 2
         visible: enableActivateDot && !dragStarted
         color: FishUI.Theme.textColor
-        opacity: 1.0
 
         x: isLeft ? leftX : isBottom ? bottomX : rightX
         y: isLeft ? leftY : isBottom ? bottomY : rightY
 
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 200
-                easing.type: Easing.InOutSine
-            }
-        }
-
         Behavior on width {
             NumberAnimation {
-                duration: isBottom ? 200 : 0
+                duration: isBottom ? 250 : 0
                 easing.type: Easing.InOutSine
             }
         }
 
         Behavior on height {
             NumberAnimation {
-                duration: !isBottom ? 200 : 0
+                duration: !isBottom ? 250 : 0
                 easing.type: Easing.InOutSine
             }
         }

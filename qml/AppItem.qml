@@ -51,8 +51,14 @@ DockItem {
 
     onPositionChanged: updateGeometry()
     onPressed: updateGeometry()
-    onClicked: appModel.clicked(model.appId)
     onRightClicked: if (model.appId !== "cutefish-launcher") contextMenu.show()
+
+    onClicked: {
+        if (mouse.button === Qt.LeftButton)
+            appModel.clicked(model.appId)
+        else if (mouse.button === Qt.MiddleButton)
+            appModel.openNewInstance(model.appId)
+    }
 
     dropArea.onEntered: {
         if (drag.source)
