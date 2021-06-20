@@ -186,6 +186,11 @@ void XWindowInterface::setViewStruts(QWindow *view, DockSettings::Direction dire
                                     );
 }
 
+void XWindowInterface::clearViewStruts(QWindow *view)
+{
+    KWindowSystem::setExtendedStrut(view->winId(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+}
+
 void XWindowInterface::startInitWindows()
 {
     for (auto wid : KWindowSystem::self()->windows()) {

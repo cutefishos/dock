@@ -48,6 +48,7 @@ public:
     bool isAcceptableWindow(quint64 wid);
 
     void setViewStruts(QWindow *view, DockSettings::Direction direction, const QRect &rect);
+    void clearViewStruts(QWindow *view);
 
     void startInitWindows();
 

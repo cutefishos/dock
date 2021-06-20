@@ -41,7 +41,7 @@ public:
     Q_ENUMS(Direction)
 
     enum Visibility {
-        AlwaysVisible = 0,
+        AlwaysShow = 0,
         AutoHide,
         AlwaysHide
     };

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2021 CutefishOS Team.
  *
- * Author:     rekols <revenmartin@gmail.com>
+ * Author:     Reion Wong <reionwong@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,6 +46,7 @@ private:
     void resizeWindow();
     void initSlideWindow();
     void updateViewStruts();
+    void clearViewStruts();
 
     void createFakeWindow();
     void deleteFakeWindow();
@@ -55,11 +56,17 @@ private slots:
     void onIconSizeChanged();
     void onVisibilityChanged();
 
+protected:
+    bool eventFilter(QObject *obj, QEvent *e) override;
+
 private:
     DockSettings *m_settings;
     ApplicationModel *m_appModel;
     FakeWindow *m_fakeWindow;
     TrashManager *m_trashManager;
+
+    QTimer *m_showTimer;
+    QTimer *m_hideTimer;
 };
 
 #endif // MAINWINDOW_H

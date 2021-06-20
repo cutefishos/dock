@@ -38,7 +38,7 @@ FakeWindow::FakeWindow(QQuickView *parent)
     , m_delayedContainsMouse(false)
     , m_containsMouse(false)
 {
-    setColor(Qt::red);
+    setColor(Qt::transparent);
     setDefaultAlphaBuffer(true);
     setFlags(Qt::FramelessWindowHint |
              Qt::WindowStaysOnTopHint |
@@ -100,7 +100,7 @@ void FakeWindow::setContainsMouse(bool contains)
 
 void FakeWindow::updateGeometry()
 {
-    int length = 10;
+    int length = 5;
     const QRect screenRect = qApp->primaryScreen()->geometry();
     QRect newRect;
 
