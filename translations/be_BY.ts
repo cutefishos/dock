@@ -52,7 +52,7 @@
     <message>
         <location filename="../qml/main.qml" line="129"/>
         <source>Empty Trash</source>
-        <translation type="unfinished">Ачысціць сметніцу</translation>
+        <translation>Ачысціць сметніцу</translation>
     </message>
 </context>
 </TS>
