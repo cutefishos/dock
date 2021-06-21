@@ -111,6 +111,10 @@ void FakeWindow::updateGeometry()
         newRect = QRect(screenRect.x(),
                          screenRect.y() + screenRect.height() - length,
                          screenRect.width(), length);
+    } else if (DockSettings::self()->direction() == DockSettings::Right) {
+        newRect = QRect(screenRect.x() + screenRect.width() - length,
+                        screenRect.y(),
+                        length, screenRect.height());
     }
 
     setGeometry(newRect);
