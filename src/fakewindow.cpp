@@ -85,6 +85,8 @@ bool FakeWindow::event(QEvent *e)
         if (!m_delayedMouseTimer.isActive()) {
             m_delayedMouseTimer.start();
         }
+    } else if (e->type() == QEvent::Show) {
+        KWindowSystem::setState(winId(), NET::SkipTaskbar | NET::SkipPager | NET::SkipSwitcher);
     }
 
     return QQuickView::event(e);

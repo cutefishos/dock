@@ -146,9 +146,7 @@ QRect MainWindow::windowRect() const
 void MainWindow::resizeWindow()
 {
     setGeometry(windowRect());
-
-    if (m_settings->visibility() == DockSettings::AlwaysShow)
-        updateViewStruts();
+    updateViewStruts();
 
     emit resizingFished();
 }
@@ -169,7 +167,11 @@ void MainWindow::initSlideWindow()
 
 void MainWindow::updateViewStruts()
 {
-    XWindowInterface::instance()->setViewStruts(this, m_settings->direction(), geometry());
+    if (m_settings->visibility() == DockSettings::AlwaysShow) {
+        XWindowInterface::instance()->setViewStruts(this, m_settings->direction(), geometry());
+    } else {
+        clearViewStruts();
+    }
 }
 
 void MainWindow::clearViewStruts()
@@ -246,11 +248,13 @@ void MainWindow::onIconSizeChanged()
 
 void MainWindow::onVisibilityChanged()
 {
+    updateViewStruts();
+
     // Always show
     if (m_settings->visibility() == DockSettings::AlwaysShow) {
         setGeometry(windowRect());
         setVisible(true);
-        updateViewStruts();
+        // updateViewStruts();
 
         // Delete fakewindow
         if (m_fakeWindow) {
@@ -260,7 +264,7 @@ void MainWindow::onVisibilityChanged()
 
     // Always hide
     if (m_settings->visibility() == DockSettings::AlwaysHide) {
-        clearViewStruts();
+        // clearViewStruts();
         setGeometry(windowRect());
         setVisible(false);
 
