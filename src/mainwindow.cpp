@@ -39,6 +39,7 @@ MainWindow::MainWindow(QQuickView *parent)
     , m_appModel(new ApplicationModel)
     , m_fakeWindow(nullptr)
     , m_trashManager(new TrashManager)
+    , m_hideBlocked(false)
     , m_showTimer(new QTimer(this))
     , m_hideTimer(new QTimer(this))
 {
@@ -63,28 +64,16 @@ MainWindow::MainWindow(QQuickView *parent)
     resizeWindow();
     onVisibilityChanged();
 
-    connect(qApp->primaryScreen(), &QScreen::virtualGeometryChanged, this, &MainWindow::resizeWindow);
-    connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, &MainWindow::resizeWindow);
-
     m_showTimer->setSingleShot(true);
     m_showTimer->setInterval(300);
-    connect(m_showTimer, &QTimer::timeout, this, [=] {
-        setVisible(true);
-
-        if (m_fakeWindow) {
-            m_fakeWindow->setVisible(false);
-        }
-    });
+    connect(m_showTimer, &QTimer::timeout, this, [=] { setVisible(true); });
 
     m_hideTimer->setSingleShot(true);
-    m_hideTimer->setInterval(1000);
-    connect(m_hideTimer, &QTimer::timeout, this, [=] {
-        setVisible(false);
+    m_hideTimer->setInterval(800);
+    connect(m_hideTimer, &QTimer::timeout, this, [=] { setVisible(false); });
 
-        if (m_fakeWindow) {
-            m_fakeWindow->setVisible(true);
-        }
-    });
+    connect(qApp->primaryScreen(), &QScreen::virtualGeometryChanged, this, &MainWindow::resizeWindow);
+    connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, &MainWindow::resizeWindow);
 
     connect(m_appModel, &ApplicationModel::countChanged, this, &MainWindow::resizeWindow);
     connect(m_settings, &DockSettings::directionChanged, this, &MainWindow::onPositionChanged);
@@ -189,12 +178,19 @@ void MainWindow::createFakeWindow()
         connect(m_fakeWindow, &FakeWindow::containsMouseChanged, this, [=](bool contains) {
             switch (m_settings->visibility()) {
             case DockSettings::AlwaysHide: {
-                m_showTimer->stop();
 
                 if (contains) {
-                    m_showTimer->start();
+                    m_hideTimer->stop();
+
+                    // reionwong: The mouse is moved to fakewindow,
+                    // if the dock is not displayed,
+                    // it will start to display.
+                    if (!isVisible() && !m_showTimer->isActive()) {
+                        m_showTimer->start();
+                    }
                 } else {
-                    m_hideTimer->start();
+                    if (!m_hideBlocked)
+                        m_hideTimer->start();
                 }
 
                 break;
@@ -223,8 +219,12 @@ void MainWindow::onPositionChanged()
     if (m_settings->visibility() == DockSettings::AlwaysHide) {
         setVisible(false);
         initSlideWindow();
+        // Setting geometry needs to be displayed, otherwise it will be invalid.
+        setVisible(true);
         setGeometry(windowRect());
-        clearViewStruts();
+        updateViewStruts();
+
+        m_hideTimer->start();
     }
 
     if (m_settings->visibility() == DockSettings::AlwaysShow) {
@@ -248,13 +248,11 @@ void MainWindow::onIconSizeChanged()
 
 void MainWindow::onVisibilityChanged()
 {
-    updateViewStruts();
-
     // Always show
     if (m_settings->visibility() == DockSettings::AlwaysShow) {
         setGeometry(windowRect());
         setVisible(true);
-        // updateViewStruts();
+        updateViewStruts();
 
         // Delete fakewindow
         if (m_fakeWindow) {
@@ -264,7 +262,7 @@ void MainWindow::onVisibilityChanged()
 
     // Always hide
     if (m_settings->visibility() == DockSettings::AlwaysHide) {
-        // clearViewStruts();
+        clearViewStruts();
         setGeometry(windowRect());
         setVisible(false);
 
@@ -279,9 +277,11 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *e)
     switch (e->type()) {
     case QEvent::Enter:
         m_hideTimer->stop();
+        m_hideBlocked = true;
         break;
     case QEvent::Leave:
         m_hideTimer->start();
+        m_hideBlocked = false;
         break;
     case QEvent::DragEnter:
     case QEvent::DragMove:

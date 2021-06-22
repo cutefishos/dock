@@ -65,6 +65,8 @@ private:
     FakeWindow *m_fakeWindow;
     TrashManager *m_trashManager;
 
+    bool m_hideBlocked;
+
     QTimer *m_showTimer;
     QTimer *m_hideTimer;
 };

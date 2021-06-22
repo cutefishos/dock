@@ -144,4 +144,12 @@ Item {
             popupTips.hide()
         }
     }
+
+    Connections {
+        target: mainWindow
+
+        function onVisibleChanged() {
+            popupTips.hide()
+        }
+    }
 }
