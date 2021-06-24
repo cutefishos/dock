@@ -250,6 +250,8 @@ void MainWindow::onVisibilityChanged()
 {
     // Always show
     if (m_settings->visibility() == DockSettings::AlwaysShow) {
+        m_hideTimer->stop();
+
         setGeometry(windowRect());
         setVisible(true);
         updateViewStruts();
