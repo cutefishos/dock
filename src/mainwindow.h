@@ -23,6 +23,7 @@
 #include <QQuickView>
 #include <QTimer>
 
+#include "activity.h"
 #include "docksettings.h"
 #include "applicationmodel.h"
 #include "fakewindow.h"
@@ -60,6 +61,7 @@ protected:
     bool eventFilter(QObject *obj, QEvent *e) override;
 
 private:
+    Activity *m_activity;
     DockSettings *m_settings;
     ApplicationModel *m_appModel;
     FakeWindow *m_fakeWindow;

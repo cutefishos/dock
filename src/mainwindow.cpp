@@ -35,6 +35,7 @@
 
 MainWindow::MainWindow(QQuickView *parent)
     : QQuickView(parent)
+    , m_activity(Activity::self())
     , m_settings(DockSettings::self())
     , m_appModel(new ApplicationModel)
     , m_fakeWindow(nullptr)
@@ -65,13 +66,17 @@ MainWindow::MainWindow(QQuickView *parent)
     onVisibilityChanged();
 
     m_showTimer->setSingleShot(true);
-    m_showTimer->setInterval(300);
+    m_showTimer->setInterval(200);
     connect(m_showTimer, &QTimer::timeout, this, [=] { setVisible(true); });
 
     m_hideTimer->setSingleShot(true);
-    m_hideTimer->setInterval(800);
+    m_hideTimer->setInterval(500);
     connect(m_hideTimer, &QTimer::timeout, this, [=] { setVisible(false); });
 
+    // When the current window changes.
+    connect(m_activity, &Activity::launchPadChanged, this, &MainWindow::onVisibilityChanged);
+
+    // Screen change.
     connect(qApp->primaryScreen(), &QScreen::virtualGeometryChanged, this, &MainWindow::resizeWindow);
     connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, &MainWindow::resizeWindow);
 
@@ -156,7 +161,7 @@ void MainWindow::initSlideWindow()
 
 void MainWindow::updateViewStruts()
 {
-    if (m_settings->visibility() == DockSettings::AlwaysShow) {
+    if (m_settings->visibility() == DockSettings::AlwaysShow || m_activity->launchPad()) {
         XWindowInterface::instance()->setViewStruts(this, m_settings->direction(), geometry());
     } else {
         clearViewStruts();
@@ -249,7 +254,8 @@ void MainWindow::onIconSizeChanged()
 void MainWindow::onVisibilityChanged()
 {
     // Always show
-    if (m_settings->visibility() == DockSettings::AlwaysShow) {
+    // Must remain displayed when launchpad is opened.
+    if (m_settings->visibility() == DockSettings::AlwaysShow || m_activity->launchPad()) {
         m_hideTimer->stop();
 
         setGeometry(windowRect());
@@ -261,6 +267,9 @@ void MainWindow::onVisibilityChanged()
             deleteFakeWindow();
         }
     }
+
+    if (m_activity->launchPad())
+        return;
 
     // Always hide
     if (m_settings->visibility() == DockSettings::AlwaysHide) {

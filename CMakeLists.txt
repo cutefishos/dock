@@ -29,6 +29,7 @@ set(SRCS
     src/utils.cpp
     src/xwindowinterface.cpp
     src/dockbackground.cpp
+    src/activity.cpp
 
     src/fakewindow.cpp
 )
