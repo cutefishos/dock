@@ -47,7 +47,7 @@ DockSettings::DockSettings(QObject *parent)
     , m_fileWatcher(new QFileSystemWatcher(this))
 {
     if (!m_settings->contains("IconSize"))
-        m_settings->setValue("IconSize", 64);
+        m_settings->setValue("IconSize", 54);
     if (!m_settings->contains("Direction"))
         m_settings->setValue("Direction", Bottom);
     if (!m_settings->contains("Visibility"))
