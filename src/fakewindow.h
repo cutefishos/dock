@@ -31,6 +31,7 @@ public:
     explicit FakeWindow(QQuickView *parent = nullptr);
 
     bool containsMouse() const;
+    void updateGeometry();
 
 signals:
     void containsMouseChanged(bool contains);
@@ -41,7 +42,6 @@ protected:
 
 private:
     void setContainsMouse(bool contains);
-    void updateGeometry();
 
 private:
     QTimer m_delayedMouseTimer;

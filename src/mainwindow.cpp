@@ -59,7 +59,7 @@ MainWindow::MainWindow(QQuickView *parent)
 
     setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     setResizeMode(QQuickView::SizeRootObjectToView);
-    setScreen(qApp->primaryScreen());
+    initScreens();
 
     initSlideWindow();
     resizeWindow();
@@ -77,8 +77,9 @@ MainWindow::MainWindow(QQuickView *parent)
     connect(m_activity, &Activity::launchPadChanged, this, &MainWindow::onVisibilityChanged);
 
     // Screen change.
-    connect(qApp->primaryScreen(), &QScreen::virtualGeometryChanged, this, &MainWindow::resizeWindow);
-    connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, &MainWindow::resizeWindow);
+    connect(qGuiApp, &QGuiApplication::primaryScreenChanged, this, &MainWindow::onPrimaryScreenChanged);
+    connect(screen(), &QScreen::virtualGeometryChanged, this, &MainWindow::resizeWindow);
+    connect(screen(), &QScreen::geometryChanged, this, &MainWindow::resizeWindow);
 
     connect(m_appModel, &ApplicationModel::countChanged, this, &MainWindow::resizeWindow);
     connect(m_settings, &DockSettings::directionChanged, this, &MainWindow::onPositionChanged);
@@ -92,8 +93,8 @@ MainWindow::~MainWindow()
 
 QRect MainWindow::windowRect() const
 {
-    const QRect screenGeometry = qApp->primaryScreen()->geometry();
-    const QRect availableGeometry = qApp->primaryScreen()->availableGeometry();
+    const QRect screenGeometry = screen()->geometry();
+    const QRect availableGeometry = screen()->availableGeometry();
 
     bool isHorizontal = m_settings->direction() == DockSettings::Bottom;
 
@@ -145,6 +146,30 @@ void MainWindow::resizeWindow()
     emit resizingFished();
 }
 
+void MainWindow::initScreens()
+{
+    switch (m_settings->direction()) {
+// TODO
+//    case DockSettings::Left:
+//        setScreen(qGuiApp->screens().first());
+//        break;
+//    case DockSettings::Right:
+//        setScreen(qGuiApp->screens().last());
+//        break;
+//    case DockSettings::Bottom:
+//        setScreen(qGuiApp->primaryScreen());
+//        break;
+    default:
+        setScreen(qGuiApp->primaryScreen());
+        break;
+    }
+
+    if (m_fakeWindow) {
+        m_fakeWindow->setScreen(screen());
+        m_fakeWindow->updateGeometry();
+    }
+}
+
 void MainWindow::initSlideWindow()
 {
     KWindowEffects::SlideFromLocation location = KWindowEffects::NoEdge;
@@ -179,6 +204,8 @@ void MainWindow::createFakeWindow()
         installEventFilter(this);
 
         m_fakeWindow = new FakeWindow;
+        m_fakeWindow->setScreen(screen());
+        m_fakeWindow->updateGeometry();
 
         connect(m_fakeWindow, &FakeWindow::containsMouseChanged, this, [=](bool contains) {
             switch (m_settings->visibility()) {
@@ -219,8 +246,17 @@ void MainWindow::deleteFakeWindow()
     }
 }
 
+void MainWindow::onPrimaryScreenChanged(QScreen *screen)
+{
+    initScreens();
+    setScreen(screen);
+    resizeWindow();
+}
+
 void MainWindow::onPositionChanged()
 {
+    initScreens();
+
     if (m_settings->visibility() == DockSettings::AlwaysHide) {
         setVisible(false);
         initSlideWindow();

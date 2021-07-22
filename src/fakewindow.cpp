@@ -44,8 +44,8 @@ FakeWindow::FakeWindow(QQuickView *parent)
              Qt::WindowStaysOnTopHint |
              Qt::NoDropShadowWindowHint |
              Qt::WindowDoesNotAcceptFocus);
-    setScreen(qApp->primaryScreen());
-    updateGeometry();
+    // setScreen(qApp->primaryScreen());
+    // updateGeometry();
     show();
 
     m_delayedMouseTimer.setSingleShot(true);

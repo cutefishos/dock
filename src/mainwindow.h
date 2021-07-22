@@ -45,6 +45,7 @@ signals:
 private:
     QRect windowRect() const;
     void resizeWindow();
+    void initScreens();
     void initSlideWindow();
     void updateViewStruts();
     void clearViewStruts();
@@ -53,6 +54,7 @@ private:
     void deleteFakeWindow();
 
 private slots:
+    void onPrimaryScreenChanged(QScreen *screen);
     void onPositionChanged();
     void onIconSizeChanged();
     void onVisibilityChanged();
