@@ -42,7 +42,7 @@ Item {
         id: _background
         anchors.fill: parent
         radius: windowHelper.compositing ? windowRadius : 0
-        color: FishUI.Theme.darkMode ? "#333333" : "#F2F2F2"
+        color: FishUI.Theme.darkMode ? "#595959" : "#FFFFFF"
         opacity: windowHelper.compositing ? FishUI.Theme.darkMode ? 0.5 : 0.4 : 1
         border.width: 0
 
@@ -74,8 +74,8 @@ Item {
 
     FishUI.PopupTips {
         id: popupTips
-        backgroundColor: FishUI.Theme.backgroundColor
-        backgroundOpacity: windowHelper.compositing ? FishUI.Theme.darkMode ? 0.3 : 0.4 : 1
+        backgroundColor: _background.color
+        backgroundOpacity: _background.opacity
     }
 
     GridLayout {
