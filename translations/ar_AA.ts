@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="da">
+<TS version="2.1" language="ar">
 <context>
     <name>AppItem</name>
     <message>
         <location filename="../qml/AppItem.qml" line="73"/>
         <source>Open</source>
-        <translation>Åben</translation>
+        <translation>فتح</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="85"/>
         <source>Unpin</source>
-        <translation>Løsn</translation>
+        <translation>إلغاء التثبيت</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="85"/>
         <source>Pin</source>
-        <translation>Retter</translation>
+        <translation>تثبيت</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="94"/>
         <source>Close window</source>
-        <translation>Luk vinduet</translation>
+        <translation>إغلاق النافذة</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="95"/>
         <source>Close %1 windows</source>
-        <translation>Luk %1 vinduer</translation>
+        <translation>إغلاق %1 نافذة</translation>
     </message>
 </context>
 <context>
@@ -34,7 +34,7 @@
     <message>
         <location filename="../src/applicationmodel.cpp" line="285"/>
         <source>Launcher</source>
-        <translation>Lanceringsenhed</translation>
+        <translation>المُشَغِّل</translation>
     </message>
 </context>
 <context>
@@ -42,17 +42,17 @@
     <message>
         <location filename="../qml/main.qml" line="114"/>
         <source>Trash</source>
-        <translation>Kurv</translation>
+        <translation>سلة المهملات</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="124"/>
         <source>Open</source>
-        <translation>Åbn</translation>
+        <translation>فتح</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="129"/>
         <source>Empty Trash</source>
-        <translation type="unfinished"></translation>
+        <translation>إفراغ سلة المهملات</translation>
     </message>
 </context>
 </TS>
