@@ -15,7 +15,7 @@ You also need [`fishui`](https://github.com/cutefishos/fishui) and [`libcutefish
 ```
 mkdir build
 cd build
-cmake ..
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 make
 sudo make install
 ```
