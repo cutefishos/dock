@@ -37,6 +37,8 @@ public:
     explicit MainWindow(QQuickView *parent = nullptr);
     ~MainWindow();
 
+    Q_INVOKABLE void updateSize();
+
 signals:
     void resizingFished();
     void iconSizeChanged();

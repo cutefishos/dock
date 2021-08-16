@@ -31,6 +31,11 @@ Item {
 
     property bool isHorizontal: Settings.direction === DockSettings.Bottom
     property real windowRadius: isHorizontal ? root.height * 0.3 : root.width * 0.3
+    property bool compositing: windowHelper.compositing
+
+    onCompositingChanged: {
+        mainWindow.updateSize()
+    }
 
     DropArea {
         anchors.fill: parent
@@ -41,9 +46,9 @@ Item {
     Rectangle {
         id: _background
         anchors.fill: parent
-        radius: windowHelper.compositing ? windowRadius : 0
+        radius: root.compositing ? windowRadius : 0
         color: FishUI.Theme.darkMode ? "#595959" : "#FFFFFF"
-        opacity: windowHelper.compositing ? FishUI.Theme.darkMode ? 0.5 : 0.4 : 1
+        opacity: root.compositing ? FishUI.Theme.darkMode ? 0.5 : 0.4 : 0.9
         border.width: 0
 
         Behavior on color {

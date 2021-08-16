@@ -143,7 +143,7 @@ bool XWindowInterface::isAcceptableWindow(quint64 wid)
     return !NET::typeMatchesMask(info.windowType(NET::AllTypesMask), normalFlag);
 }
 
-void XWindowInterface::setViewStruts(QWindow *view, DockSettings::Direction direction, const QRect &rect)
+void XWindowInterface::setViewStruts(QWindow *view, DockSettings::Direction direction, const QRect &rect, bool compositing)
 {
     NETExtendedStrut strut;
 
@@ -151,25 +151,27 @@ void XWindowInterface::setViewStruts(QWindow *view, DockSettings::Direction dire
 
     const QRect currentScreen {screen->geometry()};
     const QRect wholeScreen { {0, 0}, screen->virtualSize() };
+//    const int edgeMargins = compositing ? DockSettings::self()->edgeMargins() : 0;
+    int edgeMargins = 0;
 
     switch (direction) {
     case DockSettings::Left: {
         const int leftOffset = { screen->geometry().left() };
-        strut.left_width = rect.width() + leftOffset + DockSettings::self()->edgeMargins();
+        strut.left_width = rect.width() + leftOffset + edgeMargins;
         strut.left_start = rect.y();
         strut.left_end = rect.y() + rect.height() - 1;
         break;
     }
     case DockSettings::Bottom: {
         const int bottomOffset { wholeScreen.bottom() - currentScreen.bottom() };
-        strut.bottom_width = rect.height() + bottomOffset + DockSettings::self()->edgeMargins();
+        strut.bottom_width = rect.height() + bottomOffset + edgeMargins;
         strut.bottom_start = rect.x();
         strut.bottom_end = rect.x() + rect.width();
         break;
     }
     case DockSettings::Right: {
         const int rightOffset = {wholeScreen.right() - currentScreen.right()};
-        strut.right_width = rect.width() + rightOffset + DockSettings::self()->edgeMargins();
+        strut.right_width = rect.width() + rightOffset + edgeMargins;
         strut.right_start = rect.y();
         strut.right_end = rect.y() + rect.height() - 1;
         break;

@@ -91,12 +91,23 @@ MainWindow::~MainWindow()
 {
 }
 
+void MainWindow::updateSize()
+{
+    resizeWindow();
+}
+
 QRect MainWindow::windowRect() const
 {
     const QRect screenGeometry = screen()->geometry();
     const QRect availableGeometry = screen()->availableGeometry();
 
     bool isHorizontal = m_settings->direction() == DockSettings::Bottom;
+    bool compositing = false;
+    QQuickItem *item = qobject_cast<QQuickItem *>(rootObject());
+
+    if (item) {
+        compositing = item->property("compositing").toBool();
+    }
 
     QSize newSize(0, 0);
     QPoint position(0, 0);
@@ -114,21 +125,23 @@ QRect MainWindow::windowRect() const
         length = appCount * iconSize;
     }
 
+    int margins = compositing ? DockSettings::self()->edgeMargins() / 2 : 0;
+
     switch (m_settings->direction()) {
     case DockSettings::Left:
         newSize = QSize(iconSize, length);
-        position.setX(screenGeometry.x() + DockSettings::self()->edgeMargins() / 2);
+        position.setX(screenGeometry.x() + margins);
         // Handle the top statusbar.
         position.setY(availableGeometry.y() + (availableGeometry.height() - newSize.height()) / 2);
         break;
     case DockSettings::Bottom:
         newSize = QSize(length, iconSize);
         position.setX(screenGeometry.x() + (screenGeometry.width() - newSize.width()) / 2);
-        position.setY(screenGeometry.y() + screenGeometry.height() - newSize.height() - DockSettings::self()->edgeMargins() / 2);
+        position.setY(screenGeometry.y() + screenGeometry.height() - newSize.height() - margins);
         break;
     case DockSettings::Right:
         newSize = QSize(iconSize, length);
-        position.setX(screenGeometry.x() + screenGeometry.width() - newSize.width() - DockSettings::self()->edgeMargins() / 2);
+        position.setX(screenGeometry.x() + screenGeometry.width() - newSize.width() - margins);
         position.setY(availableGeometry.y() + (availableGeometry.height() - newSize.height()) / 2);
         break;
     default:
@@ -186,8 +199,15 @@ void MainWindow::initSlideWindow()
 
 void MainWindow::updateViewStruts()
 {
+    bool compositing = false;
+    QQuickItem *item = qobject_cast<QQuickItem *>(rootObject());
+
+    if (item) {
+        compositing = item->property("compositing").toBool();
+    }
+
     if (m_settings->visibility() == DockSettings::AlwaysShow || m_activity->launchPad()) {
-        XWindowInterface::instance()->setViewStruts(this, m_settings->direction(), geometry());
+        XWindowInterface::instance()->setViewStruts(this, m_settings->direction(), geometry(), compositing);
     } else {
         clearViewStruts();
     }
