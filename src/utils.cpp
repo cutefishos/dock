@@ -46,49 +46,71 @@ Utils::Utils(QObject *parent)
 
 }
 
-QString Utils::cmdFromPid(quint32 pid)
+QStringList Utils::commandFromPid(quint32 pid)
 {
     QFile file(QString("/proc/%1/cmdline").arg(pid));
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return QString();
 
-    QString cmd = QString::fromUtf8(file.readAll());
-    QString bin;
+    if (file.open(QIODevice::ReadOnly)) {
+        QByteArray cmd = file.readAll();
 
-    for (int i = 0; i < cmd.size(); ++i) {
-        const QChar ch = cmd[i];
-        if (ch == '\\')
-            i++;
-        else if (ch == ' ')
-            break;
-        else
-            bin += ch;
+        // ref: https://github.com/KDE/kcoreaddons/blob/230c98aa7e01f9e36a9c2776f3633182e6778002/src/lib/util/kprocesslist_unix.cpp#L137
+        if (!cmd.isEmpty()) {
+            // extract non-truncated name from cmdline
+            int zeroIndex = cmd.indexOf('\0');
+            int processNameStart = cmd.lastIndexOf('/', zeroIndex);
+            if (processNameStart == -1) {
+                processNameStart = 0;
+            } else {
+                processNameStart++;
+            }
+
+            QString name = QString::fromLocal8Bit(cmd.mid(processNameStart, zeroIndex - processNameStart));
+
+            // reion: Remove parameters
+            name = name.split(' ').first();
+
+            cmd.replace('\0', ' ');
+            QString command = QString::fromLocal8Bit(cmd).trimmed();
+
+            // There may be parameters.
+            if (command.split(' ').size() > 1) {
+                command = command.split(' ').first();
+            }
+
+            return { command, name };
+        }
     }
 
-    if (bin.split("/").last() == "electron")
-        return QString();
-
-    if (bin.startsWith("/"))
-        return bin.split("/").last();
-
-    return bin;
+    return QStringList();
 }
 
 QString Utils::desktopPathFromMetadata(const QString &appId, quint32 pid, const QString &xWindowWMClassName)
 {
+    QStringList commands = commandFromPid(pid);
+
+    // The value returned from the commandFromPid() may be empty.
+    // Calling first() and last() below will cause the statusbar to crash.
+    if (commands.isEmpty() || xWindowWMClassName.isEmpty())
+        return "";
+
+    QString command = commands.first();
+    QString commandName = commands.last();
+
+    if (command.isEmpty())
+        return "";
+
     QString result;
 
     if (!appId.isEmpty() && !xWindowWMClassName.isEmpty()) {
         for (SystemAppItem *item : m_sysAppMonitor->applications()) {
             // Start search.
             const QFileInfo desktopFileInfo(item->path);
-            const QString cmdline = cmdFromPid(pid);
 
             bool founded = false;
 
-            if (desktopFileInfo.baseName() == xWindowWMClassName ||
-                desktopFileInfo.completeBaseName() == xWindowWMClassName)
+            if (item->exec == command || item->exec == commandName) {
                 founded = true;
+            }
 
             // StartupWMClass=STRING
             // If true, it is KNOWN that the application will map at least one
@@ -102,11 +124,11 @@ QString Utils::desktopPathFromMetadata(const QString &appId, quint32 pid, const 
                 founded = true;
 
             // Icon name and cmdline.
-            if (!founded && item->iconName == cmdline)
+            if (!founded && (item->iconName == command || item->iconName == commandName))
                 founded = true;
 
             // Exec name and cmdline.
-            if (!founded && item->exec == cmdline)
+            if (!founded && (item->exec == command || item->exec == commandName))
                 founded = true;
 
             // Try matching mapped name against 'Name'.

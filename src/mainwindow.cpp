@@ -120,7 +120,7 @@ QRect MainWindow::windowRect() const
     iconSize += iconSize * 0.1;
     int length = appCount * iconSize;
 
-    if (length > maxLength) {
+    if (length >= maxLength) {
         iconSize = (maxLength - (maxLength % appCount)) / appCount;
         length = appCount * iconSize;
     }
