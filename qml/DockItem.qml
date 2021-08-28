@@ -117,7 +117,7 @@ Item {
 
         onPositionChanged: {
             if (pressed) {
-                if (mouse.source !== Qt.MouseEventSynthesizedByQt) {
+                if (control.draggable && mouse.source !== Qt.MouseEventSynthesizedByQt) {
                     drag.target = icon
                     icon.grabToImage(function(result) {
                         control.Drag.imageSource = result.url
