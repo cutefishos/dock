@@ -131,7 +131,21 @@ void ApplicationModel::removeItem(const QString &desktopFile)
 
 bool ApplicationModel::desktopContains(const QString &desktopFile)
 {
+    if (desktopFile.isEmpty())
+        return false;
+
     return findItemByDesktop(desktopFile) != nullptr;
+}
+
+bool ApplicationModel::isDesktopPinned(const QString &desktopFile)
+{
+    ApplicationItem *item = findItemByDesktop(desktopFile);
+
+    if (item) {
+        return item->isPinned;
+    }
+
+    return false;
 }
 
 void ApplicationModel::clicked(const QString &id)
@@ -433,7 +447,19 @@ void ApplicationModel::onWindowAdded(quint64 wid)
     if (id == "cutefish-launcher")
         return;
 
-    if (contains(id)) {
+    QString desktopPath = m_iface->desktopFilePath(wid);
+    ApplicationItem *desktopItem = findItemByDesktop(desktopPath);
+
+    // Use desktop find
+    if (!desktopPath.isEmpty() && desktopItem != nullptr) {
+        desktopItem->id = id;
+        desktopItem->wids.append(wid);
+        // Need to update application active status.
+        desktopItem->isActive = info.value("active").toBool();
+        handleDataChangedFromItem(desktopItem);
+    }
+    // Find from id
+    else if (contains(id)) {
         for (ApplicationItem *item : m_appItems) {
             if (item->id == id) {
                 item->wids.append(wid);
@@ -442,7 +468,9 @@ void ApplicationModel::onWindowAdded(quint64 wid)
                 handleDataChangedFromItem(item);
             }
         }
-    } else {
+    }
+    // New item needs to be added.
+    else {
         beginInsertRows(QModelIndex(), rowCount(), rowCount());
         ApplicationItem *item = new ApplicationItem;
         item->id = id;
@@ -450,8 +478,6 @@ void ApplicationModel::onWindowAdded(quint64 wid)
         item->visibleName = info.value("visibleName").toString();
         item->isActive = info.value("active").toBool();
         item->wids.append(wid);
-
-        QString desktopPath = m_iface->desktopFilePath(wid);
 
         if (!desktopPath.isEmpty()) {
             QMap<QString, QString> desktopInfo = Utils::instance()->readInfoFromDesktop(desktopPath);

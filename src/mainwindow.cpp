@@ -104,12 +104,9 @@ void MainWindow::remove(const QString &desktop)
     m_appModel->removeItem(desktop);
 }
 
-bool MainWindow::contains(const QString &desktop)
+bool MainWindow::pinned(const QString &desktop)
 {
-    if (desktop.isEmpty())
-        return false;
-
-    return m_appModel->desktopContains(desktop);
+    return m_appModel->isDesktopPinned(desktop);
 }
 
 void MainWindow::updateSize()

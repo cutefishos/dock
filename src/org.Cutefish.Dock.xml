@@ -3,7 +3,7 @@
   <interface name="org.cutefish.Dock">
     <method name="add"><arg name="desktopFile" type="s" direction="in"/></method>
     <method name="remove"><arg name="desktopFile" type="s" direction="in"/></method>
-    <method name="contains">
+    <method name="pinned">
       <arg name="desktopFile" type="s" direction="in"/>
       <arg type="b" direction="out"/>
     </method>

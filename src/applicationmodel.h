@@ -50,6 +50,7 @@ public:
     void addItem(const QString &desktopFile);
     void removeItem(const QString &desktopFile);
     bool desktopContains(const QString &desktopFile);
+    bool isDesktopPinned(const QString &desktopFile);
 
     Q_INVOKABLE void save() { savePinAndUnPinList(); }
 
