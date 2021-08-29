@@ -35,8 +35,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     if (!QDBusConnection::sessionBus().registerService("org.cutefish.Dock")) {
-        app.exit();
-        return 0;
+        return -1;
     }
 
     qmlRegisterType<DockSettings>("Cutefish.Dock", 1, 0, "DockSettings");
@@ -53,6 +52,10 @@ int main(int argc, char *argv[])
     }
 
     MainWindow w;
+
+    if (!QDBusConnection::sessionBus().registerObject("/Dock", &w)) {
+        return -1;
+    }
 
     return app.exec();
 }

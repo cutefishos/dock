@@ -46,7 +46,6 @@ MainWindow::MainWindow(QQuickView *parent)
     , m_hideTimer(new QTimer(this))
 {
     new DockAdaptor(this);
-    QDBusConnection::sessionBus().registerObject(QStringLiteral("/Dock"), this);
 
     setDefaultAlphaBuffer(false);
     setColor(Qt::transparent);
