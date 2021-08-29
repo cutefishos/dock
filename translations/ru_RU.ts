@@ -34,7 +34,7 @@
     <message>
         <location filename="../src/applicationmodel.cpp" line="285"/>
         <source>Launcher</source>
-        <translation>Лаунчер</translation>
+        <translation type="unfinished">Лаунчер</translation>
     </message>
 </context>
 <context>

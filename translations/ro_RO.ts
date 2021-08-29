@@ -42,7 +42,7 @@
     <message>
         <location filename="../qml/main.qml" line="114"/>
         <source>Trash</source>
-        <translation type="unfinished">Gunoi</translation>
+        <translation>Coş de gunoi</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="124"/>
