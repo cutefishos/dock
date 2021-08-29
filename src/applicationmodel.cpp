@@ -100,8 +100,12 @@ void ApplicationModel::addItem(const QString &desktopFile)
     item->visibleName = desktopInfo.value("Name");
     item->exec = desktopInfo.value("Exec");
     item->desktopPath = desktopFile;
+    item->isPinned = true;
     m_appItems << item;
     endInsertRows();
+
+    emit itemAdded();
+    emit countChanged();
 
     savePinAndUnPinList();
 }
