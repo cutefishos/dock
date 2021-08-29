@@ -101,13 +101,17 @@ void ApplicationModel::addItem(const QString &desktopFile)
     item->exec = desktopInfo.value("Exec");
     item->desktopPath = desktopFile;
     item->isPinned = true;
+
+    // First use exec as the id of the item.
+    item->id = desktopInfo.value("Exec");
+
     m_appItems << item;
     endInsertRows();
 
+    savePinAndUnPinList();
+
     emit itemAdded();
     emit countChanged();
-
-    savePinAndUnPinList();
 }
 
 void ApplicationModel::removeItem(const QString &desktopFile)
@@ -452,10 +456,15 @@ void ApplicationModel::onWindowAdded(quint64 wid)
 
     // Use desktop find
     if (!desktopPath.isEmpty() && desktopItem != nullptr) {
-        desktopItem->id = id;
         desktopItem->wids.append(wid);
         // Need to update application active status.
         desktopItem->isActive = info.value("active").toBool();
+
+        if (desktopItem->id != id) {
+            desktopItem->id = id;
+            savePinAndUnPinList();
+        }
+
         handleDataChangedFromItem(desktopItem);
     }
     // Find from id
