@@ -129,6 +129,11 @@ void ApplicationModel::removeItem(const QString &desktopFile)
     }
 }
 
+bool ApplicationModel::desktopContains(const QString &desktopFile)
+{
+    return findItemByDesktop(desktopFile) != nullptr;
+}
+
 void ApplicationModel::clicked(const QString &id)
 {
     ApplicationItem *item = findItemById(id);

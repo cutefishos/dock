@@ -37,8 +37,10 @@ public:
     explicit MainWindow(QQuickView *parent = nullptr);
     ~MainWindow();
 
+    // DBus interface
     void add(const QString &desktop);
     void remove(const QString &desktop);
+    bool contains(const QString &desktop);
 
     Q_INVOKABLE void updateSize();
 
