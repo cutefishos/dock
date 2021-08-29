@@ -38,7 +38,12 @@ set(RESOURCES
     resources.qrc
 )
 
-add_executable(${PROJECT_NAME} ${SRCS} ${DBUS_SRCS} ${RESOURCES})
+qt5_add_dbus_adaptor(DBUS_SOURCES
+                     src/org.Cutefish.Dock.xml
+                     src/mainwindow.h MainWindow)
+set_source_files_properties(${DBUS_SOURCES} PROPERTIES SKIP_AUTOGEN ON)
+
+add_executable(${PROJECT_NAME} ${SRCS} ${DBUS_SOURCES} ${RESOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt5::Core
         Qt5::Widgets

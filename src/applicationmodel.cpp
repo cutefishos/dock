@@ -88,6 +88,43 @@ QVariant ApplicationModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+void ApplicationModel::addItem(const QString &desktopFile)
+{
+    if (findItemByDesktop(desktopFile))
+        return;
+
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    ApplicationItem *item = new ApplicationItem;
+    QMap<QString, QString> desktopInfo = Utils::instance()->readInfoFromDesktop(desktopFile);
+    item->iconName = desktopInfo.value("Icon");
+    item->visibleName = desktopInfo.value("Name");
+    item->exec = desktopInfo.value("Exec");
+    item->desktopPath = desktopFile;
+    m_appItems << item;
+    endInsertRows();
+
+    savePinAndUnPinList();
+}
+
+void ApplicationModel::removeItem(const QString &desktopFile)
+{
+    ApplicationItem *item = findItemByDesktop(desktopFile);
+
+    if (item) {
+        int index = indexOf(item->id);
+
+        if (index != -1) {
+            beginRemoveRows(QModelIndex(), index, index);
+            m_appItems.removeAll(item);
+            endRemoveRows();
+            savePinAndUnPinList();
+
+            emit itemRemoved();
+            emit countChanged();
+        }
+    }
+}
+
 void ApplicationModel::clicked(const QString &id)
 {
     ApplicationItem *item = findItemById(id);
@@ -246,6 +283,16 @@ ApplicationItem *ApplicationModel::findItemById(const QString &id)
 {
     for (ApplicationItem *item : m_appItems) {
         if (item->id == id)
+            return item;
+    }
+
+    return nullptr;
+}
+
+ApplicationItem *ApplicationModel::findItemByDesktop(const QString &desktop)
+{
+    for (ApplicationItem *item : m_appItems) {
+        if (item->desktopPath == desktop)
             return item;
     }
 

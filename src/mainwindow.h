@@ -37,6 +37,9 @@ public:
     explicit MainWindow(QQuickView *parent = nullptr);
     ~MainWindow();
 
+    void add(const QString &desktop);
+    void remove(const QString &desktop);
+
     Q_INVOKABLE void updateSize();
 
 signals:

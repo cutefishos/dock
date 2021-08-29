@@ -19,6 +19,7 @@
 
 #include "mainwindow.h"
 #include "processprovider.h"
+#include "dockadaptor.h"
 
 #include <QGuiApplication>
 #include <QScreen>
@@ -44,6 +45,9 @@ MainWindow::MainWindow(QQuickView *parent)
     , m_showTimer(new QTimer(this))
     , m_hideTimer(new QTimer(this))
 {
+    new DockAdaptor(this);
+    QDBusConnection::sessionBus().registerObject(QStringLiteral("/Dock"), this);
+
     setDefaultAlphaBuffer(false);
     setColor(Qt::transparent);
 
@@ -89,6 +93,16 @@ MainWindow::MainWindow(QQuickView *parent)
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::add(const QString &desktop)
+{
+    m_appModel->addItem(desktop);
+}
+
+void MainWindow::remove(const QString &desktop)
+{
+    m_appModel->removeItem(desktop);
 }
 
 void MainWindow::updateSize()

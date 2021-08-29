@@ -47,6 +47,9 @@ public:
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
+    void addItem(const QString &desktopFile);
+    void removeItem(const QString &desktopFile);
+
     Q_INVOKABLE void save() { savePinAndUnPinList(); }
 
     Q_INVOKABLE void clicked(const QString &id);
@@ -70,6 +73,8 @@ signals:
 private:
     ApplicationItem *findItemByWId(quint64 wid);
     ApplicationItem *findItemById(const QString &id);
+    ApplicationItem *findItemByDesktop(const QString &desktop);
+
     bool contains(const QString &id);
     int indexOf(const QString &id);
     void initPinnedApplications();
