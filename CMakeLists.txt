@@ -13,7 +13,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt5 CONFIG REQUIRED Widgets DBus X11Extras Concurrent LinguistTools QuickControls2)
 
 find_package(KF5WindowSystem REQUIRED)
-find_package(FishUI REQUIRED)
 
 set(SRCS
     src/applicationitem.h
@@ -52,9 +51,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt5::X11Extras
         Qt5::Concurrent
         Qt5::DBus
-
-        FishUI
-
         KF5::WindowSystem
 )
 
