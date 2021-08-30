@@ -27,7 +27,6 @@ set(SRCS
     src/trashmanager.cpp
     src/utils.cpp
     src/xwindowinterface.cpp
-    src/dockbackground.cpp
     src/activity.cpp
 
     src/fakewindow.cpp
