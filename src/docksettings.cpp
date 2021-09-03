@@ -44,7 +44,6 @@ DockSettings::DockSettings(QObject *parent)
     , m_direction(Left)
     , m_visibility(AlwaysShow)
     , m_settings(new QSettings(QSettings::UserScope, "cutefishos", "dock"))
-    , m_fileWatcher(new QFileSystemWatcher(this))
 {
     if (!m_settings->contains("IconSize"))
         m_settings->setValue("IconSize", 54);
@@ -61,9 +60,6 @@ DockSettings::DockSettings(QObject *parent)
     m_direction = static_cast<Direction>(m_settings->value("Direction").toInt());
     m_visibility = static_cast<Visibility>(m_settings->value("Visibility").toInt());
     m_roundedWindowEnabled = m_settings->value("RoundedWindow").toBool();
-
-    m_fileWatcher->addPath(m_settings->fileName());
-    connect(m_fileWatcher, &QFileSystemWatcher::fileChanged, this, &DockSettings::onConfigFileChanged);
 }
 
 int DockSettings::iconSize() const
@@ -73,8 +69,11 @@ int DockSettings::iconSize() const
 
 void DockSettings::setIconSize(int iconSize)
 {
-    m_iconSize = iconSize;
-    emit iconSizeChanged();
+    if (m_iconSize != iconSize) {
+        m_iconSize = iconSize;
+        m_settings->setValue("IconSize", iconSize);
+        emit iconSizeChanged();
+    }
 }
 
 DockSettings::Direction DockSettings::direction() const
@@ -84,8 +83,11 @@ DockSettings::Direction DockSettings::direction() const
 
 void DockSettings::setDirection(const Direction &direction)
 {
-    m_direction = direction;
-    emit directionChanged();
+    if (m_direction != direction) {
+        m_direction = direction;
+        m_settings->setValue("Direction", direction);
+        emit directionChanged();
+    }
 }
 
 DockSettings::Visibility DockSettings::visibility() const
@@ -97,6 +99,7 @@ void DockSettings::setVisibility(const DockSettings::Visibility &visibility)
 {
     if (m_visibility != visibility) {
         m_visibility = visibility;
+        m_settings->setValue("Visibility", visibility);
         emit visibilityChanged();
     }
 }
@@ -122,31 +125,4 @@ void DockSettings::setRoundedWindowEnabled(bool enabled)
         m_roundedWindowEnabled = enabled;
         emit roundedWindowEnabledChanged();
     }
-}
-
-void DockSettings::onConfigFileChanged()
-{
-    if (!QFile(m_settings->fileName()).exists())
-        return;
-
-    m_settings->sync();
-
-    int iconSize = m_settings->value("IconSize").toInt();
-    Direction direction = static_cast<Direction>(m_settings->value("Direction").toInt());
-    Visibility visibility = static_cast<Visibility>(m_settings->value("Visibility").toInt());
-    bool roundedWindow = m_settings->value("RoundedWindow").toBool();
-
-    if (m_iconSize != iconSize)
-        setIconSize(iconSize);
-
-    if (m_direction != direction)
-        setDirection(direction);
-
-    if (m_visibility != visibility)
-        setVisibility(visibility);
-
-    if (m_roundedWindowEnabled != roundedWindow)
-        setRoundedWindowEnabled(roundedWindow);
-
-    m_fileWatcher->addPath(m_settings->fileName());
 }

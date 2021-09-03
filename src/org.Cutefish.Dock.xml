@@ -7,5 +7,9 @@
       <arg name="desktopFile" type="s" direction="in"/>
       <arg type="b" direction="out"/>
     </method>
+
+    <method name="setDirection"><arg name="direction" type="i" direction="in"/></method>
+    <method name="setIconSize"><arg name="iconSize" type="i" direction="in"/></method>
+    <method name="setVisibility"><arg name="visibility" type="i" direction="in"/></method>
   </interface>
 </node>

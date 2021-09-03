@@ -22,7 +22,6 @@
 
 #include <QObject>
 #include <QSettings>
-#include <QFileSystemWatcher>
 
 class DockSettings : public QObject
 {
@@ -65,9 +64,6 @@ public:
     bool roundedWindowEnabled() const;
     void setRoundedWindowEnabled(bool enabled);
 
-private slots:
-    void onConfigFileChanged();
-
 signals:
     void iconSizeChanged();
     void directionChanged();
@@ -81,7 +77,6 @@ private:
     Direction m_direction;
     Visibility m_visibility;
     QSettings *m_settings;
-    QFileSystemWatcher *m_fileWatcher;
 };
 
 #endif // DOCKSETTINGS_H

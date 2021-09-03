@@ -42,6 +42,10 @@ public:
     void remove(const QString &desktop);
     bool pinned(const QString &desktop);
 
+    void setDirection(int direction);
+    void setIconSize(int iconSize);
+    void setVisibility(int visibility);
+
     Q_INVOKABLE void updateSize();
 
 signals:

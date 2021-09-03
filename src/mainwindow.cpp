@@ -51,7 +51,7 @@ MainWindow::MainWindow(QQuickView *parent)
     setColor(Qt::transparent);
 
     setFlags(Qt::FramelessWindowHint | Qt::WindowDoesNotAcceptFocus);
-    KWindowSystem::setOnDesktop(winId(), NET::OnAllDesktops);
+    // KWindowSystem::setOnDesktop(winId(), NET::OnAllDesktops);
     KWindowSystem::setType(winId(), NET::Dock);
 
     engine()->rootContext()->setContextProperty("appModel", m_appModel);
@@ -61,6 +61,7 @@ MainWindow::MainWindow(QQuickView *parent)
     engine()->rootContext()->setContextProperty("trash", m_trashManager);
 
     setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+    setScreen(qApp->primaryScreen());
     setResizeMode(QQuickView::SizeRootObjectToView);
     initScreens();
 
@@ -107,6 +108,21 @@ void MainWindow::remove(const QString &desktop)
 bool MainWindow::pinned(const QString &desktop)
 {
     return m_appModel->isDesktopPinned(desktop);
+}
+
+void MainWindow::setDirection(int direction)
+{
+    DockSettings::self()->setDirection(static_cast<DockSettings::Direction>(direction));
+}
+
+void MainWindow::setIconSize(int iconSize)
+{
+    DockSettings::self()->setIconSize(iconSize);
+}
+
+void MainWindow::setVisibility(int visibility)
+{
+    DockSettings::self()->setVisibility(static_cast<DockSettings::Visibility>(visibility));
 }
 
 void MainWindow::updateSize()
