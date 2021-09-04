@@ -42,7 +42,8 @@ public:
     enum Visibility {
         AlwaysShow = 0,
         // AutoHide,
-        AlwaysHide
+        AlwaysHide,
+        IntellHide
     };
     Q_ENUMS(Visibility)
 

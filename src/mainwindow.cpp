@@ -75,10 +75,11 @@ MainWindow::MainWindow(QQuickView *parent)
 
     m_hideTimer->setSingleShot(true);
     m_hideTimer->setInterval(500);
-    connect(m_hideTimer, &QTimer::timeout, this, [=] { setVisible(false); });
+    connect(m_hideTimer, &QTimer::timeout, this, &MainWindow::onHideTimeout);
 
     // When the current window changes.
     connect(m_activity, &Activity::launchPadChanged, this, &MainWindow::onVisibilityChanged);
+    connect(m_activity, &Activity::existsWindowMaximizedChanged, this, &MainWindow::onVisibilityChanged);
 
     // Screen change.
     connect(qGuiApp, &QGuiApplication::primaryScreenChanged, this, &MainWindow::onPrimaryScreenChanged);
@@ -263,8 +264,8 @@ void MainWindow::createFakeWindow()
 
         connect(m_fakeWindow, &FakeWindow::containsMouseChanged, this, [=](bool contains) {
             switch (m_settings->visibility()) {
-            case DockSettings::AlwaysHide: {
-
+            case DockSettings::AlwaysHide:
+            case DockSettings::IntellHide:{
                 if (contains) {
                     m_hideTimer->stop();
 
@@ -285,8 +286,6 @@ void MainWindow::createFakeWindow()
                 break;
             }
         });
-
-        connect(m_fakeWindow, &FakeWindow::dragEntered, this, [&] {});
     }
 }
 
@@ -330,6 +329,14 @@ void MainWindow::onPositionChanged()
         updateViewStruts();
     }
 
+    if (m_settings->visibility() == DockSettings::IntellHide) {
+        setVisible(false);
+        initSlideWindow();
+        setVisible(true);
+        setGeometry(windowRect());
+        updateViewStruts();
+    }
+
     emit positionChanged();
 }
 
@@ -361,6 +368,20 @@ void MainWindow::onVisibilityChanged()
     if (m_activity->launchPad())
         return;
 
+    if (m_settings->visibility() == DockSettings::IntellHide) {
+        clearViewStruts();
+        setGeometry(windowRect());
+
+        if (m_activity->existsWindowMaximized() && !m_hideBlocked) {
+            setVisible(false);
+        } else {
+            setVisible(true);
+        }
+
+        if (!m_fakeWindow)
+            createFakeWindow();
+    }
+
     // Always hide
     if (m_settings->visibility() == DockSettings::AlwaysHide) {
         clearViewStruts();
@@ -371,6 +392,16 @@ void MainWindow::onVisibilityChanged()
         if (!m_fakeWindow)
             createFakeWindow();
     }
+}
+
+void MainWindow::onHideTimeout()
+{
+    if (m_settings->visibility() == DockSettings::IntellHide
+            && !m_activity->existsWindowMaximized()) {
+        return;
+    }
+
+    setVisible(false);
 }
 
 bool MainWindow::eventFilter(QObject *obj, QEvent *e)

@@ -70,6 +70,8 @@ private slots:
     void onIconSizeChanged();
     void onVisibilityChanged();
 
+    void onHideTimeout();
+
 protected:
     bool eventFilter(QObject *obj, QEvent *e) override;
 

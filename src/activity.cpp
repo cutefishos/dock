@@ -18,6 +18,7 @@
  */
 
 #include "activity.h"
+#include "docksettings.h"
 
 #include <NETWM>
 #include <KWindowSystem>
@@ -34,12 +35,18 @@ Activity *Activity::self()
 
 Activity::Activity(QObject *parent)
     : QObject(parent)
+    , m_existsWindowMaximized(false)
 {
     onActiveWindowChanged();
 
     connect(KWindowSystem::self(), &KWindowSystem::activeWindowChanged, this, &Activity::onActiveWindowChanged);
     connect(KWindowSystem::self(), static_cast<void (KWindowSystem::*)(WId)>(&KWindowSystem::windowChanged),
             this, &Activity::onActiveWindowChanged);
+}
+
+bool Activity::existsWindowMaximized() const
+{
+    return m_existsWindowMaximized;
 }
 
 bool Activity::launchPad() const
@@ -54,9 +61,31 @@ void Activity::onActiveWindowChanged()
                      NET::WM2WindowClass);
 
     bool launchPad = info.windowClassClass() == "cutefish-launcher";
+
     if (m_launchPad != launchPad) {
         m_launchPad = launchPad;
         emit launchPadChanged();
+    }
+
+    if (DockSettings::self()->visibility() == DockSettings::IntellHide) {
+        bool existsWindowMaximized = false;
+
+        for (WId wid : KWindowSystem::windows()) {
+            KWindowInfo i(wid, NET::WMState);
+
+            if (i.isMinimized())
+                continue;
+
+            if (i.hasState(NET::MaxVert) || i.hasState(NET::MaxHoriz)) {
+                existsWindowMaximized = true;
+                break;
+            }
+        }
+
+        if (m_existsWindowMaximized != existsWindowMaximized) {
+            m_existsWindowMaximized = existsWindowMaximized;
+            emit existsWindowMaximizedChanged();
+        }
     }
 
     m_pid = info.pid();

@@ -26,11 +26,13 @@ class Activity : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool launchPad READ launchPad NOTIFY launchPadChanged)
+    Q_PROPERTY(bool existsWindowMaximized READ existsWindowMaximized NOTIFY existsWindowMaximizedChanged)
 
 public:
     static Activity *self();
     explicit Activity(QObject *parent = nullptr);
 
+    bool existsWindowMaximized() const;
     bool launchPad() const;
 
 private slots:
@@ -38,11 +40,13 @@ private slots:
 
 signals:
     void launchPadChanged();
+    void existsWindowMaximizedChanged();
 
 private:
     QString m_windowClass;
     quint32 m_pid;
 
+    bool m_existsWindowMaximized;
     bool m_launchPad;
 };
 
