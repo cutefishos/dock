@@ -352,7 +352,8 @@ void MainWindow::onVisibilityChanged()
 {
     // Always show
     // Must remain displayed when launchpad is opened.
-    if (m_settings->visibility() == DockSettings::AlwaysShow || m_activity->launchPad()) {
+    if (m_settings->visibility() == DockSettings::AlwaysShow
+            || m_activity->launchPad()) {
         m_hideTimer->stop();
 
         setGeometry(windowRect());
@@ -367,6 +368,8 @@ void MainWindow::onVisibilityChanged()
 
     if (m_activity->launchPad())
         return;
+    else
+        m_hideBlocked = false;
 
     if (m_settings->visibility() == DockSettings::IntellHide) {
         clearViewStruts();

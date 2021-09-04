@@ -62,11 +62,6 @@ void Activity::onActiveWindowChanged()
 
     bool launchPad = info.windowClassClass() == "cutefish-launcher";
 
-    if (m_launchPad != launchPad) {
-        m_launchPad = launchPad;
-        emit launchPadChanged();
-    }
-
     if (DockSettings::self()->visibility() == DockSettings::IntellHide) {
         bool existsWindowMaximized = false;
 
@@ -86,6 +81,11 @@ void Activity::onActiveWindowChanged()
             m_existsWindowMaximized = existsWindowMaximized;
             emit existsWindowMaximizedChanged();
         }
+    }
+
+    if (m_launchPad != launchPad) {
+        m_launchPad = launchPad;
+        emit launchPadChanged();
     }
 
     m_pid = info.pid();
