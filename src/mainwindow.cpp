@@ -368,12 +368,13 @@ void MainWindow::onVisibilityChanged()
 
     if (m_activity->launchPad())
         return;
-    else
-        m_hideBlocked = false;
 
     if (m_settings->visibility() == DockSettings::IntellHide) {
         clearViewStruts();
         setGeometry(windowRect());
+
+        if (!m_fakeWindow && !m_activity->existsWindowMaximized())
+            m_hideBlocked = false;
 
         if (m_activity->existsWindowMaximized() && !m_hideBlocked) {
             setVisible(false);
@@ -389,7 +390,7 @@ void MainWindow::onVisibilityChanged()
     if (m_settings->visibility() == DockSettings::AlwaysHide) {
         clearViewStruts();
         setGeometry(windowRect());
-        setVisible(false);
+        setVisible(m_hideBlocked);
 
         // Create
         if (!m_fakeWindow)

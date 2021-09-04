@@ -53,7 +53,7 @@ bool Activity::launchPad() const
 {
     return m_launchPad;
 }
-
+#include <QDebug>
 void Activity::onActiveWindowChanged()
 {
     KWindowInfo info(KWindowSystem::activeWindow(),
@@ -66,9 +66,9 @@ void Activity::onActiveWindowChanged()
         bool existsWindowMaximized = false;
 
         for (WId wid : KWindowSystem::windows()) {
-            KWindowInfo i(wid, NET::WMState);
+            KWindowInfo i(wid, NET::WMState, NET::WM2WindowClass);
 
-            if (i.isMinimized())
+            if (i.isMinimized() || i.hasState(NET::SkipTaskbar))
                 continue;
 
             if (i.hasState(NET::MaxVert) || i.hasState(NET::MaxHoriz)) {
