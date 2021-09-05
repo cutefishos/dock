@@ -47,6 +47,8 @@ MainWindow::MainWindow(QQuickView *parent)
 {
     new DockAdaptor(this);
 
+    installEventFilter(this);
+
     setDefaultAlphaBuffer(false);
     setColor(Qt::transparent);
 
@@ -256,8 +258,6 @@ void MainWindow::clearViewStruts()
 void MainWindow::createFakeWindow()
 {
     if (!m_fakeWindow) {
-        installEventFilter(this);
-
         m_fakeWindow = new FakeWindow;
         m_fakeWindow->setScreen(screen());
         m_fakeWindow->updateGeometry();
@@ -292,7 +292,7 @@ void MainWindow::createFakeWindow()
 void MainWindow::deleteFakeWindow()
 {
     if (m_fakeWindow) {
-        removeEventFilter(this);
+        // removeEventFilter(this);
         disconnect(m_fakeWindow);
         m_fakeWindow->deleteLater();
         m_fakeWindow = nullptr;
@@ -373,9 +373,6 @@ void MainWindow::onVisibilityChanged()
         clearViewStruts();
         setGeometry(windowRect());
 
-        if (!m_fakeWindow && !m_activity->existsWindowMaximized())
-            m_hideBlocked = false;
-
         if (m_activity->existsWindowMaximized() && !m_hideBlocked) {
             setVisible(false);
         } else {
@@ -412,20 +409,24 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *e)
 {
     switch (e->type()) {
     case QEvent::Enter:
-        m_hideTimer->stop();
+        if (m_fakeWindow)
+            m_hideTimer->stop();
         m_hideBlocked = true;
         break;
     case QEvent::Leave:
-        m_hideTimer->start();
+        if (m_fakeWindow)
+            m_hideTimer->start();
         m_hideBlocked = false;
         break;
     case QEvent::DragEnter:
     case QEvent::DragMove:
-        m_hideTimer->stop();
+        if (m_fakeWindow)
+            m_hideTimer->stop();
         break;
     case QEvent::DragLeave:
     case QEvent::Drop:
-        m_hideTimer->stop();
+        if (m_fakeWindow)
+            m_hideTimer->stop();
         break;
     default:
         break;
