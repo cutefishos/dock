@@ -32,6 +32,8 @@
 class MainWindow : public QQuickView
 {
     Q_OBJECT
+    Q_PROPERTY(QRect primaryGeometry READ primaryGeometry NOTIFY primaryGeometryChanged)
+    Q_PROPERTY(int direction READ direction NOTIFY directionChanged)
 
 public:
     explicit MainWindow(QQuickView *parent = nullptr);
@@ -42,6 +44,9 @@ public:
     void remove(const QString &desktop);
     bool pinned(const QString &desktop);
 
+    QRect primaryGeometry() const;
+    int direction() const;
+
     void setDirection(int direction);
     void setIconSize(int iconSize);
     void setVisibility(int visibility);
@@ -51,7 +56,8 @@ public:
 signals:
     void resizingFished();
     void iconSizeChanged();
-    void positionChanged();
+    void directionChanged();
+    void primaryGeometryChanged();
 
 private:
     QRect windowRect() const;
@@ -74,6 +80,7 @@ private slots:
 
 protected:
     bool eventFilter(QObject *obj, QEvent *e) override;
+    void resizeEvent(QResizeEvent *) override;
 
 private:
     Activity *m_activity;

@@ -113,6 +113,16 @@ bool MainWindow::pinned(const QString &desktop)
     return m_appModel->isDesktopPinned(desktop);
 }
 
+QRect MainWindow::primaryGeometry() const
+{
+    return geometry();
+}
+
+int MainWindow::direction() const
+{
+    return DockSettings::self()->direction();
+}
+
 void MainWindow::setDirection(int direction)
 {
     DockSettings::self()->setDirection(static_cast<DockSettings::Direction>(direction));
@@ -337,7 +347,7 @@ void MainWindow::onPositionChanged()
         updateViewStruts();
     }
 
-    emit positionChanged();
+    emit directionChanged();
 }
 
 void MainWindow::onIconSizeChanged()
@@ -350,10 +360,16 @@ void MainWindow::onIconSizeChanged()
 
 void MainWindow::onVisibilityChanged()
 {
+    if (m_activity->launchPad()) {
+        m_hideTimer->stop();
+        clearViewStruts();
+        setVisible(true);
+        return;
+    }
+
     // Always show
     // Must remain displayed when launchpad is opened.
-    if (m_settings->visibility() == DockSettings::AlwaysShow
-            || m_activity->launchPad()) {
+    if (m_settings->visibility() == DockSettings::AlwaysShow) {
         m_hideTimer->stop();
 
         setGeometry(windowRect());
@@ -365,9 +381,6 @@ void MainWindow::onVisibilityChanged()
             deleteFakeWindow();
         }
     }
-
-    if (m_activity->launchPad())
-        return;
 
     if (m_settings->visibility() == DockSettings::IntellHide) {
         clearViewStruts();
@@ -433,4 +446,11 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *e)
     }
 
     return QQuickView::eventFilter(obj, e);
+}
+
+void MainWindow::resizeEvent(QResizeEvent *e)
+{
+    emit primaryGeometryChanged();
+
+    QQuickView::resizeEvent(e);
 }
