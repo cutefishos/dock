@@ -320,7 +320,8 @@ void MainWindow::onPositionChanged()
 {
     initScreens();
 
-    if (m_settings->visibility() == DockSettings::AlwaysHide) {
+    if (m_settings->visibility() == DockSettings::AlwaysHide ||
+            m_settings->visibility() == DockSettings::IntellHide) {
         setVisible(false);
         initSlideWindow();
         // Setting geometry needs to be displayed, otherwise it will be invalid.
@@ -329,17 +330,7 @@ void MainWindow::onPositionChanged()
         updateViewStruts();
 
         m_hideTimer->start();
-    }
-
-    if (m_settings->visibility() == DockSettings::AlwaysShow) {
-        setVisible(false);
-        initSlideWindow();
-        setVisible(true);
-        setGeometry(windowRect());
-        updateViewStruts();
-    }
-
-    if (m_settings->visibility() == DockSettings::IntellHide) {
+    } else if (m_settings->visibility() == DockSettings::AlwaysShow) {
         setVisible(false);
         initSlideWindow();
         setVisible(true);
