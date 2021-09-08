@@ -113,6 +113,9 @@ void SystemAppMonitor::addApplication(const QString &filePath)
     desktop.setIniCodec("UTF-8");
     desktop.beginGroup("Desktop Entry");
 
+    if (desktop.value("Terminal").toBool())
+        return;
+
     if (desktop.contains("OnlyShowIn")) {
         const QString &value = desktop.value("OnlyShowIn").toString();
         if (!value.contains(detectDesktopEnvironment(), Qt::CaseInsensitive)) {
