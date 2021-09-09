@@ -401,6 +401,9 @@ void MainWindow::onVisibilityChanged()
 
 void MainWindow::onHideTimeout()
 {
+    if (m_activity->launchPad())
+        return;
+
     if (m_settings->visibility() == DockSettings::IntellHide
             && !m_activity->existsWindowMaximized()) {
         return;
