@@ -123,6 +123,11 @@ int MainWindow::direction() const
     return DockSettings::self()->direction();
 }
 
+int MainWindow::visibility() const
+{
+    return DockSettings::self()->visibility();
+}
+
 void MainWindow::setDirection(int direction)
 {
     DockSettings::self()->setDirection(static_cast<DockSettings::Direction>(direction));
@@ -351,6 +356,8 @@ void MainWindow::onIconSizeChanged()
 
 void MainWindow::onVisibilityChanged()
 {
+    emit visibilityChanged();
+
     if (m_activity->launchPad()) {
         m_hideTimer->stop();
         clearViewStruts();

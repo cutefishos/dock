@@ -17,8 +17,10 @@
     </property>
 
     <property name="direction" type="i" access="read"></property>
+    <property name="visibility" type="i" access="read"></property>
 
     <signal name="primaryGeometryChanged"></signal>
     <signal name="directionChanged"></signal>
+    <signal name="visibilityChanged"></signal>
   </interface>
 </node>

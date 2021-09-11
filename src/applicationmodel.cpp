@@ -199,6 +199,10 @@ bool ApplicationModel::openNewInstance(const QString &appId)
         return false;
 
     QProcess process;
+
+    if (appId == "cutefish-launcher")
+        process.setArguments(QStringList() << "--show");
+
     if (!item->exec.isEmpty()) {
         QStringList args = item->exec.split(" ");
         process.setProgram(args.first());

@@ -34,6 +34,7 @@ class MainWindow : public QQuickView
     Q_OBJECT
     Q_PROPERTY(QRect primaryGeometry READ primaryGeometry NOTIFY primaryGeometryChanged)
     Q_PROPERTY(int direction READ direction NOTIFY directionChanged)
+    Q_PROPERTY(int visibility READ visibility NOTIFY visibilityChanged)
 
 public:
     explicit MainWindow(QQuickView *parent = nullptr);
@@ -47,6 +48,8 @@ public:
     QRect primaryGeometry() const;
     int direction() const;
 
+    int visibility() const;
+
     void setDirection(int direction);
     void setIconSize(int iconSize);
     void setVisibility(int visibility);
@@ -58,6 +61,7 @@ signals:
     void iconSizeChanged();
     void directionChanged();
     void primaryGeometryChanged();
+    void visibilityChanged();
 
 private:
     QRect windowRect() const;
