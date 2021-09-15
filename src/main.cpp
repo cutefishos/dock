@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
     QApplication app(argc, argv);
 
-    if (!QDBusConnection::sessionBus().registerService("org.cutefish.Dock")) {
+    if (!QDBusConnection::sessionBus().registerService("com.cutefish.Dock")) {
         return -1;
     }
 
