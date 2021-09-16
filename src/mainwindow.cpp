@@ -161,6 +161,7 @@ QRect MainWindow::windowRect() const
         compositing = item->property("compositing").toBool();
     }
 
+
     QSize newSize(0, 0);
     QPoint position(0, 0);
     int maxLength = isHorizontal ? screenGeometry.width() - m_settings->edgeMargins()
