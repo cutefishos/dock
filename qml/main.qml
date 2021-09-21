@@ -47,7 +47,7 @@ Item {
         id: _background
         anchors.fill: parent
         radius: root.compositing ? windowRadius : 0
-        color: FishUI.Theme.darkMode ? "#595959" : "#FFFFFF"
+        color: FishUI.Theme.darkMode ? "#666666" : "#E6E6E6"
         opacity: root.compositing ? FishUI.Theme.darkMode ? 0.5 : 0.4 : 0.9
         border.width: 0
 
