@@ -11,7 +11,7 @@
     <message>
         <location filename="../qml/AppItem.qml" line="85"/>
         <source>Unpin</source>
-        <translation>Liberar</translation>
+        <translation>Soltar</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="85"/>
