@@ -90,8 +90,12 @@ QVariant ApplicationModel::data(const QModelIndex &index, int role) const
 
 void ApplicationModel::addItem(const QString &desktopFile)
 {
-    if (findItemByDesktop(desktopFile))
+    ApplicationItem *existsItem = findItemByDesktop(desktopFile);
+
+    if (existsItem) {
+        existsItem->isPinned = true;
         return;
+    }
 
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     ApplicationItem *item = new ApplicationItem;
@@ -119,17 +123,7 @@ void ApplicationModel::removeItem(const QString &desktopFile)
     ApplicationItem *item = findItemByDesktop(desktopFile);
 
     if (item) {
-        int index = indexOf(item->id);
-
-        if (index != -1) {
-            beginRemoveRows(QModelIndex(), index, index);
-            m_appItems.removeAll(item);
-            endRemoveRows();
-            savePinAndUnPinList();
-
-            emit itemRemoved();
-            emit countChanged();
-        }
+        ApplicationModel::unPin(item->id);
     }
 }
 
@@ -353,7 +347,10 @@ int ApplicationModel::indexOf(const QString &id)
 void ApplicationModel::initPinnedApplications()
 {
     QSettings settings(QSettings::UserScope, "cutefishos", "dock_pinned");
-    QStringList groups = settings.childGroups();
+    QSettings systemSettings("/etc/cutefish-dock-list.conf", QSettings::IniFormat);
+    QSettings *set = (QFile(settings.fileName()).exists()) ? &settings
+                                                           : &systemSettings;
+    QStringList groups = set->childGroups();
 
     // Launcher
     ApplicationItem *item = new ApplicationItem;
@@ -367,16 +364,21 @@ void ApplicationModel::initPinnedApplications()
     // Pinned Apps
     for (int i = 0; i < groups.size(); ++i) {
         for (const QString &id : groups) {
-            settings.beginGroup(id);
-            int index = settings.value("Index").toInt();
+            set->beginGroup(id);
+            int index = set->value("Index").toInt();
 
             if (index == i) {
                 beginInsertRows(QModelIndex(), rowCount(), rowCount());
                 ApplicationItem *item = new ApplicationItem;
 
-                item->desktopPath = settings.value("DesktopPath").toString();
+                item->desktopPath = set->value("DesktopPath").toString();
                 item->id = id;
                 item->isPinned = true;
+
+                if (!QFile(item->desktopPath).exists()) {
+                    set->endGroup();
+                    continue;
+                }
 
                 // Read from desktop file.
                 if (!item->desktopPath.isEmpty()) {
@@ -388,13 +390,13 @@ void ApplicationModel::initPinnedApplications()
 
                 // Read from config file.
                 if (item->iconName.isEmpty())
-                    item->iconName = settings.value("Icon").toString();
+                    item->iconName = set->value("Icon").toString();
 
                 if (item->visibleName.isEmpty())
-                    item->visibleName = settings.value("VisibleName").toString();
+                    item->visibleName = set->value("VisibleName").toString();
 
                 if (item->exec.isEmpty())
-                    item->exec = settings.value("Exec").toString();
+                    item->exec = set->value("Exec").toString();
 
                 m_appItems.append(item);
                 endInsertRows();
@@ -402,10 +404,10 @@ void ApplicationModel::initPinnedApplications()
                 emit itemAdded();
                 emit countChanged();
 
-                settings.endGroup();
+                set->endGroup();
                 break;
             } else {
-                settings.endGroup();
+                set->endGroup();
             }
         }
     }

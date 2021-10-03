@@ -60,3 +60,4 @@ add_dependencies(${PROJECT_NAME} translations)
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES ${QM_FILES} DESTINATION /usr/share/${PROJECT_NAME}/translations)
+install(FILES cutefish-dock-list.conf DESTINATION /etc)
