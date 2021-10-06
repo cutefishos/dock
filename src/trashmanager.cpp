@@ -39,7 +39,7 @@ void TrashManager::emptyTrash()
 
 void TrashManager::openTrash()
 {
-    QProcess::startDetached("gio", QStringList() << "open" << "trash:///");
+    QProcess::startDetached("cutefish-filemanager", QStringList() << "trash:///");
 }
 
 void TrashManager::onDirectoryChanged()
