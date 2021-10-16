@@ -53,6 +53,8 @@ DockSettings::DockSettings(QObject *parent)
         m_settings->setValue("Visibility", AlwaysShow);
     if (!m_settings->contains("RoundedWindow"))
         m_settings->setValue("RoundedWindow", true);
+    if (!m_settings->contains("Style"))
+        m_settings->setValue("Style", Straight);
 
     m_settings->sync();
 
@@ -60,6 +62,7 @@ DockSettings::DockSettings(QObject *parent)
     m_direction = static_cast<Direction>(m_settings->value("Direction").toInt());
     m_visibility = static_cast<Visibility>(m_settings->value("Visibility").toInt());
     m_roundedWindowEnabled = m_settings->value("RoundedWindow").toBool();
+    m_style = static_cast<Style>(m_settings->value("Style").toInt());
 }
 
 int DockSettings::iconSize() const
@@ -124,5 +127,19 @@ void DockSettings::setRoundedWindowEnabled(bool enabled)
     if (m_roundedWindowEnabled != enabled) {
         m_roundedWindowEnabled = enabled;
         emit roundedWindowEnabledChanged();
+    }
+}
+
+DockSettings::Style DockSettings::style() const
+{
+    return m_style;
+}
+
+void DockSettings::setStyle(const DockSettings::Style &style)
+{
+    if (m_style != style) {
+        m_style = style;
+        m_settings->setValue("Style", style);
+        emit styleChanged();
     }
 }

@@ -37,6 +37,10 @@ Item {
         mainWindow.updateSize()
     }
 
+    Component.onCompleted: {
+        console.log(Settings.style)
+    }
+
     DropArea {
         anchors.fill: parent
         enabled: true
@@ -46,9 +50,9 @@ Item {
     Rectangle {
         id: _background
         anchors.fill: parent
-        radius: root.compositing ? windowRadius : 0
+        radius: root.compositing && Settings.style === 0 ? windowRadius : 0
         color: FishUI.Theme.darkMode ? "#666666" : "#E6E6E6"
-        opacity: root.compositing ? FishUI.Theme.darkMode ? 0.5 : 0.4 : 0.9
+        opacity: root.compositing ? FishUI.Theme.darkMode ? 0.5 : 0.5 : 0.9
         border.width: 0
 
         Behavior on color {
@@ -67,13 +71,13 @@ Item {
         view: mainWindow
         geometry: Qt.rect(root.x, root.y, root.width, root.height)
         strength: 1
-        radius: root.windowRadius
+        radius: _background.radius
     }
 
     FishUI.WindowBlur {
         view: mainWindow
         geometry: Qt.rect(root.x, root.y, root.width, root.height)
-        windowRadius: root.windowRadius
+        windowRadius: _background.radius
         enabled: true
     }
 
@@ -86,6 +90,9 @@ Item {
     GridLayout {
         id: mainLayout
         anchors.fill: parent
+        anchors.topMargin: Settings.style === 1
+                           && (Settings.direction === 0 || Settings.direction === 2)
+                           ? 28 : 0
         flow: isHorizontal ? Grid.LeftToRight : Grid.TopToBottom
         columnSpacing: 0
         rowSpacing: 0

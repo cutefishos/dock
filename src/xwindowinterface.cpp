@@ -151,7 +151,8 @@ void XWindowInterface::setViewStruts(QWindow *view, DockSettings::Direction dire
 
     // const QRect currentScreen {screen->geometry()};
     const QRect wholeScreen { {0, 0}, screen->virtualSize() };
-    const int edgeMargins = compositing ? DockSettings::self()->edgeMargins() : 0;
+    bool isRound = DockSettings::self()->style() == DockSettings::Round;
+    const int edgeMargins = compositing && isRound? DockSettings::self()->edgeMargins() : 0;
 
     switch (direction) {
     case DockSettings::Left: {
