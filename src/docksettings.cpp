@@ -54,7 +54,7 @@ DockSettings::DockSettings(QObject *parent)
     if (!m_settings->contains("RoundedWindow"))
         m_settings->setValue("RoundedWindow", true);
     if (!m_settings->contains("Style"))
-        m_settings->setValue("Style", Straight);
+        m_settings->setValue("Style", Round);
 
     m_settings->sync();
 
