@@ -133,6 +133,24 @@ Item {
             onClicked: trash.openTrash()
             onRightClicked: trashMenu.popup()
 
+            dropArea.enabled: true
+
+            Rectangle {
+                anchors.fill: parent
+                anchors.margins: FishUI.Units.smallSpacing / 2
+                color: "transparent"
+                border.color: FishUI.Theme.textColor
+                radius: height * 0.3
+                border.width: 1
+                opacity: trashItem.dropArea.containsDrag ? 0.8 : 0
+
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: 200
+                    }
+                }
+            }
+
             FishUI.DesktopMenu {
                 id: trashMenu
 

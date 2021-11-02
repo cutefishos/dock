@@ -160,13 +160,13 @@ Item {
     Rectangle {
         id: activeRect
 
-        property var leftX: 3
+        property var leftX: 2
         property var leftY: (parent.height - height) / 2
 
         property var bottomX: (parent.width - width) / 2
-        property var bottomY: icon.y + icon.height + activeRect.height / 2 - 2
+        property var bottomY: icon.y + icon.height + activeRect.height / 2 - 1
 
-        property var rightX: icon.x + icon.width + activeRect.width / 2 - 2
+        property var rightX: icon.x + icon.width + activeRect.width / 2 - 1
         property var rightY: (parent.height - height) / 2
 
         property var circleSize: isBottom ? control.height * 0.06 : control.width * 0.06
