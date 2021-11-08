@@ -26,6 +26,7 @@ DockItem {
     id: appItem
 
     property var windowCount: model.windowCount
+    property var dragSource: null
 
     iconName: model.iconName ? model.iconName : "application-x-desktop"
     isActive: model.isActive
@@ -61,15 +62,30 @@ DockItem {
     }
 
     dropArea.onEntered: {
-        if (drag.source)
-            appModel.move(drag.source.dragItemIndex, appItem.dragItemIndex)
-        else
-            appModel.raiseWindow(model.appId)
+        appItem.dragSource = drag.source
+        dropTimer.restart()
+    }
+
+    dropArea.onExited: {
+        appItem.dragSource = null
+        dropTimer.stop()
     }
 
     dropArea.onDropped: {
         appModel.save()
         updateGeometry()
+    }
+
+    Timer {
+        id: dropTimer
+        interval: 300
+        onTriggered: {
+            if (appItem.dragSource)
+                appModel.move(appItem.dragSource.dragItemIndex,
+                              appItem.dragItemIndex)
+            else
+                appModel.raiseWindow(model.appId)
+        }
     }
 
     FishUI.DesktopMenu {
