@@ -18,6 +18,7 @@
  */
 
 #include "applicationmodel.h"
+#include "processprovider.h"
 #include "utils.h"
 
 #include <QProcess>
@@ -192,25 +193,21 @@ bool ApplicationModel::openNewInstance(const QString &appId)
     if (!item)
         return false;
 
-    QProcess process;
-
-    if (appId == "cutefish-launcher")
-        process.setArguments(QStringList() << "--show");
-
     if (!item->exec.isEmpty()) {
         QStringList args = item->exec.split(" ");
-        process.setProgram(args.first());
+        QString exec = args.first();
         args.removeFirst();
 
         if (!args.isEmpty()) {
-            process.setArguments(args);
+            ProcessProvider::startDetached(exec, args);
+        } else {
+            ProcessProvider::startDetached(exec);
         }
-
     } else {
-        process.setProgram(appId);
+        ProcessProvider::startDetached(appId);
     }
 
-    return process.startDetached();
+    return true;
 }
 
 void ApplicationModel::closeAllByAppId(const QString &appId)

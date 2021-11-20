@@ -29,7 +29,7 @@ class ProcessProvider : public QObject
 public:
     explicit ProcessProvider(QObject *parent = nullptr);
 
-    Q_INVOKABLE bool startDetached(const QString &exec, QStringList args = QStringList());
+    Q_INVOKABLE static bool startDetached(const QString &exec, QStringList args = QStringList());
 };
 
 #endif // PROCESSPROVIDER_H
