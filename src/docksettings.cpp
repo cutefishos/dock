@@ -39,7 +39,7 @@ DockSettings *DockSettings::self()
 DockSettings::DockSettings(QObject *parent)
     : QObject(parent)
     , m_iconSize(0)
-    , m_edgeMargins(10)
+    , m_edgeMargins(0)
     , m_roundedWindowEnabled(true)
     , m_direction(Left)
     , m_visibility(AlwaysShow)
@@ -55,6 +55,8 @@ DockSettings::DockSettings(QObject *parent)
         m_settings->setValue("RoundedWindow", true);
     if (!m_settings->contains("Style"))
         m_settings->setValue("Style", Round);
+    if (!m_settings->contains("EdgeMargins"))
+        m_settings->setValue("EdgeMargins", 10);
 
     m_settings->sync();
 
@@ -63,6 +65,7 @@ DockSettings::DockSettings(QObject *parent)
     m_visibility = static_cast<Visibility>(m_settings->value("Visibility").toInt());
     m_roundedWindowEnabled = m_settings->value("RoundedWindow").toBool();
     m_style = static_cast<Style>(m_settings->value("Style").toInt());
+    m_edgeMargins = m_settings->value("EdgeMargins").toInt();
 }
 
 int DockSettings::iconSize() const
