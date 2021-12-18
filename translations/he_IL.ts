@@ -21,7 +21,7 @@
     <message>
         <location filename="../qml/AppItem.qml" line="94"/>
         <source>Close window</source>
-        <translation type="unfinished">סגור חלון</translation>
+        <translation>סגור חלון</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="95"/>
@@ -34,7 +34,7 @@
     <message>
         <location filename="../src/applicationmodel.cpp" line="285"/>
         <source>Launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>מפעיל יישומים</translation>
     </message>
 </context>
 <context>

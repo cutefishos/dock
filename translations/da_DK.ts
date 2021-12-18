@@ -16,12 +16,12 @@
     <message>
         <location filename="../qml/AppItem.qml" line="85"/>
         <source>Pin</source>
-        <translation>Retter</translation>
+        <translation>Fastgør</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="94"/>
         <source>Close window</source>
-        <translation>Luk vinduet</translation>
+        <translation>Luk vindue</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="95"/>
@@ -42,7 +42,7 @@
     <message>
         <location filename="../qml/main.qml" line="114"/>
         <source>Trash</source>
-        <translation>Kurv</translation>
+        <translation>Papirkurv</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="124"/>
@@ -52,7 +52,7 @@
     <message>
         <location filename="../qml/main.qml" line="129"/>
         <source>Empty Trash</source>
-        <translation type="unfinished"></translation>
+        <translation>Tøm Papirkurv</translation>
     </message>
 </context>
 </TS>

@@ -11,22 +11,22 @@
     <message>
         <location filename="../qml/AppItem.qml" line="85"/>
         <source>Unpin</source>
-        <translation type="unfinished">解除</translation>
+        <translation>解除</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="85"/>
         <source>Pin</source>
-        <translation type="unfinished">固定</translation>
+        <translation>固定</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="94"/>
         <source>Close window</source>
-        <translation type="unfinished">ウィンドウを閉じる</translation>
+        <translation>ウィンドウを閉じる</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="95"/>
         <source>Close %1 windows</source>
-        <translation type="unfinished"></translation>
+        <translation>%1つのウィンドウを閉じる</translation>
     </message>
 </context>
 <context>
@@ -52,7 +52,7 @@
     <message>
         <location filename="../qml/main.qml" line="129"/>
         <source>Empty Trash</source>
-        <translation>ゴミ箱を空にする</translation>
+        <translation>ごみ箱を空にする</translation>
     </message>
 </context>
 </TS>
