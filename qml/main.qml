@@ -49,11 +49,18 @@ Item {
     // Background
     Rectangle {
         id: _background
+
+        property var borderColor: root.compositing ? FishUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.3)
+                                                                           : Qt.rgba(0, 0, 0, 0.2) : FishUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.15)
+                                                                                                                           : Qt.rgba(0, 0, 0, 0.15)
+
         anchors.fill: parent
         radius: root.compositing && Settings.style === 0 ? windowRadius : 0
         color: FishUI.Theme.darkMode ? "#666666" : "#E6E6E6"
         opacity: root.compositing ? FishUI.Theme.darkMode ? 0.5 : 0.5 : 0.9
-        border.width: 0
+        border.width: 1 / FishUI.Units.devicePixelRatio
+        border.pixelAligned: FishUI.Units.devicePixelRatio > 1 ? false : true
+        border.color: borderColor
 
         Behavior on color {
             ColorAnimation {
