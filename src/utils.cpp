@@ -106,6 +106,7 @@ QString Utils::desktopPathFromMetadata(const QString &appId, quint32 pid, const 
             // Start search.
             const QFileInfo desktopFileInfo(item->path);
 
+            bool isExecPath = QFile::exists(item->exec);
             bool founded = false;
 
             if (item->exec == command || item->exec == commandName) {
@@ -141,6 +142,11 @@ QString Utils::desktopPathFromMetadata(const QString &appId, quint32 pid, const 
 
             if (!founded && desktopFileInfo.baseName().startsWith(xWindowWMClassName, Qt::CaseInsensitive))
                 founded = true;
+
+            // For exec path.
+            if (isExecPath && !founded && (command.contains(item->exec) || commandName.contains(item->exec))) {
+                founded = true;
+            }
 
             if (founded) {
                 result = item->path;
