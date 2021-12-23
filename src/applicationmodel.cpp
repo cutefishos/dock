@@ -107,8 +107,11 @@ void ApplicationModel::addItem(const QString &desktopFile)
     item->desktopPath = desktopFile;
     item->isPinned = true;
 
-    // First use exec as the id of the item.
-    item->id = desktopInfo.value("Exec");
+    // First use filename as the id of the item.
+    // Why not use exec? Because exec contains the file path,
+    // QSettings will have problems, resulting in unrecognized next time.
+    QFileInfo fi(desktopFile);
+    item->id = fi.baseName();
 
     m_appItems << item;
     endInsertRows();
