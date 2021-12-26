@@ -37,10 +37,6 @@ Item {
         mainWindow.updateSize()
     }
 
-    Component.onCompleted: {
-        console.log(Settings.style)
-    }
-
     DropArea {
         anchors.fill: parent
         enabled: true
@@ -176,6 +172,7 @@ Item {
                 MenuItem {
                     text: qsTr("Empty Trash")
                     onTriggered: trash.emptyTrash()
+                    visible: trash.count !== 0
                 }
             }
         }
