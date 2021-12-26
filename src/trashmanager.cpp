@@ -17,8 +17,11 @@
  */
 
 #include "trashmanager.h"
+
+#include <QDebug>
 #include <QProcess>
 #include <QDir>
+#include <QUrl>
 
 const QString TrashDir = QDir::homePath() + "/.local/share/Trash";
 const QDir::Filters ItemsShouldCount = QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot;
@@ -30,6 +33,19 @@ TrashManager::TrashManager(QObject *parent)
 {
     onDirectoryChanged();
     connect(m_filesWatcher, &QFileSystemWatcher::directoryChanged, this, &TrashManager::onDirectoryChanged, Qt::QueuedConnection);
+}
+
+void TrashManager::moveToTrash(QList<QUrl> urls)
+{
+    QStringList paths;
+
+    for (const QUrl &url : urls) {
+        if (!url.isLocalFile())
+            continue;
+        paths.append(url.toLocalFile());
+    }
+
+    QProcess::startDetached("cutefish-filemanager", QStringList() << "--move-to-trash" << paths);
 }
 
 void TrashManager::emptyTrash()

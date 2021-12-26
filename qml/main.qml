@@ -142,14 +142,21 @@ Item {
 
             dropArea.enabled: true
 
+            onDropped: {
+                if (drop.hasUrls) {
+                    trash.moveToTrash(drop.urls)
+                }
+            }
+
             Rectangle {
                 anchors.fill: parent
                 anchors.margins: FishUI.Units.smallSpacing / 2
                 color: "transparent"
                 border.color: FishUI.Theme.textColor
                 radius: height * 0.3
-                border.width: 1
-                opacity: trashItem.dropArea.containsDrag ? 0.8 : 0
+                border.width: 1 / FishUI.Units.devicePixelRatio
+                border.pixelAligned: FishUI.Units.devicePixelRatio > 1 ? false : true
+                opacity: trashItem.dropArea.containsDrag ? 0.5 : 0
 
                 Behavior on opacity {
                     NumberAnimation {

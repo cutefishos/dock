@@ -57,6 +57,7 @@ Item {
     signal clicked(var mouse)
     signal rightClicked(var mouse)
     signal doubleClicked(var mouse)
+    signal dropped(var drop)
 
     Drag.active: mouseArea.drag.active && control.draggable
     Drag.dragType: Drag.Automatic
@@ -94,6 +95,7 @@ Item {
         id: iconDropArea
         anchors.fill: icon
         enabled: draggable
+        onDropped: control.dropped(drop)
     }
 
     MouseArea {

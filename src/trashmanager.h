@@ -31,6 +31,7 @@ class TrashManager : public QObject
 public:
     explicit TrashManager(QObject *parent = nullptr);
 
+    Q_INVOKABLE void moveToTrash(QList<QUrl> urls);
     Q_INVOKABLE void openTrash();
     Q_INVOKABLE void emptyTrash();
 
