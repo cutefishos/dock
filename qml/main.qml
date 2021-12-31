@@ -87,7 +87,7 @@ Item {
     FishUI.PopupTips {
         id: popupTips
         backgroundColor: _background.color
-        backgroundOpacity: _background.opacity
+        blurEnabled: false
     }
 
     GridLayout {
