@@ -99,7 +99,7 @@ DockItem {
 
         MenuItem {
             text: model.visibleName
-            visible: windowCount > 0
+            visible: windowCount > 0 && model.visibleName
             onTriggered: appModel.openNewInstance(model.appId)
         }
 
