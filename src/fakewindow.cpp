@@ -106,17 +106,23 @@ void FakeWindow::updateGeometry()
     const QRect screenRect = qApp->primaryScreen()->geometry();
     QRect newRect;
 
-    if (DockSettings::self()->direction() == DockSettings::Left) {
-        newRect = QRect(screenRect.x() - (length * 2), (screenRect.height() + length) / 2,
-                        length, screenRect.height());
-    } else if (DockSettings::self()->direction() == DockSettings::Bottom) {
-        newRect = QRect(screenRect.x(),
-                         screenRect.y() + screenRect.height() - length,
-                         screenRect.width(), length);
-    } else if (DockSettings::self()->direction() == DockSettings::Right) {
-        newRect = QRect(screenRect.x() + screenRect.width() - length,
-                        screenRect.y(),
-                        length, screenRect.height());
+    switch (DockSettings::self()->direction())
+    {
+        case DockSettings::Left:
+            newRect = QRect(screenRect.x() - (length * 2),
+                            (screenRect.height() + length) / 2,
+                            length, screenRect.height());
+            break;
+        case DockSettings::Bottom:
+            newRect = QRect(screenRect.x(),
+                            screenRect.y() + screenRect.height() - length,
+                            screenRect.width(), length);
+            break;
+        case DockSettings::Right:
+            newRect = QRect(screenRect.x() + screenRect.width() - length,
+                            screenRect.y(),
+                            length, screenRect.height());
+            break;
     }
 
     setGeometry(newRect);
